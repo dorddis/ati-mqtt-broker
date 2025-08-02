@@ -12,11 +12,11 @@ HZ = float(os.getenv("HZ", "10"))
 DT = 1.0 / HZ if HZ > 0 else 1.0
 PATH_SHAPE = os.getenv("PATH_SHAPE", "loop")
 
-# AFM-local region rectangle inside Sector 1 (tune these to your map)
-RMINX = float(os.getenv("REGION_MIN_X", "0"))
-RMINY = float(os.getenv("REGION_MIN_Y", "0"))
-RMAXX = float(os.getenv("REGION_MAX_X", "100"))
-RMAXY = float(os.getenv("REGION_MAX_Y", "60"))
+# Real-world coordinates for Twinzo visualization
+RMINX = float(os.getenv("REGION_MIN_X", "195630.16"))  # Top left X
+RMINY = float(os.getenv("REGION_MIN_Y", "188397.78"))  # Top left Y
+RMAXX = float(os.getenv("REGION_MAX_X", "223641.36"))  # Bottom right X
+RMAXY = float(os.getenv("REGION_MAX_Y", "213782.93"))  # Bottom right Y
 
 INCLUDE_TRIPS = os.getenv("INCLUDE_TRIPS", "true").lower() == "true"
 
@@ -100,9 +100,9 @@ def run_robot(idx, client, name):
         "x": random.uniform(RMINX+5, RMAXX-5),
         "y": random.uniform(RMINY+5, RMAXY-5),
         "theta": 0.0,
-        "speed": 1.2 + 0.3*(idx%3),  # region units/sec
+        "speed": 800 + 200*(idx%3),  # units/sec (faster for visible movement)
         "path": make_path(PATH_SHAPE, idx),
-        "battery": 80.0 - 2*idx,
+        "battery": [79.0, 77.0, 75.0][idx],  # Specific battery levels
         "trip_id": 1000 + idx,
         "trip_leg_id": 5000 + idx,
         "mode": "Fleet",
@@ -114,21 +114,18 @@ def run_robot(idx, client, name):
         if now - last_pub >= DT:
             last_pub = now
             x, y, theta = step_position(state)
-            state["battery"] = max(0.0, state["battery"] - 0.0005)
+            # Keep battery levels constant for demo
+            # state["battery"] = max(0.0, state["battery"] - 0.0005)
             payload = {
                 "sherpa_name": name,
                 "mode": state["mode"],
                 "error": state["error"],
                 "disabled": False,
                 "disabled_reason": "",
-                # Your clarified pose: x,y,z and theta in radians from +Y, clockwise
-                "pose": {"x": x, "y": y, "z": 0.0, "theta": theta},
-                # Also provide a 6-element array variant for compatibility
-                "pose_array": [x, y, 0.0, 0.0, 0.0, theta],
+                "pose": [x, y, 0.0, 0.0, 0.0, theta],
                 "battery_status": round(state["battery"], 2),
                 "trip_id": state["trip_id"],
-                "trip_leg_id": state["trip_leg_id"],
-                "timestamp": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime(now))
+                "trip_leg_id": state["trip_leg_id"]
             }
             client.publish(TOPIC, json.dumps(payload), qos=1, retain=False)
         time.sleep(0.002)

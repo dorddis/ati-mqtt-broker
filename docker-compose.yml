@@ -27,13 +27,13 @@ services:
       MQTT_TOPIC: "ati_fm/sherpa/status"   # one topic for all robots
       NUM_ROBOTS: "3"           # you created tugger-01..03 (can raise to 5 later)
       ROBOT_PREFIX: "tugger"
-      HZ: "10"                  # 10–30 for demo; AFM prod would be ~1 Hz
+      HZ: "10"                  # 10Hz for demo (matches 100ms interval)
       PATH_SHAPE: "loop"        # loop | line | rectangle
-      # Region rectangle (AFM-local coords). Adjust to a rectangle inside Sector 1.
-      REGION_MIN_X: "0"
-      REGION_MIN_Y: "0"
-      REGION_MAX_X: "100"
-      REGION_MAX_Y: "60"
+      # Real-world coordinates for Twinzo visualization
+      REGION_MIN_X: "195630.16"    # Top left X
+      REGION_MIN_Y: "188397.78"    # Top left Y  
+      REGION_MAX_X: "223641.36"    # Bottom right X
+      REGION_MAX_Y: "213782.93"    # Bottom right Y
       INCLUDE_TRIPS: "true"     # keeps trip_id/leg fields present
     depends_on: [broker]
     restart: unless-stopped
@@ -53,15 +53,10 @@ services:
       MQTT_PASSWORD: ""
       MQTT_TOPIC: "ati_fm/sherpa/status"
       
-      # Twinzo REST
-      TWINZO_URL: "https://api.twinzo.eu/v3/localization"
-      # Put your headers as JSON: Authorization, Client GUID, Content-Type
-      TWINZO_HEADERS_JSON: >-
-        {
-          "Authorization": "Bearer sq29vSdYEribAbJjPc93FwNvk8ndo53P2yoAsS6S",
-          "X-Client-Guid": "a3960903-00c2-4f39-9727-c5fa745eabb7",
-          "Content-Type": "application/json"
-        }
+      # Twinzo OAuth Configuration (WORKING SETUP)
+      TWINZO_CLIENT: "TVSMotor"
+      TWINZO_PASSWORD: "Tvs@Hosur$2025"
+      TWINZO_API_KEY: "sq29vSdYEribAbJjPc93FwNvk8ndo53P2yoAsS6S"
       
       # Coordinate transform (identity by default). If you later have 3 anchors, fill these.
       # X' = a*x + b*y + tx ;  Y' = c*x + d*y + ty
@@ -73,7 +68,7 @@ services:
       AFFINE_TY: "0.0"
       
       # Behavior
-      LOG_EVERY_N: "50"     # log every N messages
-      DRY_RUN: "true"       # set "false" to actually post to Twinzo
+      LOG_EVERY_N: "10"     # log every N messages (reduced for testing)
+      DRY_RUN: "false"      # set "false" to actually post to Twinzo
     depends_on: [ broker ]
     restart: unless-stopped
