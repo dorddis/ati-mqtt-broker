@@ -279,4 +279,10 @@ local_settings.py
 
 # Project documentation builds
 docs/build/
-documentation/build/
+documentation/build/# Twinzo M
+ock Project Specific
+mosquitto/data/
+mosquitto/log/
+debug_*.py
+temp_*.py
+scratch_*.py
