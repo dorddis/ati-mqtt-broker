@@ -1,0 +1,79 @@
+services:
+  broker:
+    image: eclipse-mosquitto:2
+    container_name: mock-mqtt-broker
+    ports:
+      - "1883:1883"        # MQTT (no TLS for first run)
+      - "9001:9001"        # WebSockets (optional; disabled below)
+    volumes:
+      - ./mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf:ro
+      - ./mosquitto/data:/mosquitto/data
+      - ./mosquitto/log:/mosquitto/log
+    restart: unless-stopped
+
+  publisher:
+    image: python:3.11-slim
+    container_name: mock-publisher
+    working_dir: /app
+    volumes:
+      - ./publisher:/app
+    command: ["sh", "-c", "pip install -r requirements.txt && python publisher.py"]
+    environment:
+      # Broker inside this compose network:
+      MQTT_HOST: "broker"
+      MQTT_PORT: "1883"
+      MQTT_USERNAME: ""         # keep empty for the first run
+      MQTT_PASSWORD: ""
+      MQTT_TOPIC: "ati_fm/sherpa/status"   # one topic for all robots
+      NUM_ROBOTS: "3"           # you created tugger-01..03 (can raise to 5 later)
+      ROBOT_PREFIX: "tugger"
+      HZ: "10"                  # 10–30 for demo; AFM prod would be ~1 Hz
+      PATH_SHAPE: "loop"        # loop | line | rectangle
+      # Region rectangle (AFM-local coords). Adjust to a rectangle inside Sector 1.
+      REGION_MIN_X: "0"
+      REGION_MIN_Y: "0"
+      REGION_MAX_X: "100"
+      REGION_MAX_Y: "60"
+      INCLUDE_TRIPS: "true"     # keeps trip_id/leg fields present
+    depends_on: [broker]
+    restart: unless-stopped
+
+  bridge:
+    image: python:3.11-slim
+    container_name: mock-rest-bridge
+    working_dir: /app
+    volumes:
+      - ./bridge:/app
+    command: [ "sh", "-c", "pip install --no-cache-dir paho-mqtt requests && python bridge.py" ]
+    environment:
+      # MQTT (talks to the broker service in the same compose network)
+      MQTT_HOST: "broker"
+      MQTT_PORT: "1883"
+      MQTT_USERNAME: ""
+      MQTT_PASSWORD: ""
+      MQTT_TOPIC: "ati_fm/sherpa/status"
+      
+      # Twinzo REST
+      TWINZO_URL: "https://api.twinzo.eu/v3/localization"
+      # Put your headers as JSON: Authorization, Client GUID, Content-Type
+      TWINZO_HEADERS_JSON: >-
+        {
+          "Authorization": "Bearer sq29vSdYEribAbJjPc93FwNvk8ndo53P2yoAsS6S",
+          "X-Client-Guid": "a3960903-00c2-4f39-9727-c5fa745eabb7",
+          "Content-Type": "application/json"
+        }
+      
+      # Coordinate transform (identity by default). If you later have 3 anchors, fill these.
+      # X' = a*x + b*y + tx ;  Y' = c*x + d*y + ty
+      AFFINE_A: "1.0"
+      AFFINE_B: "0.0"
+      AFFINE_C: "0.0"
+      AFFINE_D: "1.0"
+      AFFINE_TX: "0.0"
+      AFFINE_TY: "0.0"
+      
+      # Behavior
+      LOG_EVERY_N: "50"     # log every N messages
+      DRY_RUN: "true"       # set "false" to actually post to Twinzo
+    depends_on: [ broker ]
+    restart: unless-stopped
