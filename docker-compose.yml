@@ -12,12 +12,8 @@ services:
     restart: unless-stopped
 
   publisher:
-    image: python:3.11-slim
+    build: ./publisher
     container_name: mock-publisher
-    working_dir: /app
-    volumes:
-      - ./publisher:/app
-    command: ["sh", "-c", "pip install -r requirements.txt && python publisher.py"]
     environment:
       # Broker inside this compose network:
       MQTT_HOST: "broker"
@@ -39,12 +35,8 @@ services:
     restart: unless-stopped
 
   bridge:
-    image: python:3.11-slim
+    build: ./bridge
     container_name: mock-rest-bridge
-    working_dir: /app
-    volumes:
-      - ./bridge:/app
-    command: [ "sh", "-c", "pip install --no-cache-dir paho-mqtt requests && python bridge.py" ]
     environment:
       # MQTT (talks to the broker service in the same compose network)
       MQTT_HOST: "broker"

@@ -218,7 +218,7 @@ def main():
     print(f"Client: {TWINZO_CLIENT}")
     print(f"DRY_RUN: {DRY_RUN}")
 
-    client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION1)
+    client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
     if MQTT_USER:
         client.username_pw_set(MQTT_USER, MQTT_PASS or "")
     client.on_message = on_message
