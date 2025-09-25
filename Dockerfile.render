@@ -1,7 +1,7 @@
 # Render MQTT Broker Dockerfile
 # Simplified for Render deployment
 
-FROM eclipse-mosquitto:2.0.18
+FROM eclipse-mosquitto:2.0.21
 
 # Install required packages
 USER root

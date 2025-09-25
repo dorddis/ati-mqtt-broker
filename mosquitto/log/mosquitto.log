@@ -145,3 +145,740 @@
 1754132260: New connection from 172.18.0.3:38977 on port 1883.
 1754132260: New client connected from 172.18.0.3:38977 as auto-E649F4B4-49C8-E04C-7BAC-1A90BFB02EFA (p2, c1, k30).
 1754132299: Outgoing messages are being dropped for client auto-E649F4B4-49C8-E04C-7BAC-1A90BFB02EFA.
+1754134050: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1754134229: Client auto-E649F4B4-49C8-E04C-7BAC-1A90BFB02EFA closed its connection.
+1754134229: Client auto-3C0714AB-F448-27FD-A3F5-1B4DDDF9C207 closed its connection.
+1754134229: mosquitto version 2.0.22 terminating
+1754134229: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1754306798: mosquitto version 2.0.22 starting
+1754306798: Config loaded from /mosquitto/config/mosquitto.conf.
+1754306798: Opening ipv4 listen socket on port 1883.
+1754306798: Opening websockets listen socket on port 9001.
+1754306798: mosquitto version 2.0.22 running
+1754306801: New connection from 172.18.0.4:42663 on port 1883.
+1754306801: New client connected from 172.18.0.4:42663 as auto-AF966E5A-4F8B-5B61-D7A4-E464B2D466E2 (p2, c1, k30).
+1754306802: New connection from 172.18.0.3:44403 on port 1883.
+1754306802: New client connected from 172.18.0.3:44403 as auto-DC668B08-6376-AC10-2734-B34A043F5105 (p2, c1, k30).
+1754306840: Outgoing messages are being dropped for client auto-DC668B08-6376-AC10-2734-B34A043F5105.
+1754308095: Client auto-DC668B08-6376-AC10-2734-B34A043F5105 closed its connection.
+1754308095: Client auto-AF966E5A-4F8B-5B61-D7A4-E464B2D466E2 closed its connection.
+1754308096: mosquitto version 2.0.22 terminating
+1754308096: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1754308599: mosquitto version 2.0.22 starting
+1754308599: Config loaded from /mosquitto/config/mosquitto.conf.
+1754308599: Opening ipv4 listen socket on port 1883.
+1754308599: Opening websockets listen socket on port 9001.
+1754308599: mosquitto version 2.0.22 running
+1754308602: New connection from 172.18.0.3:36727 on port 1883.
+1754308602: New client connected from 172.18.0.3:36727 as auto-67E5693F-95FB-4DE2-5517-5922388B8A56 (p2, c1, k30).
+1754308604: New connection from 172.18.0.4:53927 on port 1883.
+1754308604: New client connected from 172.18.0.4:53927 as auto-1DE14661-BD9D-4B83-1212-B1608D971E95 (p2, c1, k30).
+1754308643: Outgoing messages are being dropped for client auto-1DE14661-BD9D-4B83-1212-B1608D971E95.
+1754308732: Client auto-67E5693F-95FB-4DE2-5517-5922388B8A56 closed its connection.
+1754308732: Client auto-1DE14661-BD9D-4B83-1212-B1608D971E95 closed its connection.
+1754308732: mosquitto version 2.0.22 terminating
+1754308732: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1754308751: mosquitto version 2.0.22 starting
+1754308751: Config loaded from /mosquitto/config/mosquitto.conf.
+1754308751: Opening ipv4 listen socket on port 1883.
+1754308751: Opening websockets listen socket on port 9001.
+1754308751: mosquitto version 2.0.22 running
+1754308752: New connection from 172.18.0.4:60539 on port 1883.
+1754308752: New client connected from 172.18.0.4:60539 as auto-45E77E9B-D6FA-D85A-11EA-0E64BCF5849E (p2, c1, k30).
+1754308752: New connection from 172.18.0.3:35921 on port 1883.
+1754308752: New client connected from 172.18.0.3:35921 as auto-235D7562-D1DD-1236-1660-E750338A1285 (p2, c1, k30).
+1754308790: Outgoing messages are being dropped for client auto-235D7562-D1DD-1236-1660-E750338A1285.
+1754308868: Client auto-235D7562-D1DD-1236-1660-E750338A1285 closed its connection.
+1754308868: Client auto-45E77E9B-D6FA-D85A-11EA-0E64BCF5849E closed its connection.
+1754308868: mosquitto version 2.0.22 terminating
+1754308868: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1754308871: mosquitto version 2.0.22 starting
+1754308871: Config loaded from /mosquitto/config/mosquitto.conf.
+1754308871: Opening ipv4 listen socket on port 1883.
+1754308871: Opening websockets listen socket on port 9001.
+1754308871: mosquitto version 2.0.22 running
+1754308871: New connection from 172.18.0.4:46975 on port 1883.
+1754308871: New client connected from 172.18.0.4:46975 as auto-9BBB3949-3342-E12B-D9D2-9CE18477081A (p2, c1, k30).
+1754308871: New connection from 172.18.0.3:33611 on port 1883.
+1754308871: New client connected from 172.18.0.3:33611 as auto-A2F0011A-2CDC-44B2-B3F3-2E414B02F841 (p2, c1, k30).
+1754308910: Outgoing messages are being dropped for client auto-A2F0011A-2CDC-44B2-B3F3-2E414B02F841.
+1754309352: mosquitto version 2.0.22 terminating
+1754309352: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1754309353: mosquitto version 2.0.22 starting
+1754309353: Config loaded from /mosquitto/config/mosquitto.conf.
+1754309353: Opening ipv4 listen socket on port 1883.
+1754309353: Opening websockets listen socket on port 9001.
+1754309353: mosquitto version 2.0.22 running
+1754309353: New connection from 172.18.0.4:51527 on port 1883.
+1754309353: Client auto-F1175639-5497-2645-3AFD-04662C356B92 disconnected, not authorised.
+1754309354: New connection from 172.18.0.3:52993 on port 1883.
+1754309354: Client auto-A8DD97D2-18EB-2178-B4CB-4B7FDE645FF6 disconnected, not authorised.
+1754309355: New connection from 172.18.0.4:52961 on port 1883.
+1754309355: Client auto-80075B7D-2A45-7A45-C7DB-3D0EDF06BFB1 disconnected, not authorised.
+1754309356: New connection from 172.18.0.3:53251 on port 1883.
+1754309356: Client auto-4D5B5DC2-73A7-1801-D951-F873008FB9C5 disconnected, not authorised.
+1754309359: New connection from 172.18.0.4:48975 on port 1883.
+1754309359: Client auto-4AAA76C9-7810-9969-725C-CDE305AC403C disconnected, not authorised.
+1754309360: New connection from 172.18.0.3:53355 on port 1883.
+1754309360: Client auto-4581CE29-A8F2-5E7B-C388-C2E9185D14AB disconnected, not authorised.
+1754309367: New connection from 172.18.0.4:57591 on port 1883.
+1754309367: Client auto-E2EA6447-E797-1A7C-6F0C-35D070710A0F disconnected, not authorised.
+1754309368: New connection from 172.18.0.3:55215 on port 1883.
+1754309368: Client auto-30F1CAE4-1344-FA4F-E5CD-2E814D2ED9C5 disconnected, not authorised.
+1754309383: New connection from 172.18.0.4:59529 on port 1883.
+1754309383: Client auto-C7F4EAFE-5BAF-3CC4-E196-FB224D52335D disconnected, not authorised.
+1754309384: New connection from 172.18.0.3:32883 on port 1883.
+1754309384: Client auto-685CAA49-A696-D625-4A32-305F02F96A2D disconnected, not authorised.
+1754309415: New connection from 172.18.0.4:45991 on port 1883.
+1754309415: Client auto-E2DCAC4C-E229-2AC0-A283-9FF05B864D2C disconnected, not authorised.
+1754309416: New connection from 172.18.0.3:56877 on port 1883.
+1754309416: Client auto-8D012A3D-356B-D60F-274D-E1C59613D32B disconnected, not authorised.
+1754309416: mosquitto version 2.0.22 terminating
+1754309416: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1754309417: mosquitto version 2.0.22 starting
+1754309417: Config loaded from /mosquitto/config/mosquitto.conf.
+1754309417: Opening ipv4 listen socket on port 1883.
+1754309417: Opening websockets listen socket on port 9001.
+1754309417: mosquitto version 2.0.22 running
+1754309479: New connection from 172.18.0.4:60767 on port 1883.
+1754309479: New client connected from 172.18.0.4:60767 as auto-6E18068F-66DC-53DA-1398-BC5A6942315D (p2, c1, k30).
+1754309480: New connection from 172.18.0.3:55789 on port 1883.
+1754309480: New client connected from 172.18.0.3:55789 as auto-0F4BD84F-0CD7-0596-AABB-D968C1A78D39 (p2, c1, k30).
+1754309622: mosquitto version 2.0.22 terminating
+1754309622: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1754309624: mosquitto version 2.0.22 starting
+1754309624: Config loaded from /mosquitto/config/mosquitto.conf.
+1754309624: Opening ipv4 listen socket on port 1883.
+1754309624: Opening websockets listen socket on port 9001.
+1754309624: mosquitto version 2.0.22 running
+1754309629: New connection from 172.18.0.4:38949 on port 1883.
+1754309629: New connection from 172.18.0.3:40751 on port 1883.
+1754309629: Client auto-0A3754EA-079C-6BFE-C06B-A741271C9BA5 disconnected, not authorised.
+1754309629: Client auto-7C762C44-C96F-866B-BCB0-62F4C45A77DE disconnected, not authorised.
+1754309633: New connection from 172.18.0.4:60339 on port 1883.
+1754309633: Client auto-E1120BDF-9433-7301-0034-DD6A94AD3C58 disconnected, not authorised.
+1754309633: New connection from 172.18.0.3:38911 on port 1883.
+1754309633: Client auto-75BA9860-D512-D518-87D7-4D368C2F42BE disconnected, not authorised.
+1754309641: New connection from 172.18.0.4:38851 on port 1883.
+1754309641: New connection from 172.18.0.3:46645 on port 1883.
+1754309641: Client auto-B7CD1AC0-B1EA-7189-2DA9-46FDAFA78034 disconnected, not authorised.
+1754309641: Client auto-B3B0B05F-56D1-CC19-01E4-6CD916F18270 disconnected, not authorised.
+1754309657: New connection from 172.18.0.4:59081 on port 1883.
+1754309657: New connection from 172.18.0.3:41703 on port 1883.
+1754309657: Client auto-EBA33FAA-088C-D0B2-924A-23D1DC2DADFB disconnected, not authorised.
+1754309657: Client auto-B3C11451-83BB-7B50-0474-92068CE972CF disconnected, not authorised.
+1754309689: mosquitto version 2.0.22 terminating
+1754309689: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1754309691: mosquitto version 2.0.22 starting
+1754309691: Config loaded from /mosquitto/config/mosquitto.conf.
+1754309691: Opening ipv4 listen socket on port 1883.
+1754309691: Opening websockets listen socket on port 9001.
+1754309691: mosquitto version 2.0.22 running
+1754309753: New connection from 172.18.0.4:59387 on port 1883.
+1754309753: New connection from 172.18.0.3:51487 on port 1883.
+1754309753: Client auto-FC9C32DE-2044-329D-A27A-4220EC079802 disconnected, not authorised.
+1754309753: Client auto-95D654DF-9EC4-27FE-6715-377621399DEA disconnected, not authorised.
+1754309873: New connection from 172.18.0.3:35969 on port 1883.
+1754309873: New connection from 172.18.0.4:40565 on port 1883.
+1754309873: Client auto-97B77115-C2DA-1738-6B64-C51F7E6A252E disconnected, not authorised.
+1754309873: Client auto-6F4DF5FA-B210-0F4B-6DCA-94B59FFA343B disconnected, not authorised.
+1754309993: New connection from 172.18.0.3:45471 on port 1883.
+1754309993: Client auto-42D55907-384A-EED4-E221-D9E09AC70E2A disconnected, not authorised.
+1754309993: New connection from 172.18.0.4:41707 on port 1883.
+1754309993: Client auto-B90E265E-2F0C-3C8E-35DA-43EBC48FFA0D disconnected, not authorised.
+1754310113: New connection from 172.18.0.3:42913 on port 1883.
+1754310113: Client auto-EC7FDCF5-DAAF-4AA7-21CA-BE1DF857E014 disconnected, not authorised.
+1754310113: New connection from 172.18.0.4:51353 on port 1883.
+1754310113: Client auto-CD89E0E4-7CBE-8EC9-347B-DDC4CEE37DEB disconnected, not authorised.
+1754310233: New connection from 172.18.0.3:59975 on port 1883.
+1754310233: Client auto-6A63FE3A-339D-7D8A-A98A-37168495A42D disconnected, not authorised.
+1754310233: New connection from 172.18.0.4:56401 on port 1883.
+1754310233: Client auto-158541D8-922C-9259-6D81-78FD0EDC8BB0 disconnected, not authorised.
+1754310353: New connection from 172.18.0.3:49773 on port 1883.
+1754310353: Client auto-52A85334-878A-9488-F126-60197B97E16D disconnected, not authorised.
+1754310353: New connection from 172.18.0.4:38103 on port 1883.
+1754310353: Client auto-D462ED91-D767-2ADD-CC34-09144E751639 disconnected, not authorised.
+1754310473: New connection from 172.18.0.3:36779 on port 1883.
+1754310473: Client auto-5047F281-85A4-B1BA-A6F6-9E3750187798 disconnected, not authorised.
+1754310473: New connection from 172.18.0.4:50663 on port 1883.
+1754310473: Client auto-6E2F36A3-9D15-382F-6A0B-64500B2515E4 disconnected, not authorised.
+1754310593: New connection from 172.18.0.3:47583 on port 1883.
+1754310593: Client auto-EF591160-A833-EBD7-F554-F05B963B3B69 disconnected, not authorised.
+1754310593: New connection from 172.18.0.4:33917 on port 1883.
+1754310593: Client auto-8B8C0CDE-095A-A4D6-1EDF-423EE7F3235D disconnected, not authorised.
+1754310713: New connection from 172.18.0.3:34861 on port 1883.
+1754310713: Client auto-664E91D7-5CBD-77BD-5FE0-DADAA9CE7003 disconnected, not authorised.
+1754310713: New connection from 172.18.0.4:50585 on port 1883.
+1754310713: Client auto-642993E3-0A84-EDA2-0A90-58E2280084CB disconnected, not authorised.
+1754310754: mosquitto version 2.0.22 terminating
+1754310754: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1754310755: mosquitto version 2.0.22 starting
+1754310755: Config loaded from /mosquitto/config/mosquitto.conf.
+1754310755: Opening ipv4 listen socket on port 1883.
+1754310755: Opening websockets listen socket on port 9001.
+1754310755: mosquitto version 2.0.22 running
+1754310833: New connection from 172.18.0.3:50883 on port 1883.
+1754310833: Client auto-BEE0672B-C9BE-EBDE-C31C-05B19BC97B55 disconnected, not authorised.
+1754310833: New connection from 172.18.0.4:35627 on port 1883.
+1754310833: Client auto-7E3FD6ED-822D-7FD8-ACF9-DF0344C7732B disconnected, not authorised.
+1754310953: New connection from 172.18.0.3:60553 on port 1883.
+1754310953: Client auto-02D1734B-74F5-275E-0E2A-F455A4A34747 disconnected, not authorised.
+1754310953: New connection from 172.18.0.4:55193 on port 1883.
+1754310953: Client auto-75F51412-0E00-BE04-E071-1AF65652FA5E disconnected, not authorised.
+1754311073: New connection from 172.18.0.3:33841 on port 1883.
+1754311073: Client auto-17F03144-4EDF-507A-657D-83B5CB6E12F4 disconnected, not authorised.
+1754311073: New connection from 172.18.0.4:42767 on port 1883.
+1754311073: Client auto-88A8AB1D-BC13-3945-F1F6-671358AC85C8 disconnected, not authorised.
+1754311193: New connection from 172.18.0.3:39231 on port 1883.
+1754311193: Client auto-CC22DADC-45FB-91CC-6C65-E1BB0E060CA2 disconnected, not authorised.
+1754311193: New connection from 172.18.0.4:44147 on port 1883.
+1754311193: Client auto-4EA2D41A-8DB8-B0CF-1AF1-6177617DA622 disconnected, not authorised.
+1754311313: New connection from 172.18.0.3:48591 on port 1883.
+1754311313: Client auto-9EE95025-1527-9C0F-B94A-5B81DEC82640 disconnected, not authorised.
+1754311313: New connection from 172.18.0.4:41503 on port 1883.
+1754311313: Client auto-9351EB4C-D553-68F0-AC6E-837F8836ACB4 disconnected, not authorised.
+1754311433: New connection from 172.18.0.3:53499 on port 1883.
+1754311433: Client auto-872EF3A4-58DB-1013-D578-24BBFF4116F4 disconnected, not authorised.
+1754311433: New connection from 172.18.0.4:52887 on port 1883.
+1754311433: Client auto-6B8BED90-3FBA-2F01-A299-CAF3B3A69FFD disconnected, not authorised.
+1754311553: New connection from 172.18.0.3:56967 on port 1883.
+1754311553: Client auto-78CC9DF0-5066-88F9-96AD-D74EA3E9A772 disconnected, not authorised.
+1754311553: New connection from 172.18.0.4:35115 on port 1883.
+1754311553: Client auto-544409F6-9A16-71D9-7A52-00D1303CC384 disconnected, not authorised.
+1754311673: New connection from 172.18.0.3:56521 on port 1883.
+1754311673: Client auto-0826EBF1-ED58-D367-29DA-F3003F547778 disconnected, not authorised.
+1754311673: New connection from 172.18.0.4:55445 on port 1883.
+1754311673: Client auto-89663AC3-DC75-F0FE-B16E-387C54ED8BC7 disconnected, not authorised.
+1754311793: New connection from 172.18.0.3:35957 on port 1883.
+1754311793: Client auto-6B43B697-9EAC-FAD3-F65B-72BF37744738 disconnected, not authorised.
+1754311793: New connection from 172.18.0.4:36359 on port 1883.
+1754311793: Client auto-C30FDF1A-CA48-0ACE-C14B-3C0FACDE7556 disconnected, not authorised.
+1754311913: New connection from 172.18.0.3:55423 on port 1883.
+1754311913: Client auto-82D8594B-84EE-2CBB-C079-90FF0BE23A61 disconnected, not authorised.
+1754311913: New connection from 172.18.0.4:50937 on port 1883.
+1754311913: Client auto-14B22A44-AB80-D40E-2DBE-156E52F56C99 disconnected, not authorised.
+1754312033: New connection from 172.18.0.3:57019 on port 1883.
+1754312033: Client auto-5E9E1941-C12E-942C-3891-6D82AA05DF5F disconnected, not authorised.
+1754312033: New connection from 172.18.0.4:58949 on port 1883.
+1754312033: Client auto-8F81F893-1BEA-089F-FE6C-856CA4F1DD9F disconnected, not authorised.
+1754312153: New connection from 172.18.0.3:56189 on port 1883.
+1754312153: Client auto-C2BEE6F0-48FE-C2C1-8F93-F48338F5D856 disconnected, not authorised.
+1754312153: New connection from 172.18.0.4:56629 on port 1883.
+1754312153: Client auto-515599E0-C6A6-9E04-30DC-D6396F26BFCB disconnected, not authorised.
+1754312273: New connection from 172.18.0.3:55523 on port 1883.
+1754312273: Client auto-1E8E2F28-33CA-1397-C9EF-E170913697AC disconnected, not authorised.
+1754312273: New connection from 172.18.0.4:49519 on port 1883.
+1754312273: Client auto-99A6F5FD-439D-FBB5-1757-9691AA6CB4CC disconnected, not authorised.
+1754312393: New connection from 172.18.0.3:59117 on port 1883.
+1754312393: Client auto-69C85EBB-6FE3-526A-9B7A-3B431F89E9AC disconnected, not authorised.
+1754312393: New connection from 172.18.0.4:49077 on port 1883.
+1754312393: Client auto-11DEF047-EF8A-6B42-44A8-333E3038A4B0 disconnected, not authorised.
+1754312513: New connection from 172.18.0.3:33449 on port 1883.
+1754312513: Client auto-95040265-7494-6839-9F80-1D31E51B54B2 disconnected, not authorised.
+1754312513: New connection from 172.18.0.4:39067 on port 1883.
+1754312513: Client auto-0B2A9940-32FE-A384-4336-2C6EDC7D8974 disconnected, not authorised.
+1754312555: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1754312633: New connection from 172.18.0.3:53893 on port 1883.
+1754312633: Client auto-BAAC35CE-3259-2324-A9BC-1798C666E466 disconnected, not authorised.
+1754312633: New connection from 172.18.0.4:57619 on port 1883.
+1754312633: Client auto-15F7EC08-89FD-C489-D6CA-0186AF9161EB disconnected, not authorised.
+1754312753: New connection from 172.18.0.3:41237 on port 1883.
+1754312753: Client auto-92C6DFE3-A17F-E4DB-10C8-60F544C52931 disconnected, not authorised.
+1754312753: New connection from 172.18.0.4:48391 on port 1883.
+1754312753: Client auto-89A4E2C8-CCD1-8D3D-7780-8B54E5A6BBC9 disconnected, not authorised.
+1754312873: New connection from 172.18.0.3:52269 on port 1883.
+1754312873: Client auto-C4DF064B-FD36-7F4D-F740-78F98974639C disconnected, not authorised.
+1754312873: New connection from 172.18.0.4:51903 on port 1883.
+1754312873: Client auto-3EE0D64A-74B5-1F5F-93D6-DB5385BBF415 disconnected, not authorised.
+1754312993: New connection from 172.18.0.3:36999 on port 1883.
+1754312993: Client auto-0AEF8E04-28BA-56B4-1581-6BA6B31849C8 disconnected, not authorised.
+1754312993: New connection from 172.18.0.4:47257 on port 1883.
+1754312993: Client auto-57103E97-C883-9131-4364-9682EF52D4C8 disconnected, not authorised.
+1754313113: New connection from 172.18.0.3:48547 on port 1883.
+1754313113: Client auto-D449830E-09A6-F9F4-DA19-A1A7F740BD5C disconnected, not authorised.
+1754313113: New connection from 172.18.0.4:42905 on port 1883.
+1754313113: Client auto-6292E7D8-06DA-86D6-7E94-3E884FBF86CA disconnected, not authorised.
+1754313233: New connection from 172.18.0.3:40413 on port 1883.
+1754313233: Client auto-6F75FEA2-4086-9313-4C03-C9A251317067 disconnected, not authorised.
+1754313233: New connection from 172.18.0.4:58841 on port 1883.
+1754313233: Client auto-3749995A-C8FA-9218-B917-831C6A74665D disconnected, not authorised.
+1754313353: New connection from 172.18.0.3:34525 on port 1883.
+1754313353: Client auto-AB7C9D14-7FEF-9D48-99CB-27FE7D9DCEF2 disconnected, not authorised.
+1754313353: New connection from 172.18.0.4:58737 on port 1883.
+1754313353: Client auto-FE41BD0E-B0C1-DDAC-7290-0384C709B18E disconnected, not authorised.
+1754313473: New connection from 172.18.0.3:41559 on port 1883.
+1754313473: Client auto-98A8B02C-36DA-3B26-80ED-802BF5F0BCDA disconnected, not authorised.
+1754313473: New connection from 172.18.0.4:49575 on port 1883.
+1754313473: Client auto-9A545CF7-6F0C-0BF2-A421-F05E17CDF721 disconnected, not authorised.
+1754313593: New connection from 172.18.0.3:45439 on port 1883.
+1754313593: Client auto-4BBF7352-7273-6CC6-3111-7E52AD1F6DA7 disconnected, not authorised.
+1754313593: New connection from 172.18.0.4:36843 on port 1883.
+1754313593: Client auto-66731917-64D0-8FC0-A34D-E1EC3708B434 disconnected, not authorised.
+1754313713: New connection from 172.18.0.3:48499 on port 1883.
+1754313713: Client auto-C10CB017-23A9-8EEF-79EC-F9EC0C7A2B27 disconnected, not authorised.
+1754313713: New connection from 172.18.0.4:37629 on port 1883.
+1754313713: Client auto-D006743E-B42E-E30A-DCE9-8C39DBEE8E95 disconnected, not authorised.
+1754313833: New connection from 172.18.0.3:55881 on port 1883.
+1754313833: Client auto-A560EF2E-B7F4-4D0D-6A13-6470D6C5ACE3 disconnected, not authorised.
+1754313833: New connection from 172.18.0.4:53821 on port 1883.
+1754313833: Client auto-093A2F8A-9BFA-8DE0-CE50-52E1FE8985CE disconnected, not authorised.
+1754313953: New connection from 172.18.0.3:34317 on port 1883.
+1754313953: Client auto-9A783067-A50B-61AA-F9C9-3E24AC540F93 disconnected, not authorised.
+1754313953: New connection from 172.18.0.4:58345 on port 1883.
+1754313953: Client auto-19BD6CE1-6717-08AA-B4A6-2D3B9BE27014 disconnected, not authorised.
+1754314073: New connection from 172.18.0.3:33767 on port 1883.
+1754314073: Client auto-26407B37-BEA8-1E03-696C-F0F2B7CB8764 disconnected, not authorised.
+1754314073: New connection from 172.18.0.4:60531 on port 1883.
+1754314073: Client auto-3B0CD683-0B47-A5E3-9FDE-630374CB1022 disconnected, not authorised.
+1754314192: New connection from 172.18.0.3:50991 on port 1883.
+1754314192: Client auto-E6C624E8-787B-C9BD-72E7-F511576ED556 disconnected, not authorised.
+1754314193: New connection from 172.18.0.4:43719 on port 1883.
+1754314193: Client auto-00FF3521-A1E7-7362-C104-B5F95E7FBE79 disconnected, not authorised.
+1754314312: New connection from 172.18.0.3:32855 on port 1883.
+1754314312: Client auto-35F64FBA-7F5B-E311-D6FA-2B4E67CE83B5 disconnected, not authorised.
+1754314313: New connection from 172.18.0.4:48329 on port 1883.
+1754314313: Client auto-52EB9551-A579-1988-B142-9D54686999FC disconnected, not authorised.
+1754314356: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1754314432: New connection from 172.18.0.3:34319 on port 1883.
+1754314432: Client auto-20317825-F0D4-038B-1C8B-9D39BEDB3C36 disconnected, not authorised.
+1754314433: New connection from 172.18.0.4:49093 on port 1883.
+1754314433: Client auto-ED969EE1-842F-09BA-960F-A9F9E2925BAD disconnected, not authorised.
+1754314552: New connection from 172.18.0.3:56043 on port 1883.
+1754314552: Client auto-43C03639-1124-5CD8-119D-82B4797EA7D6 disconnected, not authorised.
+1754314553: New connection from 172.18.0.4:43389 on port 1883.
+1754314553: Client auto-2160940B-DBEF-1A6C-78C5-4A148F381F7B disconnected, not authorised.
+1754314672: New connection from 172.18.0.3:58703 on port 1883.
+1754314672: Client auto-90551488-4ECF-DF27-B63C-92487E631376 disconnected, not authorised.
+1754314673: New connection from 172.18.0.4:43589 on port 1883.
+1754314673: Client auto-4B29420D-CEA0-2FB7-BB89-044D6E3BDCA2 disconnected, not authorised.
+1754314792: New connection from 172.18.0.3:43603 on port 1883.
+1754314792: Client auto-235D041B-E486-4B6F-A3CA-9C07E639917C disconnected, not authorised.
+1754314793: New connection from 172.18.0.4:50051 on port 1883.
+1754314793: Client auto-C634689E-58E1-008A-3461-236BD110C83A disconnected, not authorised.
+1754314912: New connection from 172.18.0.3:52143 on port 1883.
+1754314912: Client auto-785F64B5-CF18-4C81-8FDB-66C68BC8CEBC disconnected, not authorised.
+1754314913: New connection from 172.18.0.4:41323 on port 1883.
+1754314913: Client auto-3C9E6EB5-02BE-6A92-2131-A541864C7471 disconnected, not authorised.
+1754315032: New connection from 172.18.0.3:57883 on port 1883.
+1754315032: Client auto-AA6FA996-1BB6-5C5C-30B6-AD50C53AA35C disconnected, not authorised.
+1754315033: New connection from 172.18.0.4:48215 on port 1883.
+1754315033: Client auto-40C81E4C-6844-5FCA-C308-706BCD17B436 disconnected, not authorised.
+1754315152: New connection from 172.18.0.3:41815 on port 1883.
+1754315152: Client auto-E2BC2B14-075A-93C5-CFF8-49F90C31100A disconnected, not authorised.
+1754315153: New connection from 172.18.0.4:42311 on port 1883.
+1754315153: Client auto-C67A3099-4871-8C2F-10F4-087B50C50664 disconnected, not authorised.
+1754315272: New connection from 172.18.0.3:37387 on port 1883.
+1754315272: Client auto-3CAB0983-56A5-6D4A-2630-4A6C48BD0C53 disconnected, not authorised.
+1754315273: New connection from 172.18.0.4:45269 on port 1883.
+1754315273: Client auto-DD77305F-8732-B58F-AA3B-125A9D5427B6 disconnected, not authorised.
+1754315392: New connection from 172.18.0.3:45803 on port 1883.
+1754315392: Client auto-1776D69D-93B5-AA38-7CFA-70C40901E072 disconnected, not authorised.
+1754315393: New connection from 172.18.0.4:55863 on port 1883.
+1754315393: Client auto-F867BB95-75BE-978D-DF11-BEBF65CF4610 disconnected, not authorised.
+1754315512: New connection from 172.18.0.3:41033 on port 1883.
+1754315512: Client auto-F4EFBFB0-2109-0AF9-B951-E38FB0421C28 disconnected, not authorised.
+1754315513: New connection from 172.18.0.4:56075 on port 1883.
+1754315513: Client auto-E0F7A664-AE1D-173A-80B0-DD726DEB0A7E disconnected, not authorised.
+1754315632: New connection from 172.18.0.3:58311 on port 1883.
+1754315632: Client auto-AF0E3ED6-1987-3E34-FA75-42B13747789F disconnected, not authorised.
+1754315633: New connection from 172.18.0.4:51165 on port 1883.
+1754315633: Client auto-77CBC44A-0A96-86A8-8FDC-4B303E392363 disconnected, not authorised.
+1754315752: New connection from 172.18.0.3:38245 on port 1883.
+1754315752: Client auto-9BBE59AD-EA23-D28E-4759-8847D9C7DE97 disconnected, not authorised.
+1754315753: New connection from 172.18.0.4:43405 on port 1883.
+1754315753: Client auto-4D10A316-287D-1854-06E0-D26E79B51BBB disconnected, not authorised.
+1754315872: New connection from 172.18.0.3:34733 on port 1883.
+1754315872: Client auto-DE30B777-3B8A-32B3-8895-2904CE0E1C5B disconnected, not authorised.
+1754315873: New connection from 172.18.0.4:50419 on port 1883.
+1754315873: Client auto-21F5CBB7-B4BB-DADA-7DB6-85D78E7CC7D1 disconnected, not authorised.
+1754315992: New connection from 172.18.0.3:45143 on port 1883.
+1754315992: Client auto-EC786354-0652-6F24-724D-D69B0F3D0647 disconnected, not authorised.
+1754315993: New connection from 172.18.0.4:51959 on port 1883.
+1754315993: Client auto-9ABE13AF-6FA9-F580-81D9-E666E836D5A1 disconnected, not authorised.
+1754316112: New connection from 172.18.0.3:42577 on port 1883.
+1754316112: Client auto-05E8A4CE-C36E-1F52-A40A-78949AA12E35 disconnected, not authorised.
+1754316113: New connection from 172.18.0.4:50115 on port 1883.
+1754316113: Client auto-38BEE1FD-80B9-1D3F-CF8E-41244681CDB6 disconnected, not authorised.
+1754316157: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1754316232: New connection from 172.18.0.3:53485 on port 1883.
+1754316232: Client auto-7A70DDB5-F69E-E531-C903-FCF7A746293A disconnected, not authorised.
+1754316233: New connection from 172.18.0.4:32913 on port 1883.
+1754316233: Client auto-A5974B1B-CD0B-4B98-E5B8-52BF0FC74576 disconnected, not authorised.
+1754316352: New connection from 172.18.0.3:53093 on port 1883.
+1754316352: Client auto-E42C69C5-5998-9BB8-2AD4-F991B235DAB5 disconnected, not authorised.
+1754316353: New connection from 172.18.0.4:53715 on port 1883.
+1754316353: Client auto-78A54E21-BEAA-DC57-C654-8783FEAC74E9 disconnected, not authorised.
+1754316472: New connection from 172.18.0.3:48919 on port 1883.
+1754316472: Client auto-AD1515B5-FBC6-B824-659E-571830A1EB9C disconnected, not authorised.
+1754316473: New connection from 172.18.0.4:35437 on port 1883.
+1754316473: Client auto-AC0BEEDE-122E-3A84-910A-C10B83E68B0E disconnected, not authorised.
+1754316592: New connection from 172.18.0.3:45367 on port 1883.
+1754316592: Client auto-40AD0F8A-EE79-E75A-EB76-CFFA8C1399AE disconnected, not authorised.
+1754316593: New connection from 172.18.0.4:48357 on port 1883.
+1754316593: Client auto-92A365FB-55B6-EF1A-885F-8733A8E280A9 disconnected, not authorised.
+1754316712: New connection from 172.18.0.3:36435 on port 1883.
+1754316712: Client auto-9593AFB6-8EF7-CB3C-BBC1-58D8FC726D16 disconnected, not authorised.
+1754316713: New connection from 172.18.0.4:37847 on port 1883.
+1754316713: Client auto-D616276F-C43A-36D9-D88A-3CAA009EE9AE disconnected, not authorised.
+1754362236: New connection from 172.18.0.3:57305 on port 1883.
+1754362236: Client auto-281B7F81-B2AA-DBFB-A62F-61FFD300CA33 disconnected, not authorised.
+1754362237: New connection from 172.18.0.4:39367 on port 1883.
+1754362237: Client auto-51C42A95-2435-9DE0-75AC-C4DED87C9625 disconnected, not authorised.
+1754362356: New connection from 172.18.0.3:44155 on port 1883.
+1754362356: Client auto-E04BEF5A-FD21-BAE6-F23B-F352AE45E7E0 disconnected, not authorised.
+1754362357: New connection from 172.18.0.4:37371 on port 1883.
+1754362357: Client auto-14D0291F-A741-4363-BE2E-EBF5A97373B7 disconnected, not authorised.
+1754362476: New connection from 172.18.0.3:47079 on port 1883.
+1754362476: Client auto-9A96DAEE-243B-88DD-ED6A-D79008D38675 disconnected, not authorised.
+1754362477: New connection from 172.18.0.4:32797 on port 1883.
+1754362477: Client auto-AC500E5F-F322-2F1A-024D-BFACCC97503B disconnected, not authorised.
+1754362596: New connection from 172.18.0.3:47763 on port 1883.
+1754362596: Client auto-F6E01EE0-B2C6-59E5-C689-2171D16331A7 disconnected, not authorised.
+1754362597: New connection from 172.18.0.4:42511 on port 1883.
+1754362597: Client auto-D384027C-11CC-242B-7CE7-ED79000BA49C disconnected, not authorised.
+1754362717: mosquitto version 2.0.22 terminating
+1754362717: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1754396527: mosquitto version 2.0.22 starting
+1754396527: Config loaded from /mosquitto/config/mosquitto.conf.
+1754396527: Opening ipv4 listen socket on port 1883.
+1754396527: Opening websockets listen socket on port 9001.
+1754396527: mosquitto version 2.0.22 running
+1754396527: New connection from 172.18.0.4:36581 on port 1883.
+1754396527: Client auto-09793AC9-6B56-ABEF-2CAA-AC52D09205C5 disconnected, not authorised.
+1754396527: New connection from 172.18.0.3:55645 on port 1883.
+1754396527: Client auto-C7500853-BA0E-DE07-7691-062CFEFE4786 disconnected, not authorised.
+1754396528: New connection from 172.18.0.4:35779 on port 1883.
+1754396528: Client auto-764D3C48-9780-C55C-B8DC-EC2B6BB8EAD9 disconnected, not authorised.
+1754396528: New connection from 172.18.0.3:42637 on port 1883.
+1754396528: Client auto-5F9A4F25-91A0-B2BA-9671-78A8E666E608 disconnected, not authorised.
+1754396530: New connection from 172.18.0.4:53807 on port 1883.
+1754396530: Client auto-6EE03B3C-EFB4-D2D7-3A3D-D36851067274 disconnected, not authorised.
+1754396530: New connection from 172.18.0.3:49449 on port 1883.
+1754396530: Client auto-C444097E-C2F7-2431-0212-C824D979B6ED disconnected, not authorised.
+1754396534: New connection from 172.18.0.4:34493 on port 1883.
+1754396534: Client auto-887D8840-039D-4348-147E-ECC96D37B076 disconnected, not authorised.
+1754396534: New connection from 172.18.0.3:46797 on port 1883.
+1754396534: Client auto-54503AA6-2D44-8671-B8A1-E7296312BB05 disconnected, not authorised.
+1754396542: New connection from 172.18.0.4:43895 on port 1883.
+1754396542: Client auto-88AC1024-5DBF-0EDA-0159-88B5FF18ED1B disconnected, not authorised.
+1754396542: New connection from 172.18.0.3:49101 on port 1883.
+1754396542: Client auto-64C25E8C-96F5-4142-F24C-3F75120E1DD3 disconnected, not authorised.
+1754396558: New connection from 172.18.0.4:35427 on port 1883.
+1754396558: Client auto-5FB88BE9-4121-C5B5-7016-DACF02C30448 disconnected, not authorised.
+1754396558: New connection from 172.18.0.3:48623 on port 1883.
+1754396558: Client auto-B0603452-0D4B-9661-A541-E35C38B92227 disconnected, not authorised.
+1754396590: New connection from 172.18.0.4:50869 on port 1883.
+1754396590: Client auto-92A454EF-A44B-8193-B7EA-B5F074EB62D0 disconnected, not authorised.
+1754396590: New connection from 172.18.0.3:54005 on port 1883.
+1754396590: Client auto-ED82B02E-830F-D84A-FD24-AF209EE4B2D3 disconnected, not authorised.
+1754396654: New connection from 172.18.0.4:50589 on port 1883.
+1754396654: Client auto-D0840248-9425-494E-9513-E19F220D107F disconnected, not authorised.
+1754396654: New connection from 172.18.0.3:49817 on port 1883.
+1754396654: Client auto-15CB4A20-2F6E-1F1C-D522-F35F56C4EC2F disconnected, not authorised.
+1754396774: New connection from 172.18.0.4:36765 on port 1883.
+1754396774: Client auto-BA587AE9-51C1-6295-C92E-9BBB850FA595 disconnected, not authorised.
+1754396774: New connection from 172.18.0.3:44333 on port 1883.
+1754396774: Client auto-B869E176-C560-5942-51B4-E5DC372E1D6C disconnected, not authorised.
+1754396894: New connection from 172.18.0.4:47975 on port 1883.
+1754396894: Client auto-D370BC2C-2897-9BC8-0C7F-4D9AA2BF3896 disconnected, not authorised.
+1754396894: New connection from 172.18.0.3:42865 on port 1883.
+1754396894: Client auto-6BB41D87-777C-789B-ECAE-D6ADF16F1F05 disconnected, not authorised.
+1754397014: New connection from 172.18.0.4:50639 on port 1883.
+1754397014: Client auto-0961BC94-E69A-942B-0E2C-7807040A7B20 disconnected, not authorised.
+1754397014: New connection from 172.18.0.3:43793 on port 1883.
+1754397014: Client auto-31B29D91-92A9-D9FB-2A51-8AABE6E10C12 disconnected, not authorised.
+1754397134: New connection from 172.18.0.4:36809 on port 1883.
+1754397134: Client auto-2FB9ED02-42A4-C766-8B2E-D89DDC0A1ECB disconnected, not authorised.
+1754397134: New connection from 172.18.0.3:53369 on port 1883.
+1754397134: Client auto-1786FC74-A0FF-B259-0B07-9128397EED5F disconnected, not authorised.
+1754397254: New connection from 172.18.0.4:56275 on port 1883.
+1754397254: Client auto-C24A61CA-7625-AD12-D8F1-967154E62613 disconnected, not authorised.
+1754397254: New connection from 172.18.0.3:34827 on port 1883.
+1754397254: Client auto-A9F996F7-EAB7-4EEA-635A-58A68E0DC0A9 disconnected, not authorised.
+1754397374: New connection from 172.18.0.4:59303 on port 1883.
+1754397374: Client auto-87B3F1CE-8F18-2FAF-D13B-009B1CC35A1C disconnected, not authorised.
+1754397374: New connection from 172.18.0.3:54515 on port 1883.
+1754397374: Client auto-93A8A396-FF1F-A3BB-687A-B4C155C0352A disconnected, not authorised.
+1754397494: New connection from 172.18.0.4:44395 on port 1883.
+1754397494: Client auto-638A95B1-6E6C-5AD7-C29F-6D5465E08337 disconnected, not authorised.
+1754397494: New connection from 172.18.0.3:50909 on port 1883.
+1754397494: Client auto-C35938EB-6EEC-DF00-EF89-F30111B4D2A1 disconnected, not authorised.
+1754397614: New connection from 172.18.0.4:40871 on port 1883.
+1754397614: Client auto-97687049-84A7-BFD0-DEEA-1CCF8B0CDCB3 disconnected, not authorised.
+1754397614: New connection from 172.18.0.3:36793 on port 1883.
+1754397614: Client auto-0C51E507-070D-C2E9-26D8-67328D4E7F80 disconnected, not authorised.
+1754397734: New connection from 172.18.0.3:50097 on port 1883.
+1754397734: New connection from 172.18.0.4:59877 on port 1883.
+1754397734: Client auto-5489D82A-FCC5-0DF3-7066-536DCF17D622 disconnected, not authorised.
+1754397734: Client auto-488CDA85-3194-782C-AF6D-6AB049B20E20 disconnected, not authorised.
+1754397854: New connection from 172.18.0.3:60717 on port 1883.
+1754397854: Client auto-8406C500-867F-F078-CE6D-C89C886FEC61 disconnected, not authorised.
+1754397854: New connection from 172.18.0.4:51505 on port 1883.
+1754397854: Client auto-0C86884E-FA4B-E5B0-4948-BBDEF4D12159 disconnected, not authorised.
+1754397974: New connection from 172.18.0.3:51499 on port 1883.
+1754397974: Client auto-043D7541-2F3C-F6E1-8117-A3A25807A2FC disconnected, not authorised.
+1754397974: New connection from 172.18.0.4:55755 on port 1883.
+1754397974: Client auto-10F356EC-5903-10B8-DD5B-2403A9F9D0E0 disconnected, not authorised.
+1754398094: New connection from 172.18.0.3:57097 on port 1883.
+1754398094: Client auto-ABD9F87C-9D53-5661-DEA4-91FCCBC38F69 disconnected, not authorised.
+1754398094: New connection from 172.18.0.4:38599 on port 1883.
+1754398094: Client auto-62D3085F-2B39-AA22-657F-310840A988AC disconnected, not authorised.
+1754398214: New connection from 172.18.0.3:33385 on port 1883.
+1754398214: Client auto-56BBC048-5B1A-C12D-81E5-AE604D7860B6 disconnected, not authorised.
+1754398214: New connection from 172.18.0.4:48813 on port 1883.
+1754398214: Client auto-7E961375-1236-9842-8A97-C682BDDBD971 disconnected, not authorised.
+1754398327: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1754398334: New connection from 172.18.0.3:58313 on port 1883.
+1754398334: Client auto-8B48F735-6409-4738-7DCA-07E3A5475E1A disconnected, not authorised.
+1754398334: New connection from 172.18.0.4:51791 on port 1883.
+1754398334: Client auto-6255A278-061F-85CA-B0EF-6623AB3B8E3F disconnected, not authorised.
+1754398454: New connection from 172.18.0.3:35149 on port 1883.
+1754398454: Client auto-DE2AACBA-C365-71BC-51C5-C4EB429D710F disconnected, not authorised.
+1754398454: New connection from 172.18.0.4:51389 on port 1883.
+1754398454: Client auto-AFBA3AA5-A524-58C4-0D98-E950C5EF8B34 disconnected, not authorised.
+1754398574: New connection from 172.18.0.3:44697 on port 1883.
+1754398574: Client auto-8F500EB4-0065-0645-F781-A751B5DF5FF4 disconnected, not authorised.
+1754398574: New connection from 172.18.0.4:53533 on port 1883.
+1754398574: Client auto-E67CF1E0-F335-2292-A79F-15FDF4544F82 disconnected, not authorised.
+1754398694: New connection from 172.18.0.3:60385 on port 1883.
+1754398694: Client auto-3D1094C1-719B-438B-55CA-DEBF32495515 disconnected, not authorised.
+1754398694: New connection from 172.18.0.4:36319 on port 1883.
+1754398694: Client auto-44CB975D-C179-88FD-45A4-B510A9A252DD disconnected, not authorised.
+1754398814: New connection from 172.18.0.3:33235 on port 1883.
+1754398814: Client auto-9508593A-1F80-D8E1-C67B-244732F5917C disconnected, not authorised.
+1754398814: New connection from 172.18.0.4:58385 on port 1883.
+1754398814: Client auto-81AC016A-02BD-EEF6-26F1-24B0E472B8D0 disconnected, not authorised.
+1754398913: mosquitto version 2.0.22 terminating
+1754398913: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1754398915: mosquitto version 2.0.22 starting
+1754398915: Config loaded from /mosquitto/config/mosquitto.conf.
+1754398915: Opening ipv4 listen socket on port 1883.
+1754398915: Opening websockets listen socket on port 9001.
+1754398915: mosquitto version 2.0.22 running
+1754398924: New connection from 172.18.0.3:47409 on port 1883.
+1754398924: Client auto-19AE7A85-6EE2-9924-6399-C2DEE4EDF7A4 disconnected, not authorised.
+1754398924: New connection from 172.18.0.4:36809 on port 1883.
+1754398924: Client auto-B70B4154-C16D-2251-6738-0B7ABA4CF495 disconnected, not authorised.
+1754398925: New connection from 172.18.0.3:58877 on port 1883.
+1754398925: Client auto-6EA29A28-334D-CCE9-6260-47171FBF0AC6 disconnected, not authorised.
+1754398925: New connection from 172.18.0.4:36183 on port 1883.
+1754398925: Client auto-3819888B-D7C0-70AC-5015-C35452A3E391 disconnected, not authorised.
+1754398927: New connection from 172.18.0.3:40865 on port 1883.
+1754398927: Client auto-A5328211-97B1-0719-B96D-1FB8D3DAF8AF disconnected, not authorised.
+1754398927: New connection from 172.18.0.4:42923 on port 1883.
+1754398927: Client auto-E03E69B0-32A3-1A74-1E68-7E969F458A8B disconnected, not authorised.
+1754398931: New connection from 172.18.0.3:40421 on port 1883.
+1754398931: Client auto-5E190A3B-142B-5CBD-D160-0FB4E73C937D disconnected, not authorised.
+1754398931: New connection from 172.18.0.4:35779 on port 1883.
+1754398931: Client auto-4860194E-BA41-FB2A-30C6-6DB68C6FC6B3 disconnected, not authorised.
+1754398939: New connection from 172.18.0.3:57661 on port 1883.
+1754398939: Client auto-9DA3EF02-F4FC-F7B9-2B91-138CC366B9DF disconnected, not authorised.
+1754398939: New connection from 172.18.0.4:48061 on port 1883.
+1754398939: Client auto-C99EDF54-3E6A-64D7-4730-33B61668CE1A disconnected, not authorised.
+1754398955: New connection from 172.18.0.3:52789 on port 1883.
+1754398955: Client auto-49B396C5-ACE7-C9DA-C325-CA7938FE6EBF disconnected, not authorised.
+1754398955: New connection from 172.18.0.4:45547 on port 1883.
+1754398955: Client auto-20C919DF-1EB7-6AB5-95BF-F38026B529F1 disconnected, not authorised.
+1754398987: New connection from 172.18.0.3:51349 on port 1883.
+1754398987: Client auto-F28E8921-4C5C-5C58-B98F-E8CC53A2D74D disconnected, not authorised.
+1754398987: New connection from 172.18.0.4:54801 on port 1883.
+1754398987: Client auto-3D7A5C78-70AB-1659-9314-9BB6F45561FC disconnected, not authorised.
+1754399051: New connection from 172.18.0.3:47707 on port 1883.
+1754399051: New connection from 172.18.0.4:58919 on port 1883.
+1754399051: Client auto-922337F4-F18D-3726-5411-9DB05F15CF98 disconnected, not authorised.
+1754399051: Client auto-56DFAF75-4756-5641-4A60-2C72A96E7A4F disconnected, not authorised.
+1754399087: mosquitto version 2.0.22 terminating
+1754399087: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1754399091: mosquitto version 2.0.22 starting
+1754399091: Config loaded from /mosquitto/config/mosquitto.conf.
+1754399091: Opening ipv4 listen socket on port 1883.
+1754399091: Opening websockets listen socket on port 9001.
+1754399091: mosquitto version 2.0.22 running
+1754399092: New connection from 172.18.0.3:52721 on port 1883.
+1754399092: Client auto-93B0D277-6C71-BAD6-53CC-A85C4411F919 disconnected, not authorised.
+1754399092: New connection from 172.18.0.4:51907 on port 1883.
+1754399092: Client auto-C4A42503-8616-65A3-151D-162AC9FA10C2 disconnected, not authorised.
+1754399093: New connection from 172.18.0.3:38699 on port 1883.
+1754399093: Client auto-EEB8FFC4-6A46-25BE-54E7-E65553E15F20 disconnected, not authorised.
+1754399093: New connection from 172.18.0.4:48741 on port 1883.
+1754399093: Client auto-0590530E-E1CF-3171-B550-71F0068E98B8 disconnected, not authorised.
+1754399095: New connection from 172.18.0.3:58651 on port 1883.
+1754399095: Client auto-9B3918B9-AF3B-9ABA-A103-BE6C3F8D831D disconnected, not authorised.
+1754399095: New connection from 172.18.0.4:49585 on port 1883.
+1754399095: Client auto-9D741D8B-FB8F-C81F-C16A-8C89D5061834 disconnected, not authorised.
+1754399099: New connection from 172.18.0.3:50613 on port 1883.
+1754399099: Client auto-676BA491-5B9C-E1D2-A235-2653D0748583 disconnected, not authorised.
+1754399099: New connection from 172.18.0.4:60503 on port 1883.
+1754399099: Client auto-DFA319F0-A837-02D4-2D45-2DCABAE8680A disconnected, not authorised.
+1754399107: New connection from 172.18.0.3:44987 on port 1883.
+1754399107: Client auto-2A7486C3-CAE8-5808-AA4B-D3F5EC3EA335 disconnected, not authorised.
+1754399107: New connection from 172.18.0.4:43941 on port 1883.
+1754399107: Client auto-D053EC1F-15D9-CBD3-9B27-FC1AC6CC2654 disconnected, not authorised.
+1754399123: New connection from 172.18.0.3:49753 on port 1883.
+1754399123: Client auto-582B5944-E1BD-4040-5D82-9FFDBFDF1CE6 disconnected, not authorised.
+1754399123: New connection from 172.18.0.4:36247 on port 1883.
+1754399123: Client auto-F6DDE86D-6093-5385-A956-7D31A92A3EF3 disconnected, not authorised.
+1754399155: New connection from 172.18.0.3:44943 on port 1883.
+1754399155: Client auto-7A4DE572-10E0-B5CE-EB1C-034AD2F7AA38 disconnected, not authorised.
+1754399155: New connection from 172.18.0.4:45007 on port 1883.
+1754399155: Client auto-4B933EC3-AE7F-0C30-D480-E7D0E60EFC87 disconnected, not authorised.
+1754399219: New connection from 172.18.0.3:42353 on port 1883.
+1754399219: Client auto-947AC034-B9E3-0219-6071-AB0A81AEA21B disconnected, not authorised.
+1754399219: New connection from 172.18.0.4:45005 on port 1883.
+1754399219: Client auto-F00FEB01-5C57-80EC-FCBF-24CE69651D83 disconnected, not authorised.
+1754399252: mosquitto version 2.0.22 terminating
+1754399252: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1754399280: mosquitto version 2.0.22 starting
+1754399280: Config loaded from /mosquitto/config/mosquitto.conf.
+1754399280: Opening ipv4 listen socket on port 1883.
+1754399280: Opening websockets listen socket on port 9001.
+1754399280: mosquitto version 2.0.22 running
+1754399280: New connection from 172.18.0.3:36971 on port 1883.
+1754399280: New client connected from 172.18.0.3:36971 as auto-0237CD34-4D78-2588-80D4-DFAB2E038FCA (p2, c1, k30).
+1754399280: New connection from 172.18.0.4:46925 on port 1883.
+1754399280: New client connected from 172.18.0.4:46925 as auto-3A373819-86EA-B191-E04F-143893C714AA (p2, c1, k30).
+1754399322: Outgoing messages are being dropped for client auto-3A373819-86EA-B191-E04F-143893C714AA.
+1754399378: Client auto-0237CD34-4D78-2588-80D4-DFAB2E038FCA closed its connection.
+1754399378: Client auto-3A373819-86EA-B191-E04F-143893C714AA closed its connection.
+1754399378: mosquitto version 2.0.22 terminating
+1754399378: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1754399433: mosquitto version 2.0.22 starting
+1754399433: Config loaded from /mosquitto/config/mosquitto.conf.
+1754399433: Opening ipv4 listen socket on port 1883.
+1754399433: Opening websockets listen socket on port 9001.
+1754399433: mosquitto version 2.0.22 running
+1754399434: New connection from 172.18.0.3:51513 on port 1883.
+1754399434: New client connected from 172.18.0.3:51513 as auto-AE656BE2-FE8D-17F4-AD6A-F9C2CC821A79 (p2, c1, k30).
+1754399434: New connection from 172.18.0.4:36839 on port 1883.
+1754399434: New client connected from 172.18.0.4:36839 as auto-0F99DBDD-9AA8-43ED-18B1-0F6CD544139D (p2, c1, k30).
+1754399476: Outgoing messages are being dropped for client auto-0F99DBDD-9AA8-43ED-18B1-0F6CD544139D.
+1754401233: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1754415189: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1754416989: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1754418790: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1754438415: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1754440216: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1754442016: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1754443817: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1754445618: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1754447419: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1754449220: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1754451020: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1754452821: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1754454622: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1754456423: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1754458224: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1754460024: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1754461825: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1754462176: Client auto-0F99DBDD-9AA8-43ED-18B1-0F6CD544139D closed its connection.
+1754462176: Client auto-AE656BE2-FE8D-17F4-AD6A-F9C2CC821A79 closed its connection.
+1754462176: mosquitto version 2.0.22 terminating
+1754462176: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1755517050: mosquitto version 2.0.22 starting
+1755517050: Config loaded from /mosquitto/config/mosquitto.conf.
+1755517050: Opening ipv4 listen socket on port 1883.
+1755517050: Opening websockets listen socket on port 9001.
+1755517050: mosquitto version 2.0.22 running
+1755517051: New connection from 172.18.0.4:54341 on port 1883.
+1755517051: New client connected from 172.18.0.4:54341 as auto-00777D05-EAF7-B92A-9F96-BD60AD8823B7 (p2, c1, k30).
+1755517051: New connection from 172.18.0.3:47987 on port 1883.
+1755517051: New client connected from 172.18.0.3:47987 as auto-B43866C7-A15C-4898-3B96-8726D3146EFB (p2, c1, k30).
+1755517093: Outgoing messages are being dropped for client auto-B43866C7-A15C-4898-3B96-8726D3146EFB.
+1755518505: New client connected from 188.167.173.186:0 as clientId-4gGHTKe138 (p1, c1, k60, u'mock_tvs').
+1755518572: Client clientId-4gGHTKe138 closed its connection.
+1755518851: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1755519194: New client connected from 188.167.173.186:0 as clientId-OTu6RtAWr7 (p1, c1, k60, u'mock_tvs').
+1755519204: Invalid subscription string from 188.167.173.186, disconnecting.
+1755519204: Client clientId-OTu6RtAWr7 closed its connection.
+1755519210: New client connected from 188.167.173.186:0 as clientId-OTu6RtAWr7 (p1, c1, k60, u'mock_tvs').
+1755519214: Invalid subscription string from 188.167.173.186, disconnecting.
+1755519214: Client clientId-OTu6RtAWr7 closed its connection.
+1755519218: New client connected from 188.167.173.186:0 as clientId-OTu6RtAWr7 (p1, c1, k60, u'mock_tvs').
+1755519292: Client clientId-OTu6RtAWr7 closed its connection.
+1755519821: New client connected from 188.167.173.186:0 as clientId-fjCBMyAzlJ (p1, c1, k60, u'mock_tvs').
+1755519835: Client clientId-fjCBMyAzlJ closed its connection.
+1755520651: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1755522452: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1755523183: Client auto-B43866C7-A15C-4898-3B96-8726D3146EFB closed its connection.
+1755523184: New connection from 172.18.0.3:49461 on port 1883.
+1755523184: New client connected from 172.18.0.3:49461 as auto-5089B0FB-F10D-0B3C-6848-0EE8A8601F31 (p2, c1, k30).
+1755524253: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1755526054: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1755527854: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1755608575: mosquitto version 2.0.22 starting
+1755608575: Config loaded from /mosquitto/config/mosquitto.conf.
+1755608575: Opening ipv4 listen socket on port 1883.
+1755608575: Opening websockets listen socket on port 9001.
+1755608575: mosquitto version 2.0.22 running
+1755608575: New connection from 172.18.0.2:45585 on port 1883.
+1755608575: New client connected from 172.18.0.2:45585 as auto-F827A46E-EEF6-600E-55A0-66288A6134EF (p2, c1, k30).
+1755608575: New connection from 172.18.0.3:33653 on port 1883.
+1755608575: New client connected from 172.18.0.3:33653 as auto-B046E24B-8BE8-BEB1-33A0-9B28066BD80A (p2, c1, k30).
+1755608602: Client auto-B046E24B-8BE8-BEB1-33A0-9B28066BD80A closed its connection.
+1755608602: Client auto-F827A46E-EEF6-600E-55A0-66288A6134EF closed its connection.
+1755608603: mosquitto version 2.0.22 terminating
+1755608603: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1755608611: mosquitto version 2.0.22 starting
+1755608611: Config loaded from /mosquitto/config/mosquitto.conf.
+1755608611: Opening ipv4 listen socket on port 1883.
+1755608611: Opening websockets listen socket on port 9001.
+1755608611: mosquitto version 2.0.22 running
+1755609293: New connection from 172.18.0.3:45253 on port 1883.
+1755609293: New client connected from 172.18.0.3:45253 as auto-B2DF06D8-94F9-0D02-4243-564CC2D34BD8 (p2, c1, k30).
+1755609566: New client connected from 188.167.173.186:0 as mqttx_ae8861e0 (p5, c1, k60, u'mock_tvs').
+1755609603: Client mqttx_ae8861e0 closed its connection.
+1755610411: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1755610921: New client connected from 188.167.173.186:0 as mqttx_ae8861e0 (p5, c1, k60, u'mock_tvs').
+1755610922: Client mqttx_ae8861e0 closed its connection.
+1755611646: New client connected from 188.167.173.186:0 as mqttx_ae8861e0 (p5, c1, k60, u'mock_tvs').
+1755611685: Client mqttx_ae8861e0 closed its connection.
+1755612212: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1755614013: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1756376596: mosquitto version 2.0.22 starting
+1756376596: Config loaded from /mosquitto/config/mosquitto.conf.
+1756376596: Opening ipv4 listen socket on port 1883.
+1756376596: Opening websockets listen socket on port 9001.
+1756376596: mosquitto version 2.0.22 running
+1756376596: New connection from 172.18.0.2:41811 on port 1883.
+1756376596: New client connected from 172.18.0.2:41811 as auto-86B362B0-46F4-5C20-A4C9-E00BA5772B3A (p2, c1, k30).
+1756378396: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1756380197: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1756381998: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1756383799: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1756385600: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1756387401: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1756389201: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1756391002: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1756392803: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1756394604: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1756396404: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1756398205: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1756400006: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1756401807: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1756403607: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1756405408: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1756407209: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1756409010: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1756437816: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1756439616: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1756441417: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1756443218: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1756445019: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1756446820: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1756448620: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1756450421: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1756452222: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1756454023: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1756455824: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1756457624: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1756459425: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1756461226: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1756463027: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1756464831: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1756466631: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1756468432: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1756470233: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1756472034: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1756473834: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1756475635: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1756477436: Saving in-memory database to /mosquitto/data//mosquitto.db.

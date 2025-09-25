@@ -1,0 +1,44 @@
+{
+  "mqtt_version": "3.1.1",
+  "broker_version": "Eclipse Mosquitto 2.x",
+  "client_library": "paho-mqtt 1.6.1",
+  "connection": {
+    "protocol": "WebSocket Secure (WSS)",
+    "url": "[Your ngrok URL here - changes on restart]",
+    "port": 443,
+    "username": "mock_tvs",
+    "password": "Twinzo2025!@#",
+    "topic": "ati_fm/sherpa/status",
+    "qos": 1,
+    "keep_alive": 60
+  },
+  "data_format": {
+    "content_type": "application/json",
+    "encoding": "utf-8",
+    "frequency": "10Hz per device (3 devices = ~30 messages/second)",
+    "sample_message": {
+      "sherpa_name": "tugger-01",
+      "mode": "Fleet",
+      "error": "",
+      "disabled": false,
+      "disabled_reason": "",
+      "pose": [220000.0, 209000.0, 0.0, 0.0, 0.0, 1.57],
+      "battery_status": 79.0,
+      "trip_id": 1001,
+      "trip_leg_id": 5001
+    }
+  },
+  "field_mapping": {
+    "sherpa_name": "Device ID/Login",
+    "pose[0]": "X coordinate (meters)",
+    "pose[1]": "Y coordinate (meters)", 
+    "pose[2]": "Z coordinate (meters)",
+    "pose[5]": "Heading/Yaw (radians)",
+    "battery_status": "Battery percentage (0-100)",
+    "mode": "Operating mode/status",
+    "disabled": "Device active status (invert for is_active)",
+    "error": "Error message",
+    "trip_id": "Current trip identifier",
+    "trip_leg_id": "Current leg identifier"
+  }
+}
