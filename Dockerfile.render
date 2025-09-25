@@ -1,0 +1,43 @@
+# Render MQTT Broker Dockerfile
+# Optimized for Render free tier deployment
+
+FROM eclipse-mosquitto:2.0.18
+
+# Install curl for health checks
+USER root
+RUN apk add --no-cache curl
+
+# Create necessary directories
+RUN mkdir -p /mosquitto/data /mosquitto/log /mosquitto/config
+
+# Copy configuration files
+COPY render-config/mosquitto.conf /mosquitto/config/mosquitto.conf
+COPY render-config/passwd /mosquitto/config/passwd
+COPY render-config/acl.conf /mosquitto/config/acl.conf
+
+# Copy health check script
+COPY render-config/health-check.sh /usr/local/bin/health-check.sh
+RUN chmod +x /usr/local/bin/health-check.sh
+
+# Set proper permissions
+RUN chown -R mosquitto:mosquitto /mosquitto/data /mosquitto/log /mosquitto/config
+RUN chmod 600 /mosquitto/config/passwd /mosquitto/config/acl.conf
+
+# Create health endpoint handler
+COPY render-config/health-server.py /usr/local/bin/health-server.py
+RUN apk add --no-cache python3 py3-pip
+RUN pip3 install flask
+
+# Expose ports (Render will map to 443/80)
+EXPOSE 1883 9001 8080
+
+# Use mosquitto user
+USER mosquitto
+
+# Start script that runs both mosquitto and health server
+COPY render-config/start.sh /usr/local/bin/start.sh
+USER root
+RUN chmod +x /usr/local/bin/start.sh
+USER mosquitto
+
+CMD ["/usr/local/bin/start.sh"]
