@@ -1,11 +1,12 @@
 # Render MQTT Broker Dockerfile
-# Optimized for Render free tier deployment
+# Simplified for Render deployment
 
 FROM eclipse-mosquitto:2.0.18
 
-# Install curl for health checks
+# Install required packages
 USER root
-RUN apk add --no-cache curl
+RUN apk add --no-cache curl python3 py3-pip
+RUN pip3 install flask
 
 # Create necessary directories
 RUN mkdir -p /mosquitto/data /mosquitto/log /mosquitto/config
@@ -15,29 +16,24 @@ COPY render-config/mosquitto.conf /mosquitto/config/mosquitto.conf
 COPY render-config/passwd /mosquitto/config/passwd
 COPY render-config/acl.conf /mosquitto/config/acl.conf
 
-# Copy health check script
-COPY render-config/health-check.sh /usr/local/bin/health-check.sh
-RUN chmod +x /usr/local/bin/health-check.sh
+# Copy health server
+COPY render-config/health-server.py /usr/local/bin/health-server.py
 
 # Set proper permissions
 RUN chown -R mosquitto:mosquitto /mosquitto/data /mosquitto/log /mosquitto/config
 RUN chmod 600 /mosquitto/config/passwd /mosquitto/config/acl.conf
+RUN chmod +x /usr/local/bin/health-server.py
 
-# Create health endpoint handler
-COPY render-config/health-server.py /usr/local/bin/health-server.py
-RUN apk add --no-cache python3 py3-pip
-RUN pip3 install flask
-
-# Expose ports (Render will map to 443/80)
+# Expose ports
 EXPOSE 1883 9001 8080
 
-# Use mosquitto user
-USER mosquitto
+# Create simple start script inline
+RUN echo '#!/bin/sh' > /usr/local/bin/start.sh && \
+    echo 'python3 /usr/local/bin/health-server.py &' >> /usr/local/bin/start.sh && \
+    echo 'exec /usr/sbin/mosquitto -c /mosquitto/config/mosquitto.conf' >> /usr/local/bin/start.sh && \
+    chmod +x /usr/local/bin/start.sh
 
-# Start script that runs both mosquitto and health server
-COPY render-config/start.sh /usr/local/bin/start.sh
-USER root
-RUN chmod +x /usr/local/bin/start.sh
+# Switch to mosquitto user
 USER mosquitto
 
 CMD ["/usr/local/bin/start.sh"]
