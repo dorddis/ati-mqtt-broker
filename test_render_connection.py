@@ -18,8 +18,8 @@ def on_message(client, userdata, msg):
     print(f"📨 Received: {msg.topic} -> {msg.payload.decode()}")
 
 def main():
-    # Replace with your actual Render URL
-    RENDER_URL = "your-app-name.onrender.com"  # Update this!
+    # Your actual Render URL
+    RENDER_URL = "ati-mqtt-broker.onrender.com"
 
     client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2, transport="websockets")
     client.username_pw_set("ati_user", "ati_password_123")
