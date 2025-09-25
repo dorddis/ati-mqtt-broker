@@ -27,9 +27,8 @@ RUN chmod +x /usr/local/bin/health-server.py
 # Expose ports (8080 is primary for Render WebSocket)
 EXPOSE 8080 1883
 
-# Create simple start script inline
+# Create simple start script - only mosquitto (WebSocket on 8080)
 RUN echo '#!/bin/sh' > /usr/local/bin/start.sh && \
-    echo 'python3 /usr/local/bin/health-server.py &' >> /usr/local/bin/start.sh && \
     echo 'exec /usr/sbin/mosquitto -c /mosquitto/config/mosquitto.conf' >> /usr/local/bin/start.sh && \
     chmod +x /usr/local/bin/start.sh
 
