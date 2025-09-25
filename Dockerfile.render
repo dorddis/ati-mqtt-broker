@@ -5,8 +5,7 @@ FROM eclipse-mosquitto:2.0.21
 
 # Install required packages
 USER root
-RUN apk add --no-cache curl python3 py3-pip
-RUN pip3 install flask
+RUN apk add --no-cache curl python3 py3-flask
 
 # Create necessary directories
 RUN mkdir -p /mosquitto/data /mosquitto/log /mosquitto/config
