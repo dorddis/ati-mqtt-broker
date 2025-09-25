@@ -23,8 +23,8 @@ RUN chown -R mosquitto:mosquitto /mosquitto/data /mosquitto/log /mosquitto/confi
 RUN chmod 600 /mosquitto/config/passwd /mosquitto/config/acl.conf
 RUN chmod +x /usr/local/bin/health-server.py
 
-# Expose ports
-EXPOSE 1883 9001 8080
+# Expose ports (8080 is primary for Render WebSocket)
+EXPOSE 8080 1883
 
 # Create simple start script inline
 RUN echo '#!/bin/sh' > /usr/local/bin/start.sh && \
