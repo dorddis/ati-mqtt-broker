@@ -1,0 +1,11 @@
+{
+  "build": {
+    "builder": "dockerfile",
+    "dockerfilePath": "Dockerfile"
+  },
+  "deploy": {
+    "startCommand": "mosquitto -c /mosquitto/config/mosquitto.conf",
+    "healthcheckPath": "/health",
+    "healthcheckTimeout": 10
+  }
+}

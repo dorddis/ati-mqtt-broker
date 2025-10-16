@@ -5,18 +5,29 @@ This project provides a complete MQTT-based system for mocking and bridging AMR 
 ## Project Structure
 
 ### Core Components
-- **`publisher/`** - Mock AMR data generator with realistic movement patterns
-- **`bridge/`** - MQTT-to-Twinzo REST API bridge with OAuth authentication
-- **`mosquitto/`** - MQTT broker configuration and data persistence
+- **`src/`** - Core application code
+  - `publisher/` - Mock AMR data generator with realistic movement patterns
+  - `bridge/` - MQTT-to-Twinzo REST API bridge with OAuth authentication
+  - `common/` - Shared utilities
+- **`config/`** - Configuration files
+  - `mosquitto/` - MQTT broker configuration
+  - `mappings/` - Device, field, and topic mappings
+  - `environments/` - Environment-specific configs
 
-### TVS Integration Tools
-- **`tvs_real_data_subscriber.py`** - Connect to real TVS MQTT broker and capture AMR data
-- **`data_structure_comparison.py`** - Analyze differences between mock and real data
-- **Configuration files** - Field mapping, device mapping, topic mapping for integration
+### Integrations
+- **`integrations/`** - External system integrations
+  - `tvs/` - TVS MQTT broker integration
+  - `ati/` - ATI platform integration
+  - `twinzo/` - Twinzo API utilities
 
-### Utilities
-- **`expose_mqtt.py`** - Expose local MQTT broker via ngrok tunnel
-- **Test clients** - Various test clients for different scenarios
+### Testing & Scripts
+- **`tests/`** - All test files (unit, integration, mqtt, tvs, ati, render)
+- **`scripts/`** - Utility scripts (setup, monitoring, deployment, verification, utils)
+
+### Documentation & Deployment
+- **`docs/`** - All documentation (guides, integrations, deployment, project, reference)
+- **`deployments/`** - Deployment configs (docker, railway, render, ngrok)
+- **`archive/`** - Deprecated files preserved for reference
 
 ## Key Commands
 
@@ -37,29 +48,32 @@ docker-compose build --no-cache
 
 ### Testing and Monitoring
 ```bash
+# Monitor Twinzo integration
+python -X utf8 scripts/monitoring/monitor_twinzo.py
+
 # Test connection to TVS broker (when AMRs are online)
-python -X utf8 tvs_real_data_subscriber.py
+python -X utf8 integrations/tvs/tvs_real_data_subscriber.py
 
 # Run data structure comparison
-python -X utf8 data_structure_comparison.py
+python -X utf8 tests/tvs/data_structure_comparison.py
 
 # Expose broker to external clients
-python -X utf8 expose_mqtt.py
+python -X utf8 scripts/utils/expose_mqtt.py
 
 # Test local MQTT connection
-python -X utf8 twinzo_test_client.py
+python -X utf8 integrations/twinzo/twinzo_test_client.py
 ```
 
 ### Development Tools
 ```bash
 # Verify system setup
-python -X utf8 verify_system.py
+python -X utf8 scripts/verification/verify_system.py
 
 # Test MQTT credentials
-python -X utf8 verify_credentials.py
+python -X utf8 scripts/verification/verify_credentials.py
 
 # Simple MQTT test
-python -X utf8 simple_mqtt_test.py
+python -X utf8 tests/mqtt/simple_mqtt_test.py
 ```
 
 ## Environment Variables
@@ -181,3 +195,27 @@ mosquitto_sub -h localhost -p 1883 -t "#"
 - Validate and sanitize all external data inputs
 - Use TLS for all external communications
 - Implement proper error handling to avoid information leakage
+
+## File Organization
+
+The codebase has been refactored into a clean, organized structure:
+
+### Navigation Tips
+- **Starting point**: See README.md in the root and docs/README.md for documentation index
+- **Running tests**: All tests are in tests/ organized by type
+- **Scripts**: All utility scripts are in scripts/ organized by purpose
+- **Integration code**: External integrations are in integrations/
+- **Documentation**: All docs are in docs/ organized by category
+- **Archive**: Old/deprecated files are in archive/ - check here before recreating old solutions
+
+### Quick Reference
+- Production code: `src/`
+- Configuration: `config/`
+- Tests: `tests/`
+- Scripts: `scripts/`
+- Docs: `docs/`
+- Deployments: `deployments/`
+- Integrations: `integrations/`
+- Archive: `archive/`
+
+Each major directory has its own README.md explaining its contents and usage.

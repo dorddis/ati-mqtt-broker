@@ -1,0 +1,24 @@
+version: '3.8'
+services:
+  ati-mqtt-broker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ati-mqtt-railway
+    ports:
+    - ${PORT:-1883}:1883
+    - 9001:9001
+    environment:
+    - MQTT_USERNAME=${MQTT_USERNAME:-ati_user}
+    - MQTT_PASSWORD=${MQTT_PASSWORD:-ati_password_123}
+    volumes:
+    - ./data:/mosquitto/data
+    restart: unless-stopped
+    healthcheck:
+      test:
+      - CMD-SHELL
+      - mosquitto_pub -h localhost -p 1883 -t health -m ok
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s

@@ -6,13 +6,13 @@ services:
       - "1883:1883"        # MQTT (no TLS for first run)
       - "9001:9001"        # WebSockets (optional; disabled below)
     volumes:
-      - ./mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf:ro
-      - ./mosquitto/data:/mosquitto/data
-      - ./mosquitto/log:/mosquitto/log
+      - ./config/mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf:ro
+      - ./config/mosquitto/data:/mosquitto/data
+      - ./config/mosquitto/log:/mosquitto/log
     restart: unless-stopped
 
   publisher:
-    build: ./publisher
+    build: ./src/publisher
     container_name: mock-publisher
     environment:
       # Broker inside this compose network:
@@ -35,7 +35,7 @@ services:
     restart: unless-stopped
 
   bridge:
-    build: ./bridge
+    build: ./src/bridge
     container_name: mock-rest-bridge
     environment:
       # MQTT (talks to the broker service in the same compose network)

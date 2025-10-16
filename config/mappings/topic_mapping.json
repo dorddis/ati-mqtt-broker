@@ -1,0 +1,15 @@
+{
+  "patterns": [
+    "amr/+/status",
+    "amr/+/position",
+    "tug/+/status",
+    "robot/+/position",
+    "fleet/+/status"
+  ],
+  "mapping": {
+    "amr/{device}/status": "status",
+    "amr/{device}/position": "position",
+    "tug/{device}/status": "status",
+    "robot/{device}/position": "position"
+  }
+}
