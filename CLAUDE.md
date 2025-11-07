@@ -82,6 +82,28 @@ python -X utf8 tests/integration/test_multi_plant_streaming.py
 python -X utf8 check_hivemq_data.py
 ```
 
+### Device Management
+
+Manage Twinzo devices programmatically via API:
+
+```bash
+# List all devices in both plants
+python -X utf8 scripts/utils/manage_twinzo_devices.py list
+
+# List devices in specific plant
+python -X utf8 scripts/utils/manage_twinzo_devices.py list hitech
+python -X utf8 scripts/utils/manage_twinzo_devices.py list old
+
+# Create new device in HiTech plant
+python -X utf8 scripts/utils/manage_twinzo_devices.py create tugger-10 hitech --title "Tugger 10"
+
+# Create new device in Old Plant
+python -X utf8 scripts/utils/manage_twinzo_devices.py create tugger-07-old old --title "Tugger 07 Old"
+
+# Delete device (use ID from list command)
+python -X utf8 scripts/utils/manage_twinzo_devices.py delete 13 hitech
+```
+
 ## Production Deployment
 
 ### Multi-Plant Architecture
