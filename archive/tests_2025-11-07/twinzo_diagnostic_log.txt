@@ -1,0 +1,1316 @@
+TWINZO COMPREHENSIVE DIAGNOSTIC
+Started: 2025-11-07T09:40:20.947990
+====================================================================================================
+
+STARTING COMPREHENSIVE DIAGNOSTIC
+Log file: twinzo_diagnostic_log.txt
+
+====================================================================================================
+PART 1: AUTHENTICATE ALL TEST DEVICES
+====================================================================================================
+
+====================================================================================================
+API CALL: Authenticate tugger-01
+====================================================================================================
+Method: POST
+URL: https://api.platform.twinzo.com/v3/authorization/authenticate
+Headers: {
+  "Content-Type": "application/json",
+  "Accept": "application/json"
+}
+Request Body: {
+  "client": "TVSMotor",
+  "login": "tugger-01",
+  "password": "Tvs@Hosur$2025"
+}
+
+Response Status: 200
+Response Headers: {
+  "Server": "nginx/1.29.0",
+  "Date": "Fri, 07 Nov 2025 04:10:20 GMT",
+  "Content-Type": "application/json; charset=utf-8",
+  "Transfer-Encoding": "chunked",
+  "Connection": "keep-alive",
+  "Content-Encoding": "br",
+  "Vary": "Accept-Encoding"
+}
+Response Body (JSON):
+{
+  "Client": "a3960903-00c2-4f39-9727-c5fa745eabb7",
+  "Token": "s+016qbvOn2bvCTumizjX7XIIdbGrA1J5LGr6c7Drk4=",
+  "Expiration": 1762575020483,
+  "Created": 1762488620487,
+  "Branch": "dcac4881-05ab-4f29-b0df-79c40df9c9c2"
+}
+
+✓ tugger-01 authenticated successfully
+  Client: a3960903-00c2-4f39-9727-c5fa745eabb7
+  Branch: dcac4881-05ab-4f29-b0df-79c40df9c9c2
+  Token: s+016qbvOn2bvCTumizjX7XIIdbGrA1J5LGr6c7Drk4=...
+
+====================================================================================================
+API CALL: Authenticate tugger-02
+====================================================================================================
+Method: POST
+URL: https://api.platform.twinzo.com/v3/authorization/authenticate
+Headers: {
+  "Content-Type": "application/json",
+  "Accept": "application/json"
+}
+Request Body: {
+  "client": "TVSMotor",
+  "login": "tugger-02",
+  "password": "Tvs@Hosur$2025"
+}
+
+Response Status: 200
+Response Headers: {
+  "Server": "nginx/1.29.0",
+  "Date": "Fri, 07 Nov 2025 04:10:21 GMT",
+  "Content-Type": "application/json; charset=utf-8",
+  "Transfer-Encoding": "chunked",
+  "Connection": "keep-alive",
+  "Content-Encoding": "br",
+  "Vary": "Accept-Encoding"
+}
+Response Body (JSON):
+{
+  "Client": "a3960903-00c2-4f39-9727-c5fa745eabb7",
+  "Token": "YIKZg3dNAnKmWSr+AR+BKOcpXJuoSlKLeF10TqRJhRo=",
+  "Expiration": 1762575021042,
+  "Created": 1762488621046,
+  "Branch": "dcac4881-05ab-4f29-b0df-79c40df9c9c2"
+}
+
+✓ tugger-02 authenticated successfully
+  Client: a3960903-00c2-4f39-9727-c5fa745eabb7
+  Branch: dcac4881-05ab-4f29-b0df-79c40df9c9c2
+  Token: YIKZg3dNAnKmWSr+AR+BKOcpXJuoSlKLeF10TqRJhRo=...
+
+====================================================================================================
+API CALL: Authenticate tugger-03
+====================================================================================================
+Method: POST
+URL: https://api.platform.twinzo.com/v3/authorization/authenticate
+Headers: {
+  "Content-Type": "application/json",
+  "Accept": "application/json"
+}
+Request Body: {
+  "client": "TVSMotor",
+  "login": "tugger-03",
+  "password": "Tvs@Hosur$2025"
+}
+
+Response Status: 200
+Response Headers: {
+  "Server": "nginx/1.29.0",
+  "Date": "Fri, 07 Nov 2025 04:10:21 GMT",
+  "Content-Type": "application/json; charset=utf-8",
+  "Transfer-Encoding": "chunked",
+  "Connection": "keep-alive",
+  "Content-Encoding": "br",
+  "Vary": "Accept-Encoding"
+}
+Response Body (JSON):
+{
+  "Client": "a3960903-00c2-4f39-9727-c5fa745eabb7",
+  "Token": "hZ86bk7Dlim+SjgDtkbQ4xjlx544LyETwIVdgxf+IxI=",
+  "Expiration": 1762575021571,
+  "Created": 1762488621575,
+  "Branch": "dcac4881-05ab-4f29-b0df-79c40df9c9c2"
+}
+
+✓ tugger-03 authenticated successfully
+  Client: a3960903-00c2-4f39-9727-c5fa745eabb7
+  Branch: dcac4881-05ab-4f29-b0df-79c40df9c9c2
+  Token: hZ86bk7Dlim+SjgDtkbQ4xjlx544LyETwIVdgxf+IxI=...
+
+====================================================================================================
+PART 2: FETCH ALL BRANCHES
+====================================================================================================
+
+====================================================================================================
+API CALL: Get all branches
+====================================================================================================
+Method: GET
+URL: https://api.platform.twinzo.com/v3/branches
+Headers: {
+  "Content-Type": "application/json",
+  "Accept": "application/json",
+  "Client": "a3960903-00c2-4f39-9727-c5fa745eabb7",
+  "Branch": "dcac4881-05ab-4f29-b0df-79c40df9c9c2",
+  "Token": "s+016qbvOn2bvCTumizjX7XIIdbGrA1J5LGr6c7Drk4=",
+  "Api-Key": "sq29vSdYEribAbJjPc93FwNvk8ndo53P2yoAsS6S"
+}
+
+Response Status: 200
+Response Headers: {
+  "Server": "nginx/1.29.0",
+  "Date": "Fri, 07 Nov 2025 04:10:22 GMT",
+  "Content-Type": "application/json; charset=utf-8",
+  "Transfer-Encoding": "chunked",
+  "Connection": "keep-alive",
+  "Content-Encoding": "br",
+  "Vary": "Accept-Encoding"
+}
+Response Body (JSON):
+[
+  {
+    "Id": 1,
+    "Title": "Plant 4 - HiTech ",
+    "Guid": "dcac4881-05ab-4f29-b0df-79c40df9c9c2",
+    "TimeZone": "Asia/Kolkata",
+    "Latitude": 12.73943,
+    "Longitude": 77.78649,
+    "Sectors": [],
+    "AdressLine1": "Amritha, Hosur,",
+    "AdressLine2": "",
+    "Country": "India",
+    "City": "Tamil Nadu",
+    "ZipCode": "635126"
+  },
+  {
+    "Id": 2,
+    "Title": "Plant 1 - Oldest Orignal ",
+    "Guid": "40557468-2d57-4a3d-9a5e-3eede177daf5",
+    "TimeZone": "Asia/Kolkata",
+    "Latitude": 11.081535,
+    "Longitude": 78.82665,
+    "Sectors": [],
+    "AdressLine1": "Hosur",
+    "Country": "India"
+  }
+]
+
+====================================================================================================
+PART 3: FETCH ALL SECTORS
+====================================================================================================
+
+====================================================================================================
+API CALL: Get all sectors
+====================================================================================================
+Method: GET
+URL: https://api.platform.twinzo.com/v3/sectors
+Headers: {
+  "Content-Type": "application/json",
+  "Accept": "application/json",
+  "Client": "a3960903-00c2-4f39-9727-c5fa745eabb7",
+  "Branch": "dcac4881-05ab-4f29-b0df-79c40df9c9c2",
+  "Token": "s+016qbvOn2bvCTumizjX7XIIdbGrA1J5LGr6c7Drk4=",
+  "Api-Key": "sq29vSdYEribAbJjPc93FwNvk8ndo53P2yoAsS6S"
+}
+
+Response Status: 200
+Response Headers: {
+  "Server": "nginx/1.29.0",
+  "Date": "Fri, 07 Nov 2025 04:10:22 GMT",
+  "Content-Type": "application/json; charset=utf-8",
+  "Transfer-Encoding": "chunked",
+  "Connection": "keep-alive",
+  "Content-Encoding": "br",
+  "Vary": "Accept-Encoding"
+}
+Response Body (JSON):
+[
+  {
+    "Id": 1,
+    "Guid": "8010257b-d416-43e2-b1a3-cc98604bb117",
+    "BranchId": 1,
+    "Title": "Sector 1",
+    "BarrierHeight": 1000,
+    "BarrierWidth": 1000,
+    "SectorWidth": 265337.97,
+    "SectorHeight": 265337.97,
+    "Modified": 1761905080018,
+    "GpsItems": [],
+    "Areas": [],
+    "Barriers": [],
+    "Beacons": [],
+    "Sensors": [],
+    "Paths": [],
+    "Floor": 0,
+    "FloorName": "GND"
+  }
+]
+
+====================================================================================================
+PART 4: FETCH ALL DEVICES
+====================================================================================================
+
+====================================================================================================
+API CALL: Get all devices
+====================================================================================================
+Method: GET
+URL: https://api.platform.twinzo.com/v3/devices
+Headers: {
+  "Content-Type": "application/json",
+  "Accept": "application/json",
+  "Client": "a3960903-00c2-4f39-9727-c5fa745eabb7",
+  "Branch": "dcac4881-05ab-4f29-b0df-79c40df9c9c2",
+  "Token": "s+016qbvOn2bvCTumizjX7XIIdbGrA1J5LGr6c7Drk4=",
+  "Api-Key": "sq29vSdYEribAbJjPc93FwNvk8ndo53P2yoAsS6S"
+}
+
+Response Status: 200
+Response Headers: {
+  "Server": "nginx/1.29.0",
+  "Date": "Fri, 07 Nov 2025 04:10:23 GMT",
+  "Content-Type": "application/json; charset=utf-8",
+  "Transfer-Encoding": "chunked",
+  "Connection": "keep-alive",
+  "Content-Encoding": "br",
+  "Vary": "Accept-Encoding"
+}
+Response Body (JSON):
+[
+  {
+    "Id": 4,
+    "Mac": "f4:7b:09:0e:04:1b",
+    "BranchId": 1,
+    "SectorId": 2,
+    "Title": "tugger-01",
+    "Note": "Tug 133",
+    "LastTimeOnline": 1762486530462,
+    "X": 200000,
+    "Y": 200000,
+    "AppVersion": "3.3.6",
+    "IsMoving": true,
+    "FallStatus": "OK",
+    "Battery": 85,
+    "DeviceTypeId": 2,
+    "Login": "tugger-01",
+    "Position": false,
+    "Geofence": false,
+    "Layers": [],
+    "Color": "#7a2626",
+    "Z": 0
+  },
+  {
+    "Id": 5,
+    "Mac": "10:3d:1c:66:67:55",
+    "BranchId": 1,
+    "SectorId": 2,
+    "Title": "tugger-02",
+    "Note": "Tug 39",
+    "LastTimeOnline": 1762486154732,
+    "X": 61271.39,
+    "Y": 89995.266,
+    "AppVersion": "3.3.6",
+    "IsMoving": true,
+    "FallStatus": "OK",
+    "Battery": 85,
+    "DeviceTypeId": 9,
+    "Login": "tugger-02",
+    "Position": false,
+    "Geofence": false,
+    "Layers": [],
+    "Color": "#e4ff7a",
+    "Z": 0
+  },
+  {
+    "Id": 6,
+    "Mac": "f4:4e:e3:f6:c7:91",
+    "BranchId": 1,
+    "SectorId": 2,
+    "Title": "tugger-03",
+    "Note": "Tug 55",
+    "LastTimeOnline": 1762486155587,
+    "X": 128028.66,
+    "Y": 71462.41,
+    "AppVersion": "3.3.6",
+    "IsMoving": true,
+    "FallStatus": "OK",
+    "Battery": 85,
+    "DeviceTypeId": 8,
+    "Login": "tugger-03",
+    "Position": false,
+    "Geofence": false,
+    "Layers": [],
+    "Color": "#4551c4",
+    "Z": 0
+  },
+  {
+    "Id": 7,
+    "Mac": "ec:2e:98:4a:7c:f7",
+    "BranchId": 1,
+    "SectorId": 1,
+    "Title": "tugger-04",
+    "Note": "Tug78",
+    "LastTimeOnline": 1762164485826,
+    "X": 158826.34,
+    "Y": 109563.23,
+    "AppVersion": "3.3.6",
+    "IsMoving": true,
+    "FallStatus": "OK",
+    "Battery": 53,
+    "DeviceTypeId": 9,
+    "Login": "tugger-04",
+    "Position": false,
+    "Geofence": false,
+    "Layers": [],
+    "Color": "#ad8e55",
+    "Z": 0
+  },
+  {
+    "Id": 8,
+    "Mac": "04:00:00:00:00:00",
+    "BranchId": 1,
+    "SectorId": 1,
+    "Title": "dzdB2rvp3k",
+    "Note": "Test mobile device",
+    "LastTimeOnline": 1758355280195,
+    "AppVersion": "3.3.6",
+    "IsMoving": true,
+    "FallStatus": "OK",
+    "Battery": 61,
+    "DeviceTypeId": 6,
+    "Login": "dzdB2rvp3k",
+    "Position": true,
+    "Geofence": false,
+    "Layers": [],
+    "DeviceStatus": "[]",
+    "Heartbeat": 1758355520157,
+    "Color": "#7d1313",
+    "Z": 0
+  },
+  {
+    "Id": 9,
+    "Mac": "04:00:00:00:00:00",
+    "BranchId": 1,
+    "Title": "kjuSXGs4Y9",
+    "LastTimeOnline": 1758358160487,
+    "AppVersion": "3.4.6",
+    "IsMoving": true,
+    "FallStatus": "OK",
+    "Battery": 66,
+    "Login": "kjuSXGs4Y9",
+    "Position": false,
+    "Geofence": false,
+    "Layers": [],
+    "DeviceStatus": "[]",
+    "Heartbeat": 1758358156523,
+    "Z": 0
+  },
+  {
+    "Id": 10,
+    "BranchId": 1,
+    "Title": "hitech-amr-01",
+    "X": 0,
+    "Y": 0,
+    "IsMoving": false,
+    "FallStatus": "OK",
+    "DeviceTypeId": 9,
+    "Login": "hitech-amr-01",
+    "Position": false,
+    "Geofence": false,
+    "Layers": [],
+    "Z": 0
+  }
+]
+
+====================================================================================================
+PART 5: TRY FETCHING BRANCH-SPECIFIC DATA
+====================================================================================================
+
+--- Trying to access Branch 1: Plant 4 - HiTech  ---
+
+====================================================================================================
+API CALL: Get Branch 1 by ID
+====================================================================================================
+Method: GET
+URL: https://api.platform.twinzo.com/v3/branches/1
+Headers: {
+  "Content-Type": "application/json",
+  "Accept": "application/json",
+  "Client": "a3960903-00c2-4f39-9727-c5fa745eabb7",
+  "Branch": "dcac4881-05ab-4f29-b0df-79c40df9c9c2",
+  "Token": "s+016qbvOn2bvCTumizjX7XIIdbGrA1J5LGr6c7Drk4=",
+  "Api-Key": "sq29vSdYEribAbJjPc93FwNvk8ndo53P2yoAsS6S"
+}
+
+Response Status: 200
+Response Headers: {
+  "Server": "nginx/1.29.0",
+  "Date": "Fri, 07 Nov 2025 04:10:23 GMT",
+  "Content-Type": "application/json; charset=utf-8",
+  "Transfer-Encoding": "chunked",
+  "Connection": "keep-alive",
+  "Content-Encoding": "br",
+  "Vary": "Accept-Encoding"
+}
+Response Body (JSON):
+{
+  "Id": 1,
+  "Title": "Plant 4 - HiTech ",
+  "Guid": "dcac4881-05ab-4f29-b0df-79c40df9c9c2",
+  "TimeZone": "Asia/Kolkata",
+  "Latitude": 12.73943,
+  "Longitude": 77.78649,
+  "Sectors": [],
+  "AdressLine1": "Amritha, Hosur,",
+  "AdressLine2": "",
+  "Country": "India",
+  "City": "Tamil Nadu",
+  "ZipCode": "635126"
+}
+
+====================================================================================================
+API CALL: Get Branch 1 by GUID
+====================================================================================================
+Method: GET
+URL: https://api.platform.twinzo.com/v3/branches/dcac4881-05ab-4f29-b0df-79c40df9c9c2
+Headers: {
+  "Content-Type": "application/json",
+  "Accept": "application/json",
+  "Client": "a3960903-00c2-4f39-9727-c5fa745eabb7",
+  "Branch": "dcac4881-05ab-4f29-b0df-79c40df9c9c2",
+  "Token": "s+016qbvOn2bvCTumizjX7XIIdbGrA1J5LGr6c7Drk4=",
+  "Api-Key": "sq29vSdYEribAbJjPc93FwNvk8ndo53P2yoAsS6S"
+}
+
+Response Status: 404
+Response Headers: {
+  "Server": "nginx/1.29.0",
+  "Date": "Fri, 07 Nov 2025 04:10:24 GMT",
+  "Content-Length": "0",
+  "Connection": "keep-alive"
+}
+Response Body (Raw Text): 
+
+====================================================================================================
+API CALL: Get sectors for Branch 1
+====================================================================================================
+Method: GET
+URL: https://api.platform.twinzo.com/v3/sectors?branchId=1
+Headers: {
+  "Content-Type": "application/json",
+  "Accept": "application/json",
+  "Client": "a3960903-00c2-4f39-9727-c5fa745eabb7",
+  "Branch": "dcac4881-05ab-4f29-b0df-79c40df9c9c2",
+  "Token": "s+016qbvOn2bvCTumizjX7XIIdbGrA1J5LGr6c7Drk4=",
+  "Api-Key": "sq29vSdYEribAbJjPc93FwNvk8ndo53P2yoAsS6S"
+}
+
+Response Status: 200
+Response Headers: {
+  "Server": "nginx/1.29.0",
+  "Date": "Fri, 07 Nov 2025 04:10:24 GMT",
+  "Content-Type": "application/json; charset=utf-8",
+  "Transfer-Encoding": "chunked",
+  "Connection": "keep-alive",
+  "Content-Encoding": "br",
+  "Vary": "Accept-Encoding"
+}
+Response Body (JSON):
+[
+  {
+    "Id": 1,
+    "Guid": "8010257b-d416-43e2-b1a3-cc98604bb117",
+    "BranchId": 1,
+    "Title": "Sector 1",
+    "BarrierHeight": 1000,
+    "BarrierWidth": 1000,
+    "SectorWidth": 265337.97,
+    "SectorHeight": 265337.97,
+    "Modified": 1761905080018,
+    "GpsItems": [],
+    "Areas": [],
+    "Barriers": [],
+    "Beacons": [],
+    "Sensors": [],
+    "Paths": [],
+    "Floor": 0,
+    "FloorName": "GND"
+  }
+]
+
+--- Trying to access Branch 2: Plant 1 - Oldest Orignal  ---
+
+====================================================================================================
+API CALL: Get Branch 2 by ID
+====================================================================================================
+Method: GET
+URL: https://api.platform.twinzo.com/v3/branches/2
+Headers: {
+  "Content-Type": "application/json",
+  "Accept": "application/json",
+  "Client": "a3960903-00c2-4f39-9727-c5fa745eabb7",
+  "Branch": "dcac4881-05ab-4f29-b0df-79c40df9c9c2",
+  "Token": "s+016qbvOn2bvCTumizjX7XIIdbGrA1J5LGr6c7Drk4=",
+  "Api-Key": "sq29vSdYEribAbJjPc93FwNvk8ndo53P2yoAsS6S"
+}
+
+Response Status: 200
+Response Headers: {
+  "Server": "nginx/1.29.0",
+  "Date": "Fri, 07 Nov 2025 04:10:25 GMT",
+  "Content-Type": "application/json; charset=utf-8",
+  "Transfer-Encoding": "chunked",
+  "Connection": "keep-alive",
+  "Content-Encoding": "br",
+  "Vary": "Accept-Encoding"
+}
+Response Body (JSON):
+{
+  "Id": 2,
+  "Title": "Plant 1 - Oldest Orignal ",
+  "Guid": "40557468-2d57-4a3d-9a5e-3eede177daf5",
+  "TimeZone": "Asia/Kolkata",
+  "Latitude": 11.081535,
+  "Longitude": 78.82665,
+  "Sectors": [],
+  "AdressLine1": "Hosur",
+  "Country": "India"
+}
+
+====================================================================================================
+API CALL: Get Branch 2 by GUID
+====================================================================================================
+Method: GET
+URL: https://api.platform.twinzo.com/v3/branches/40557468-2d57-4a3d-9a5e-3eede177daf5
+Headers: {
+  "Content-Type": "application/json",
+  "Accept": "application/json",
+  "Client": "a3960903-00c2-4f39-9727-c5fa745eabb7",
+  "Branch": "dcac4881-05ab-4f29-b0df-79c40df9c9c2",
+  "Token": "s+016qbvOn2bvCTumizjX7XIIdbGrA1J5LGr6c7Drk4=",
+  "Api-Key": "sq29vSdYEribAbJjPc93FwNvk8ndo53P2yoAsS6S"
+}
+
+Response Status: 404
+Response Headers: {
+  "Server": "nginx/1.29.0",
+  "Date": "Fri, 07 Nov 2025 04:10:25 GMT",
+  "Content-Length": "0",
+  "Connection": "keep-alive"
+}
+Response Body (Raw Text): 
+
+====================================================================================================
+API CALL: Get sectors for Branch 2
+====================================================================================================
+Method: GET
+URL: https://api.platform.twinzo.com/v3/sectors?branchId=2
+Headers: {
+  "Content-Type": "application/json",
+  "Accept": "application/json",
+  "Client": "a3960903-00c2-4f39-9727-c5fa745eabb7",
+  "Branch": "dcac4881-05ab-4f29-b0df-79c40df9c9c2",
+  "Token": "s+016qbvOn2bvCTumizjX7XIIdbGrA1J5LGr6c7Drk4=",
+  "Api-Key": "sq29vSdYEribAbJjPc93FwNvk8ndo53P2yoAsS6S"
+}
+
+Response Status: 200
+Response Headers: {
+  "Server": "nginx/1.29.0",
+  "Date": "Fri, 07 Nov 2025 04:10:25 GMT",
+  "Content-Type": "application/json; charset=utf-8",
+  "Transfer-Encoding": "chunked",
+  "Connection": "keep-alive",
+  "Content-Encoding": "br",
+  "Vary": "Accept-Encoding"
+}
+Response Body (JSON):
+[
+  {
+    "Id": 1,
+    "Guid": "8010257b-d416-43e2-b1a3-cc98604bb117",
+    "BranchId": 1,
+    "Title": "Sector 1",
+    "BarrierHeight": 1000,
+    "BarrierWidth": 1000,
+    "SectorWidth": 265337.97,
+    "SectorHeight": 265337.97,
+    "Modified": 1761905080018,
+    "GpsItems": [],
+    "Areas": [],
+    "Barriers": [],
+    "Beacons": [],
+    "Sensors": [],
+    "Paths": [],
+    "Floor": 0,
+    "FloorName": "GND"
+  }
+]
+
+====================================================================================================
+PART 6: TEST POSTING LOCALIZATION DATA
+====================================================================================================
+
+====================================================================================================
+API CALL: Post to Sector 1 at (100m, 100m)
+====================================================================================================
+Method: POST
+URL: https://api.platform.twinzo.com/v3/localization
+Headers: {
+  "Content-Type": "application/json",
+  "Accept": "application/json",
+  "Client": "a3960903-00c2-4f39-9727-c5fa745eabb7",
+  "Branch": "dcac4881-05ab-4f29-b0df-79c40df9c9c2",
+  "Token": "s+016qbvOn2bvCTumizjX7XIIdbGrA1J5LGr6c7Drk4=",
+  "Api-Key": "sq29vSdYEribAbJjPc93FwNvk8ndo53P2yoAsS6S"
+}
+Request Body: [
+  {
+    "Timestamp": 1762488626815,
+    "SectorId": 1,
+    "X": 100000,
+    "Y": 100000,
+    "Z": 0,
+    "Interval": 100,
+    "Battery": 85,
+    "IsMoving": true,
+    "LocalizationAreas": [],
+    "NoGoAreas": []
+  }
+]
+
+Response Status: 200
+Response Headers: {
+  "Server": "nginx/1.29.0",
+  "Date": "Fri, 07 Nov 2025 04:10:26 GMT",
+  "Content-Type": "application/json; charset=utf-8",
+  "Transfer-Encoding": "chunked",
+  "Connection": "keep-alive",
+  "Content-Encoding": "br",
+  "Vary": "Accept-Encoding"
+}
+Response Body (JSON):
+{
+  "Login": "tugger-01",
+  "Success": true,
+  "Locations": [
+    {
+      "Timestamp": 1762488626815,
+      "Action": "Create",
+      "Success": true
+    }
+  ]
+}
+
+====================================================================================================
+API CALL: Post to Sector 2 at (100m, 100m)
+====================================================================================================
+Method: POST
+URL: https://api.platform.twinzo.com/v3/localization
+Headers: {
+  "Content-Type": "application/json",
+  "Accept": "application/json",
+  "Client": "a3960903-00c2-4f39-9727-c5fa745eabb7",
+  "Branch": "dcac4881-05ab-4f29-b0df-79c40df9c9c2",
+  "Token": "s+016qbvOn2bvCTumizjX7XIIdbGrA1J5LGr6c7Drk4=",
+  "Api-Key": "sq29vSdYEribAbJjPc93FwNvk8ndo53P2yoAsS6S"
+}
+Request Body: [
+  {
+    "Timestamp": 1762488628328,
+    "SectorId": 2,
+    "X": 100000,
+    "Y": 100000,
+    "Z": 0,
+    "Interval": 100,
+    "Battery": 85,
+    "IsMoving": true,
+    "LocalizationAreas": [],
+    "NoGoAreas": []
+  }
+]
+
+Response Status: 200
+Response Headers: {
+  "Server": "nginx/1.29.0",
+  "Date": "Fri, 07 Nov 2025 04:10:27 GMT",
+  "Content-Type": "application/json; charset=utf-8",
+  "Transfer-Encoding": "chunked",
+  "Connection": "keep-alive",
+  "Content-Encoding": "br",
+  "Vary": "Accept-Encoding"
+}
+Response Body (JSON):
+{
+  "Login": "tugger-01",
+  "Success": true,
+  "Locations": [
+    {
+      "Timestamp": 1762488628328,
+      "Action": "Create",
+      "Success": true
+    }
+  ]
+}
+
+====================================================================================================
+API CALL: Post to Sector 2 at (0m, 0m)
+====================================================================================================
+Method: POST
+URL: https://api.platform.twinzo.com/v3/localization
+Headers: {
+  "Content-Type": "application/json",
+  "Accept": "application/json",
+  "Client": "a3960903-00c2-4f39-9727-c5fa745eabb7",
+  "Branch": "dcac4881-05ab-4f29-b0df-79c40df9c9c2",
+  "Token": "s+016qbvOn2bvCTumizjX7XIIdbGrA1J5LGr6c7Drk4=",
+  "Api-Key": "sq29vSdYEribAbJjPc93FwNvk8ndo53P2yoAsS6S"
+}
+Request Body: [
+  {
+    "Timestamp": 1762488629789,
+    "SectorId": 2,
+    "X": 0,
+    "Y": 0,
+    "Z": 0,
+    "Interval": 100,
+    "Battery": 85,
+    "IsMoving": true,
+    "LocalizationAreas": [],
+    "NoGoAreas": []
+  }
+]
+
+Response Status: 200
+Response Headers: {
+  "Server": "nginx/1.29.0",
+  "Date": "Fri, 07 Nov 2025 04:10:29 GMT",
+  "Content-Type": "application/json; charset=utf-8",
+  "Transfer-Encoding": "chunked",
+  "Connection": "keep-alive",
+  "Content-Encoding": "br",
+  "Vary": "Accept-Encoding"
+}
+Response Body (JSON):
+{
+  "Login": "tugger-01",
+  "Success": true,
+  "Locations": [
+    {
+      "Timestamp": 1762488629789,
+      "Action": "Create",
+      "Success": true
+    }
+  ]
+}
+
+====================================================================================================
+API CALL: Post to Sector 2 at (125m, 125m)
+====================================================================================================
+Method: POST
+URL: https://api.platform.twinzo.com/v3/localization
+Headers: {
+  "Content-Type": "application/json",
+  "Accept": "application/json",
+  "Client": "a3960903-00c2-4f39-9727-c5fa745eabb7",
+  "Branch": "dcac4881-05ab-4f29-b0df-79c40df9c9c2",
+  "Token": "s+016qbvOn2bvCTumizjX7XIIdbGrA1J5LGr6c7Drk4=",
+  "Api-Key": "sq29vSdYEribAbJjPc93FwNvk8ndo53P2yoAsS6S"
+}
+Request Body: [
+  {
+    "Timestamp": 1762488631192,
+    "SectorId": 2,
+    "X": 125000,
+    "Y": 125000,
+    "Z": 0,
+    "Interval": 100,
+    "Battery": 85,
+    "IsMoving": true,
+    "LocalizationAreas": [],
+    "NoGoAreas": []
+  }
+]
+
+Response Status: 200
+Response Headers: {
+  "Server": "nginx/1.29.0",
+  "Date": "Fri, 07 Nov 2025 04:10:30 GMT",
+  "Content-Type": "application/json; charset=utf-8",
+  "Transfer-Encoding": "chunked",
+  "Connection": "keep-alive",
+  "Content-Encoding": "br",
+  "Vary": "Accept-Encoding"
+}
+Response Body (JSON):
+{
+  "Login": "tugger-01",
+  "Success": true,
+  "Locations": [
+    {
+      "Timestamp": 1762488631192,
+      "Action": "Create",
+      "Success": true
+    }
+  ]
+}
+
+====================================================================================================
+PART 7: TRY ALTERNATE AUTHENTICATION
+====================================================================================================
+
+--- Attempting to authenticate directly to Branch 2 ---
+
+Using alternate headers with Branch 2 GUID:
+{
+  "Content-Type": "application/json",
+  "Accept": "application/json",
+  "Client": "a3960903-00c2-4f39-9727-c5fa745eabb7",
+  "Branch": "40557468-2d57-4a3d-9a5e-3eede177daf5",
+  "Token": "s+016qbvOn2bvCTumizjX7XIIdbGrA1J5LGr6c7Drk4=",
+  "Api-Key": "sq29vSdYEribAbJjPc93FwNvk8ndo53P2yoAsS6S"
+}
+
+====================================================================================================
+API CALL: Get sectors with Branch 2 in headers
+====================================================================================================
+Method: GET
+URL: https://api.platform.twinzo.com/v3/sectors
+Headers: {
+  "Content-Type": "application/json",
+  "Accept": "application/json",
+  "Client": "a3960903-00c2-4f39-9727-c5fa745eabb7",
+  "Branch": "40557468-2d57-4a3d-9a5e-3eede177daf5",
+  "Token": "s+016qbvOn2bvCTumizjX7XIIdbGrA1J5LGr6c7Drk4=",
+  "Api-Key": "sq29vSdYEribAbJjPc93FwNvk8ndo53P2yoAsS6S"
+}
+
+Response Status: 200
+Response Headers: {
+  "Server": "nginx/1.29.0",
+  "Date": "Fri, 07 Nov 2025 04:10:32 GMT",
+  "Content-Type": "application/json; charset=utf-8",
+  "Transfer-Encoding": "chunked",
+  "Connection": "keep-alive",
+  "Content-Encoding": "br",
+  "Vary": "Accept-Encoding"
+}
+Response Body (JSON):
+[
+  {
+    "Id": 2,
+    "Guid": "07dd750f-6ad8-4122-9030-35bbc696a38b",
+    "BranchId": 2,
+    "Title": "Main",
+    "BarrierHeight": 1000,
+    "BarrierWidth": 1000,
+    "SectorWidth": 250000,
+    "SectorHeight": 250000,
+    "Modified": 1762443612710,
+    "GpsItems": [],
+    "Areas": [],
+    "Barriers": [],
+    "Beacons": [],
+    "Sensors": [],
+    "Paths": [],
+    "Floor": 0,
+    "FloorName": "0"
+  }
+]
+
+====================================================================================================
+API CALL: Get devices with Branch 2 in headers
+====================================================================================================
+Method: GET
+URL: https://api.platform.twinzo.com/v3/devices
+Headers: {
+  "Content-Type": "application/json",
+  "Accept": "application/json",
+  "Client": "a3960903-00c2-4f39-9727-c5fa745eabb7",
+  "Branch": "40557468-2d57-4a3d-9a5e-3eede177daf5",
+  "Token": "s+016qbvOn2bvCTumizjX7XIIdbGrA1J5LGr6c7Drk4=",
+  "Api-Key": "sq29vSdYEribAbJjPc93FwNvk8ndo53P2yoAsS6S"
+}
+
+Response Status: 200
+Response Headers: {
+  "Server": "nginx/1.29.0",
+  "Date": "Fri, 07 Nov 2025 04:10:32 GMT",
+  "Content-Type": "application/json; charset=utf-8",
+  "Transfer-Encoding": "chunked",
+  "Connection": "keep-alive",
+  "Content-Encoding": "br",
+  "Vary": "Accept-Encoding"
+}
+Response Body (JSON):
+[]
+
+====================================================================================================
+API CALL: Post to Sector 2 with Branch 2 headers
+====================================================================================================
+Method: POST
+URL: https://api.platform.twinzo.com/v3/localization
+Headers: {
+  "Content-Type": "application/json",
+  "Accept": "application/json",
+  "Client": "a3960903-00c2-4f39-9727-c5fa745eabb7",
+  "Branch": "40557468-2d57-4a3d-9a5e-3eede177daf5",
+  "Token": "s+016qbvOn2bvCTumizjX7XIIdbGrA1J5LGr6c7Drk4=",
+  "Api-Key": "sq29vSdYEribAbJjPc93FwNvk8ndo53P2yoAsS6S"
+}
+Request Body: [
+  {
+    "Timestamp": 1762488633579,
+    "SectorId": 2,
+    "X": 100000,
+    "Y": 100000,
+    "Z": 0,
+    "Interval": 100,
+    "Battery": 85,
+    "IsMoving": true,
+    "LocalizationAreas": [],
+    "NoGoAreas": []
+  }
+]
+
+Response Status: 200
+Response Headers: {
+  "Server": "nginx/1.29.0",
+  "Date": "Fri, 07 Nov 2025 04:10:33 GMT",
+  "Content-Type": "application/json; charset=utf-8",
+  "Transfer-Encoding": "chunked",
+  "Connection": "keep-alive",
+  "Content-Encoding": "br",
+  "Vary": "Accept-Encoding"
+}
+Response Body (JSON):
+{
+  "Login": "tugger-01",
+  "Success": false,
+  "ErrorMessage": "Device tugger-01 does not exist.",
+  "Locations": []
+}
+
+====================================================================================================
+PART 8: EXPLORE OTHER ENDPOINTS
+====================================================================================================
+
+====================================================================================================
+API CALL: Try endpoint: /plants
+====================================================================================================
+Method: GET
+URL: https://api.platform.twinzo.com/v3/plants
+Headers: {
+  "Content-Type": "application/json",
+  "Accept": "application/json",
+  "Client": "a3960903-00c2-4f39-9727-c5fa745eabb7",
+  "Branch": "dcac4881-05ab-4f29-b0df-79c40df9c9c2",
+  "Token": "s+016qbvOn2bvCTumizjX7XIIdbGrA1J5LGr6c7Drk4=",
+  "Api-Key": "sq29vSdYEribAbJjPc93FwNvk8ndo53P2yoAsS6S"
+}
+
+Response Status: 404
+Response Headers: {
+  "Server": "nginx/1.29.0",
+  "Date": "Fri, 07 Nov 2025 04:10:33 GMT",
+  "Content-Length": "0",
+  "Connection": "keep-alive"
+}
+Response Body (Raw Text): 
+
+====================================================================================================
+API CALL: Try endpoint: /facilities
+====================================================================================================
+Method: GET
+URL: https://api.platform.twinzo.com/v3/facilities
+Headers: {
+  "Content-Type": "application/json",
+  "Accept": "application/json",
+  "Client": "a3960903-00c2-4f39-9727-c5fa745eabb7",
+  "Branch": "dcac4881-05ab-4f29-b0df-79c40df9c9c2",
+  "Token": "s+016qbvOn2bvCTumizjX7XIIdbGrA1J5LGr6c7Drk4=",
+  "Api-Key": "sq29vSdYEribAbJjPc93FwNvk8ndo53P2yoAsS6S"
+}
+
+Response Status: 404
+Response Headers: {
+  "Server": "nginx/1.29.0",
+  "Date": "Fri, 07 Nov 2025 04:10:33 GMT",
+  "Content-Length": "0",
+  "Connection": "keep-alive"
+}
+Response Body (Raw Text): 
+
+====================================================================================================
+API CALL: Try endpoint: /sites
+====================================================================================================
+Method: GET
+URL: https://api.platform.twinzo.com/v3/sites
+Headers: {
+  "Content-Type": "application/json",
+  "Accept": "application/json",
+  "Client": "a3960903-00c2-4f39-9727-c5fa745eabb7",
+  "Branch": "dcac4881-05ab-4f29-b0df-79c40df9c9c2",
+  "Token": "s+016qbvOn2bvCTumizjX7XIIdbGrA1J5LGr6c7Drk4=",
+  "Api-Key": "sq29vSdYEribAbJjPc93FwNvk8ndo53P2yoAsS6S"
+}
+
+Response Status: 404
+Response Headers: {
+  "Server": "nginx/1.29.0",
+  "Date": "Fri, 07 Nov 2025 04:10:34 GMT",
+  "Content-Length": "0",
+  "Connection": "keep-alive"
+}
+Response Body (Raw Text): 
+
+====================================================================================================
+API CALL: Try endpoint: /locations
+====================================================================================================
+Method: GET
+URL: https://api.platform.twinzo.com/v3/locations
+Headers: {
+  "Content-Type": "application/json",
+  "Accept": "application/json",
+  "Client": "a3960903-00c2-4f39-9727-c5fa745eabb7",
+  "Branch": "dcac4881-05ab-4f29-b0df-79c40df9c9c2",
+  "Token": "s+016qbvOn2bvCTumizjX7XIIdbGrA1J5LGr6c7Drk4=",
+  "Api-Key": "sq29vSdYEribAbJjPc93FwNvk8ndo53P2yoAsS6S"
+}
+
+Response Status: 404
+Response Headers: {
+  "Server": "nginx/1.29.0",
+  "Date": "Fri, 07 Nov 2025 04:10:34 GMT",
+  "Content-Length": "0",
+  "Connection": "keep-alive"
+}
+Response Body (Raw Text): 
+
+====================================================================================================
+API CALL: Try endpoint: /assets
+====================================================================================================
+Method: GET
+URL: https://api.platform.twinzo.com/v3/assets
+Headers: {
+  "Content-Type": "application/json",
+  "Accept": "application/json",
+  "Client": "a3960903-00c2-4f39-9727-c5fa745eabb7",
+  "Branch": "dcac4881-05ab-4f29-b0df-79c40df9c9c2",
+  "Token": "s+016qbvOn2bvCTumizjX7XIIdbGrA1J5LGr6c7Drk4=",
+  "Api-Key": "sq29vSdYEribAbJjPc93FwNvk8ndo53P2yoAsS6S"
+}
+
+Response Status: 404
+Response Headers: {
+  "Server": "nginx/1.29.0",
+  "Date": "Fri, 07 Nov 2025 04:10:35 GMT",
+  "Content-Length": "0",
+  "Connection": "keep-alive"
+}
+Response Body (Raw Text): 
+
+====================================================================================================
+API CALL: Try endpoint: /robots
+====================================================================================================
+Method: GET
+URL: https://api.platform.twinzo.com/v3/robots
+Headers: {
+  "Content-Type": "application/json",
+  "Accept": "application/json",
+  "Client": "a3960903-00c2-4f39-9727-c5fa745eabb7",
+  "Branch": "dcac4881-05ab-4f29-b0df-79c40df9c9c2",
+  "Token": "s+016qbvOn2bvCTumizjX7XIIdbGrA1J5LGr6c7Drk4=",
+  "Api-Key": "sq29vSdYEribAbJjPc93FwNvk8ndo53P2yoAsS6S"
+}
+
+Response Status: 404
+Response Headers: {
+  "Server": "nginx/1.29.0",
+  "Date": "Fri, 07 Nov 2025 04:10:35 GMT",
+  "Content-Length": "0",
+  "Connection": "keep-alive"
+}
+Response Body (Raw Text): 
+
+====================================================================================================
+API CALL: Try endpoint: /amrs
+====================================================================================================
+Method: GET
+URL: https://api.platform.twinzo.com/v3/amrs
+Headers: {
+  "Content-Type": "application/json",
+  "Accept": "application/json",
+  "Client": "a3960903-00c2-4f39-9727-c5fa745eabb7",
+  "Branch": "dcac4881-05ab-4f29-b0df-79c40df9c9c2",
+  "Token": "s+016qbvOn2bvCTumizjX7XIIdbGrA1J5LGr6c7Drk4=",
+  "Api-Key": "sq29vSdYEribAbJjPc93FwNvk8ndo53P2yoAsS6S"
+}
+
+Response Status: 404
+Response Headers: {
+  "Server": "nginx/1.29.0",
+  "Date": "Fri, 07 Nov 2025 04:10:35 GMT",
+  "Content-Length": "0",
+  "Connection": "keep-alive"
+}
+Response Body (Raw Text): 
+
+====================================================================================================
+API CALL: Try endpoint: /vehicles
+====================================================================================================
+Method: GET
+URL: https://api.platform.twinzo.com/v3/vehicles
+Headers: {
+  "Content-Type": "application/json",
+  "Accept": "application/json",
+  "Client": "a3960903-00c2-4f39-9727-c5fa745eabb7",
+  "Branch": "dcac4881-05ab-4f29-b0df-79c40df9c9c2",
+  "Token": "s+016qbvOn2bvCTumizjX7XIIdbGrA1J5LGr6c7Drk4=",
+  "Api-Key": "sq29vSdYEribAbJjPc93FwNvk8ndo53P2yoAsS6S"
+}
+
+Response Status: 404
+Response Headers: {
+  "Server": "nginx/1.29.0",
+  "Date": "Fri, 07 Nov 2025 04:10:36 GMT",
+  "Content-Length": "0",
+  "Connection": "keep-alive"
+}
+Response Body (Raw Text): 
+
+====================================================================================================
+API CALL: Try endpoint: /users
+====================================================================================================
+Method: GET
+URL: https://api.platform.twinzo.com/v3/users
+Headers: {
+  "Content-Type": "application/json",
+  "Accept": "application/json",
+  "Client": "a3960903-00c2-4f39-9727-c5fa745eabb7",
+  "Branch": "dcac4881-05ab-4f29-b0df-79c40df9c9c2",
+  "Token": "s+016qbvOn2bvCTumizjX7XIIdbGrA1J5LGr6c7Drk4=",
+  "Api-Key": "sq29vSdYEribAbJjPc93FwNvk8ndo53P2yoAsS6S"
+}
+
+Response Status: 405
+Response Headers: {
+  "Server": "nginx/1.29.0",
+  "Date": "Fri, 07 Nov 2025 04:10:38 GMT",
+  "Content-Length": "0",
+  "Connection": "keep-alive",
+  "Allow": "POST"
+}
+Response Body (Raw Text): 
+
+====================================================================================================
+API CALL: Try endpoint: /clients
+====================================================================================================
+Method: GET
+URL: https://api.platform.twinzo.com/v3/clients
+Headers: {
+  "Content-Type": "application/json",
+  "Accept": "application/json",
+  "Client": "a3960903-00c2-4f39-9727-c5fa745eabb7",
+  "Branch": "dcac4881-05ab-4f29-b0df-79c40df9c9c2",
+  "Token": "s+016qbvOn2bvCTumizjX7XIIdbGrA1J5LGr6c7Drk4=",
+  "Api-Key": "sq29vSdYEribAbJjPc93FwNvk8ndo53P2yoAsS6S"
+}
+
+Response Status: 200
+Response Headers: {
+  "Server": "nginx/1.29.0",
+  "Date": "Fri, 07 Nov 2025 04:10:40 GMT",
+  "Content-Type": "application/json; charset=utf-8",
+  "Transfer-Encoding": "chunked",
+  "Connection": "keep-alive",
+  "Content-Encoding": "br",
+  "Vary": "Accept-Encoding"
+}
+Response Body (JSON):
+[
+  {
+    "Id": 16880,
+    "Guid": "a3960903-00c2-4f39-9727-c5fa745eabb7",
+    "Title": "TVSMotor",
+    "DBName": "TVSMotor",
+    "OdooPartnerId": "12153"
+  }
+]
+
+====================================================================================================
+API CALL: Try endpoint: /sectors/2
+====================================================================================================
+Method: GET
+URL: https://api.platform.twinzo.com/v3/sectors/2
+Headers: {
+  "Content-Type": "application/json",
+  "Accept": "application/json",
+  "Client": "a3960903-00c2-4f39-9727-c5fa745eabb7",
+  "Branch": "dcac4881-05ab-4f29-b0df-79c40df9c9c2",
+  "Token": "s+016qbvOn2bvCTumizjX7XIIdbGrA1J5LGr6c7Drk4=",
+  "Api-Key": "sq29vSdYEribAbJjPc93FwNvk8ndo53P2yoAsS6S"
+}
+
+Response Status: 404
+Response Headers: {
+  "Server": "nginx/1.29.0",
+  "Date": "Fri, 07 Nov 2025 04:10:41 GMT",
+  "Content-Type": "application/problem+json",
+  "Transfer-Encoding": "chunked",
+  "Connection": "keep-alive",
+  "Cache-Control": "no-cache,no-store",
+  "Expires": "-1",
+  "Pragma": "no-cache"
+}
+Response Body (JSON):
+{
+  "type": "https://tools.ietf.org/html/rfc9110#section-15.5.5",
+  "title": "NotFoundException",
+  "status": 404,
+  "detail": "Entity 2 does not exist.",
+  "instance": "/v3/sectors/2",
+  "code": "13"
+}
+
+====================================================================================================
+API CALL: Try endpoint: /sectors/8010257b-d416-43e2-b1a3-cc98604bb117
+====================================================================================================
+Method: GET
+URL: https://api.platform.twinzo.com/v3/sectors/8010257b-d416-43e2-b1a3-cc98604bb117
+Headers: {
+  "Content-Type": "application/json",
+  "Accept": "application/json",
+  "Client": "a3960903-00c2-4f39-9727-c5fa745eabb7",
+  "Branch": "dcac4881-05ab-4f29-b0df-79c40df9c9c2",
+  "Token": "s+016qbvOn2bvCTumizjX7XIIdbGrA1J5LGr6c7Drk4=",
+  "Api-Key": "sq29vSdYEribAbJjPc93FwNvk8ndo53P2yoAsS6S"
+}
+
+Response Status: 404
+Response Headers: {
+  "Server": "nginx/1.29.0",
+  "Date": "Fri, 07 Nov 2025 04:10:41 GMT",
+  "Content-Length": "0",
+  "Connection": "keep-alive"
+}
+Response Body (Raw Text): 
+
+====================================================================================================
+API CALL: Try endpoint: /sectors/07dd750f-6ad8-4122-9030-35bbc696a38b
+====================================================================================================
+Method: GET
+URL: https://api.platform.twinzo.com/v3/sectors/07dd750f-6ad8-4122-9030-35bbc696a38b
+Headers: {
+  "Content-Type": "application/json",
+  "Accept": "application/json",
+  "Client": "a3960903-00c2-4f39-9727-c5fa745eabb7",
+  "Branch": "dcac4881-05ab-4f29-b0df-79c40df9c9c2",
+  "Token": "s+016qbvOn2bvCTumizjX7XIIdbGrA1J5LGr6c7Drk4=",
+  "Api-Key": "sq29vSdYEribAbJjPc93FwNvk8ndo53P2yoAsS6S"
+}
+
+Response Status: 404
+Response Headers: {
+  "Server": "nginx/1.29.0",
+  "Date": "Fri, 07 Nov 2025 04:10:42 GMT",
+  "Content-Length": "0",
+  "Connection": "keep-alive"
+}
+Response Body (Raw Text): 
+
+====================================================================================================
+DIAGNOSTIC COMPLETE
+====================================================================================================
+
+All data logged to: twinzo_diagnostic_log.txt
+Finished: 2025-11-07T09:40:43.210619
+
+Please review twinzo_diagnostic_log.txt for full details.

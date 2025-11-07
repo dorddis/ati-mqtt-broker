@@ -35,6 +35,10 @@ TY = float(os.getenv("AFFINE_TY", "0.0"))
 DRY_RUN = os.getenv("DRY_RUN", "false").lower() == "true"
 LOG_EVERY_N = int(os.getenv("LOG_EVERY_N", "50"))
 
+# Multi-plant support: Comma-separated list of sector IDs to stream to
+# Default: "1,2" streams to both HiTech (1) and Old Plant (2)
+SECTOR_IDS = [int(x.strip()) for x in os.getenv("SECTOR_IDS", "1,2").split(",")]
+
 def transform_xy(x, y):
     # X' = a*x + b*y + tx ;  Y' = c*x + d*y + ty
     xp = A*x + B*y + TX
@@ -159,32 +163,16 @@ def on_message(client, userdata, msg):
             last_pos = oauth_cache[device_key]
             distance = ((X - last_pos["x"])**2 + (Y - last_pos["y"])**2)**0.5
             time_diff = time.time() - last_pos["time"]
-            
-            # Movement threshold: 250 units (0.25m if in mm)
-            # Only update position if significant movement or 1 second passed
-            if distance > 250 or time_diff > 1.0:
-                is_moving = distance > 250
+
+            # Movement threshold: 10 units (0.01m if in mm) - very sensitive
+            # Consider moving if ANY position change detected
+            is_moving = distance > 10
+
+            # Update position cache every second or on significant movement
+            if distance > 100 or time_diff > 1.0:
                 oauth_cache[device_key] = {"x": X, "y": Y, "time": time.time()}
-            else:
-                is_moving = distance > 250
 
-        # Create Twinzo localization payload (direct array format)
-        twinzo_payload = [
-            {
-                "Timestamp": int(time.time() * 1000),  # Milliseconds
-                "SectorId": 1,  # Integer sector ID (using 1 for now)
-                "X": X,
-                "Y": Y,
-                "Z": z,
-                "Interval": 100,  # 100ms = 10Hz
-                "Battery": device_batteries.get(device_id, 85),
-                "IsMoving": is_moving,
-                "LocalizationAreas": [],  # Empty for now
-                "NoGoAreas": []  # Empty for now
-            }
-        ]
-
-        # Create headers with OAuth credentials
+        # Create headers with OAuth credentials (used for all sectors)
         headers = {
             "Content-Type": "application/json",
             "Accept": "application/json",
@@ -194,29 +182,49 @@ def on_message(client, userdata, msg):
             "Api-Key": TWINZO_API_KEY
         }
 
-        if DRY_RUN:
-            if counter % LOG_EVERY_N == 0:
-                print(f"[DRY] would POST for {device_id}:", twinzo_payload)
-        else:
-            r = session.post(TWINZO_LOCALIZATION_URL, headers=headers, json=twinzo_payload, timeout=5)
-            if r.status_code >= 300:
+        # Post to all configured sectors (multi-plant support)
+        timestamp = int(time.time() * 1000)
+        battery = device_batteries.get(device_id, 85)
+
+        for sector_id in SECTOR_IDS:
+            # Create Twinzo localization payload for this sector
+            twinzo_payload = [
+                {
+                    "Timestamp": timestamp,
+                    "SectorId": sector_id,
+                    "X": X,
+                    "Y": Y,
+                    "Z": z,
+                    "Interval": 100,  # 100ms = 10Hz
+                    "Battery": battery,
+                    "IsMoving": is_moving,
+                    "LocalizationAreas": [],
+                    "NoGoAreas": []
+                }
+            ]
+
+            if DRY_RUN:
                 if counter % LOG_EVERY_N == 0:
-                    print(f"POST failed {r.status_code} for {device_id}: {r.text}")
-                    print(f"Headers sent: {headers}")
-                    print(f"Payload: {twinzo_payload}")
-            elif counter % LOG_EVERY_N == 0:
-                print(f"POST ok {r.status_code} for {device_id} (X:{X:.1f}, Y:{Y:.1f}, Battery:{device_batteries.get(device_id, 85)}%, Moving:{is_moving}): {r.text}")
+                    print(f"[DRY] would POST for {device_id} to Sector {sector_id}:", twinzo_payload)
+            else:
+                r = session.post(TWINZO_LOCALIZATION_URL, headers=headers, json=twinzo_payload, timeout=5)
+                if r.status_code >= 300:
+                    if counter % LOG_EVERY_N == 0:
+                        print(f"POST failed {r.status_code} for {device_id} to Sector {sector_id}: {r.text}")
+                elif counter % LOG_EVERY_N == 0:
+                    print(f"POST ok {r.status_code} for {device_id} to Sector {sector_id} (X:{X:.1f}, Y:{Y:.1f}, Battery:{battery}%, Moving:{is_moving})")
 
         counter += 1
     except Exception as e:
         print(f"Error processing message: {e}")
 
 def main():
-    print("🚀 Starting Twinzo OAuth Bridge...")
+    print("🚀 Starting Twinzo Multi-Plant OAuth Bridge...")
     print(f"Auth URL: {TWINZO_AUTH_URL}")
     print(f"Localization URL: {TWINZO_LOCALIZATION_URL}")
     print(f"Client: {TWINZO_CLIENT}")
     print(f"DRY_RUN: {DRY_RUN}")
+    print(f"Target Sectors: {SECTOR_IDS} (Sector 1=HiTech, Sector 2=Old Plant)")
 
     client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
     if MQTT_USER:
@@ -225,7 +233,7 @@ def main():
     client.connect(MQTT_HOST, MQTT_PORT, keepalive=30)
     client.subscribe(MQTT_TOPIC, qos=1)
     print(f"Bridge subscribed to mqtt://{MQTT_HOST}:{MQTT_PORT} topic '{MQTT_TOPIC}'")
-    print("✅ Bridge ready - will authenticate devices dynamically using OAuth")
+    print(f"✅ Bridge ready - streaming to {len(SECTOR_IDS)} plant(s) with OAuth authentication")
     client.loop_forever()
 
 if __name__ == "__main__":

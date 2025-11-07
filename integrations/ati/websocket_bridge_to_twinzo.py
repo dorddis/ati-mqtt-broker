@@ -39,6 +39,10 @@ TY = float(os.getenv("AFFINE_TY", "0.0"))
 DRY_RUN = os.getenv("DRY_RUN", "false").lower() == "true"
 LOG_EVERY_N = int(os.getenv("LOG_EVERY_N", "1"))  # Log every message for testing
 
+# Multi-plant support: Comma-separated list of sector IDs to stream to
+# Default: "1,2" streams to both HiTech (1) and Old Plant (2)
+SECTOR_IDS = [int(x.strip()) for x in os.getenv("SECTOR_IDS", "1,2").split(",")]
+
 # Existing functions from bridge.py
 def transform_xy(x, y):
     xp = A*x + B*y + TX
@@ -159,23 +163,7 @@ def on_message(client, userdata, msg):
             else:
                 is_moving = distance > 250
 
-        # Existing Twinzo payload format
-        twinzo_payload = [
-            {
-                "Timestamp": int(time.time() * 1000),
-                "SectorId": 1,
-                "X": X,
-                "Y": Y,
-                "Z": z,
-                "Interval": 100,
-                "Battery": int(battery),
-                "IsMoving": is_moving,
-                "LocalizationAreas": [],
-                "NoGoAreas": []
-            }
-        ]
-
-        # Existing headers
+        # Create headers with OAuth credentials (used for all sectors)
         headers = {
             "Content-Type": "application/json",
             "Accept": "application/json",
@@ -185,27 +173,48 @@ def on_message(client, userdata, msg):
             "Api-Key": TWINZO_API_KEY
         }
 
-        if DRY_RUN:
-            if counter % LOG_EVERY_N == 0:
-                print(f"[DRY] would POST for {device_id}:", twinzo_payload)
-        else:
-            r = session.post(TWINZO_LOCALIZATION_URL, headers=headers, json=twinzo_payload, timeout=5)
-            if r.status_code >= 300:
+        # Post to all configured sectors (multi-plant support)
+        timestamp = int(time.time() * 1000)
+
+        for sector_id in SECTOR_IDS:
+            # Create Twinzo localization payload for this sector
+            twinzo_payload = [
+                {
+                    "Timestamp": timestamp,
+                    "SectorId": sector_id,
+                    "X": X,
+                    "Y": Y,
+                    "Z": z,
+                    "Interval": 100,
+                    "Battery": int(battery),
+                    "IsMoving": is_moving,
+                    "LocalizationAreas": [],
+                    "NoGoAreas": []
+                }
+            ]
+
+            if DRY_RUN:
                 if counter % LOG_EVERY_N == 0:
-                    print(f"POST failed {r.status_code} for {device_id}: {r.text}")
-            elif counter % LOG_EVERY_N == 0:
-                print(f"POST ok {r.status_code} for {device_id} (X:{X:.1f}, Y:{Y:.1f}, Battery:{battery}%, Moving:{is_moving}): {r.text}")
+                    print(f"[DRY] would POST for {device_id} to Sector {sector_id}:", twinzo_payload)
+            else:
+                r = session.post(TWINZO_LOCALIZATION_URL, headers=headers, json=twinzo_payload, timeout=5)
+                if r.status_code >= 300:
+                    if counter % LOG_EVERY_N == 0:
+                        print(f"POST failed {r.status_code} for {device_id} to Sector {sector_id}: {r.text}")
+                elif counter % LOG_EVERY_N == 0:
+                    print(f"POST ok {r.status_code} for {device_id} to Sector {sector_id} (X:{X:.1f}, Y:{Y:.1f}, Battery:{battery}%, Moving:{is_moving})")
 
         counter += 1
     except Exception as e:
         print(f"Error processing message: {e}")
 
 def main():
-    print("Starting WebSocket MQTT to Twinzo Bridge (existing proven code)")
+    print("Starting WebSocket MQTT to Twinzo Multi-Plant Bridge")
     print(f"Auth URL: {TWINZO_AUTH_URL}")
     print(f"Localization URL: {TWINZO_LOCALIZATION_URL}")
     print(f"Client: {TWINZO_CLIENT}")
     print(f"DRY_RUN: {DRY_RUN}")
+    print(f"Target Sectors: {SECTOR_IDS} (Sector 1=HiTech, Sector 2=Old Plant)")
 
     # WebSocket MQTT client
     client = mqtt.Client(
