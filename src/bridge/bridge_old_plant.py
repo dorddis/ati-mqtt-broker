@@ -2,9 +2,18 @@
 """
 Production Bridge: ATI MQTTS Server → Twinzo Old Plant (Sector 2)
 
-Subscribes to ATI's MQTTS broker and streams AMR data to Old Plant tuggers.
-Device mapping:
-  - ATI AMR data → tugger-05-old, tugger-06-old (and more as needed)
+Subscribes to ATI's MQTTS broker (tvs-dev.ifactory.ai:8883) and streams AMR data
+to Twinzo Old Plant tuggers.
+
+ATI Data Format (topic: ati_fm/sherpa/status):
+  - sherpa_name: Device identifier (e.g., "val-sherpa-01")
+  - pose: [x, y, z, roll, pitch, yaw] array
+  - battery_status: Battery percentage (0-100)
+  - mode: "Fleet" (moving) or other states
+  - Update frequency: 2 seconds
+
+Device Mapping:
+  - ATI sherpa names → tugger-05-old, tugger-06-old, tugger-07-old
 """
 import os, json, time, ssl
 import requests
@@ -15,7 +24,7 @@ ATI_HOST = os.getenv("ATI_MQTT_HOST", "tvs-dev.ifactory.ai")
 ATI_PORT = int(os.getenv("ATI_MQTT_PORT", "8883"))
 ATI_USERNAME = os.getenv("ATI_MQTT_USERNAME", "amr-001")
 ATI_PASSWORD = os.getenv("ATI_MQTT_PASSWORD", "TVSamr001@2025")
-ATI_TOPIC = os.getenv("ATI_MQTT_TOPIC", "ati/amr/#")
+ATI_TOPIC = os.getenv("ATI_MQTT_TOPIC", "ati_fm/sherpa/status")
 ATI_CLIENT_ID = os.getenv("ATI_CLIENT_ID", "amr-001")
 
 # Twinzo Configuration
@@ -30,11 +39,12 @@ TWINZO_LOC_URL = "https://api.platform.twinzo.com/v3/localization"
 OLD_PLANT_SECTOR = 2
 OLD_PLANT_BRANCH = "40557468-2d57-4a3d-9a5e-3eede177daf5"
 
-# Device mapping: ATI device ID → Twinzo tugger login
+# Device mapping: ATI sherpa_name → Twinzo tugger login
+# Update these with actual sherpa names once AMRs start publishing (e.g., "val-sherpa-01")
 DEVICE_MAP = {
-    "ati_amr_001": "tugger-05-old",
-    "ati_amr_002": "tugger-06-old",
-    "ati_amr_003": "tugger-07-old",
+    "val-sherpa-01": "tugger-05-old",
+    "val-sherpa-02": "tugger-06-old",
+    "val-sherpa-03": "tugger-07-old",
     # Add more mappings as ATI provides more AMRs
 }
 
@@ -130,35 +140,44 @@ def on_message(client, userdata, msg):
         print(json.dumps(payload, indent=2))
         print(f"{'='*70}\n")
 
-        # Extract ATI device ID (adjust based on actual ATI message format)
-        ati_device_id = payload.get("device_id") or payload.get("amr_id") or payload.get("id")
-        if not ati_device_id:
-            print(f"WARN No device_id found in payload. Keys available: {list(payload.keys())}")
+        # Extract ATI sherpa name (device identifier)
+        sherpa_name = payload.get("sherpa_name")
+        if not sherpa_name:
+            print(f"WARN No sherpa_name found in payload. Keys available: {list(payload.keys())}")
             return
 
         # Map to Twinzo tugger
-        tugger_login = DEVICE_MAP.get(ati_device_id)
+        tugger_login = DEVICE_MAP.get(sherpa_name)
         if not tugger_login:
-            print(f"WARN Unknown ATI device: {ati_device_id} (add to DEVICE_MAP)")
+            print(f"WARN Unknown ATI sherpa: {sherpa_name} (add to DEVICE_MAP)")
             print(f"Available mappings: {DEVICE_MAP}")
+            print(f"Add this line to DEVICE_MAP: \"{sherpa_name}\": \"tugger-XX-old\"")
             return
 
-        print(f"Mapped {ati_device_id} -> {tugger_login}")
+        print(f"Mapped {sherpa_name} -> {tugger_login}")
 
         # Get Twinzo credentials
         creds = get_device_credentials(tugger_login)
         if not creds:
             return
 
-        # Extract position (adjust field names based on ATI format)
-        x = float(payload.get("x", 0))
-        y = float(payload.get("y", 0))
-        z = float(payload.get("z", 0))
+        # Extract position from pose array [x, y, z, roll, pitch, yaw]
+        pose = payload.get("pose", [0, 0, 0, 0, 0, 0])
+        if not isinstance(pose, list) or len(pose) < 3:
+            print(f"WARN Invalid pose format: {pose}")
+            return
+
+        x = float(pose[0])
+        y = float(pose[1])
+        z = float(pose[2])
         X, Y = transform_xy(x, y)
 
-        # Extract other fields
-        battery = int(payload.get("battery", 85))
-        is_moving = payload.get("is_moving", True)
+        # Extract battery status
+        battery = int(payload.get("battery_status", 85))
+
+        # Extract mode to determine if moving
+        mode = payload.get("mode", "Unknown")
+        is_moving = mode == "Fleet"  # Moving when in Fleet mode
 
         # Movement detection
         device_key = f"{tugger_login}_last_pos"
@@ -199,7 +218,7 @@ def on_message(client, userdata, msg):
         r = session.post(TWINZO_LOC_URL, headers=headers, json=twinzo_payload, timeout=5)
 
         if r.status_code == 200:
-            print(f"OK {tugger_login} (ATI:{ati_device_id}) -> Old Plant: ({X:.0f}, {Y:.0f}) Battery:{battery}% Moving:{is_moving}")
+            print(f"OK {tugger_login} (Sherpa:{sherpa_name}) -> Old Plant: ({X:.0f}, {Y:.0f}) Battery:{battery}% Moving:{is_moving}")
             print(f"Twinzo response: {r.status_code} {r.text[:200]}")
         else:
             print(f"FAIL POST failed for {tugger_login}: {r.status_code}")
