@@ -2,6 +2,20 @@
 
 This directory contains all project documentation organized by category.
 
+## Quick Start
+
+**NEW: Production Setup** - Start here for deploying the dual-bridge system:
+- [PRODUCTION_SETUP.md](PRODUCTION_SETUP.md) - Complete production deployment guide
+
+## Core Documentation
+
+### Multi-Plant Streaming
+- [MULTI_PLANT_STREAMING_GUIDE.md](MULTI_PLANT_STREAMING_GUIDE.md) - Technical implementation guide
+- [TWINZO_MULTI_PLANT_ANALYSIS.md](TWINZO_MULTI_PLANT_ANALYSIS.md) - Problem analysis and solutions
+
+### Vendor Integration
+- [AMR_VENDOR_INTEGRATION_GUIDE.md](AMR_VENDOR_INTEGRATION_GUIDE.md) - General vendor integration patterns
+
 ## Directory Structure
 
 ### guides/
@@ -29,6 +43,16 @@ Documentation for integrating with external systems:
 - ATI_INTEGRATION_SIMPLE.md
 - ATI_WEBSOCKET_INTEGRATION.md
 
+**hitech/** - HiTech integration documentation
+- HITECH_CALL_AGENDA.md
+- HITECH_EMAIL_RESPONSE.md
+- HITECH_INTEGRATION_QUICK_REFERENCE.md
+- HITECH_INTEGRATION_STEPS.md
+- HITECH_MQTT_CREDENTIALS.md
+- HITECH_POC_REQUIREMENTS.md
+- HIVEMQ_QUICK_START.md
+- HIVEMQ_SETUP_GUIDE.md
+
 ### deployment/
 Deployment and hosting documentation:
 - HOSTING_ALTERNATIVES.md
@@ -42,6 +66,10 @@ Project history and learnings:
 - PROJECT_STATUS.md - Current project status
 - CLEANUP_SUMMARY.md - History of code cleanup
 - INTEGRATION_SUMMARY.md - Integration achievements
+- INTEGRATION_STATUS.md - Current integration status
+- COORDINATE_MAPPING_SUMMARY.md - Coordinate transformation details
+- TWINZO_MULTI_PLANT_RESEARCH.md - Research and discovery process
+- EMAIL_DRAFTS.md - Communication templates
 - GROUP_MESSAGE.md - Team communications
 
 ### reference/

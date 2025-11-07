@@ -74,7 +74,72 @@ python -X utf8 scripts/verification/verify_credentials.py
 
 # Simple MQTT test
 python -X utf8 tests/mqtt/simple_mqtt_test.py
+
+# Test multi-plant streaming (HiTech + Old Plant)
+python -X utf8 tests/integration/test_multi_plant_streaming.py
+
+# Check HiveMQ for incoming data
+python -X utf8 check_hivemq_data.py
 ```
+
+## Production Deployment
+
+### Multi-Plant Architecture
+
+This system now supports streaming to TWO Twinzo plants simultaneously:
+
+1. **Old Plant Bridge** (Sector 2): ATI MQTTS → tugger-05-old, tugger-06-old
+2. **HiTech Bridge** (Sector 1): HiveMQ Cloud → tugger-03, tugger-04
+
+### Quick Start Production
+
+```bash
+# Start both bridges
+python -X utf8 start_bridges.py
+
+# Start only Old Plant bridge
+python -X utf8 start_bridges.py old
+
+# Start only HiTech bridge
+python -X utf8 start_bridges.py hitech
+```
+
+### Manual Bridge Control
+
+```bash
+# Old Plant: ATI MQTTS → Twinzo Old Plant (Sector 2)
+python -X utf8 src/bridge/bridge_old_plant.py
+
+# HiTech: HiveMQ Cloud → Twinzo HiTech (Sector 1)
+python -X utf8 src/bridge/bridge_hitech.py
+```
+
+### Production Environment Variables
+
+Required for production bridges (add to `.env` file):
+
+```bash
+# Twinzo API (required for both bridges)
+TWINZO_CLIENT=TVSMotor
+TWINZO_PASSWORD=Tvs@Hosur$2025
+TWINZO_API_KEY=sq29vSdYEribAbJjPc93FwNvk8ndo53P2yoAsS6S
+
+# ATI MQTTS (for Old Plant bridge) - PENDING FROM ATI
+ATI_MQTT_HOST=tvs-dev.ifactory.ai
+ATI_MQTT_PORT=8883
+ATI_MQTT_USERNAME=<pending>
+ATI_MQTT_PASSWORD=<pending>
+ATI_MQTT_TOPIC=ati/amr/#
+
+# HiveMQ credentials are in config/hivemq_config.json
+# HiTech AMRs need to be configured to publish to HiveMQ topics
+```
+
+### Complete Production Guide
+
+For complete production deployment instructions, device mapping, troubleshooting, and monitoring:
+
+**→ See [docs/PRODUCTION_SETUP.md](docs/PRODUCTION_SETUP.md)**
 
 ## Environment Variables
 
@@ -90,6 +155,10 @@ python -X utf8 tests/mqtt/simple_mqtt_test.py
 - `TWINZO_PASSWORD` - OAuth password
 - `TWINZO_API_KEY` - Twinzo API key
 - `DRY_RUN` - Set to "true" to disable actual API calls (default: false)
+- `SECTOR_IDS` - Comma-separated list of sector IDs to stream to (default: "1,2" for both HiTech and Old Plant)
+  - "1" = HiTech Plant only
+  - "2" = Old Plant only
+  - "1,2" = Both plants (default)
 
 ### Mock Data Configuration
 - `NUM_ROBOTS` - Number of mock robots (default: 3)
@@ -111,16 +180,33 @@ python -X utf8 tests/mqtt/simple_mqtt_test.py
 
 ### Integration Points
 
-#### TVS Integration
+#### ATI MQTTS (Production - Old Plant)
+- Host: `tvs-dev.ifactory.ai:8883` (MQTT5 with TLS)
+- Credentials: Pending from ATI team
+- Bridge: `src/bridge/bridge_old_plant.py`
+- Target: Twinzo Old Plant (Sector 2)
+- Devices: tugger-05-old, tugger-06-old
+
+#### HiveMQ Cloud (Production - HiTech)
+- Host: `0c7fb7a06d4a4cd5a2868913301ad97d.s1.eu.hivemq.cloud:8883`
+- Credentials: In `config/hivemq_config.json`
+- Bridge: `src/bridge/bridge_hitech.py`
+- Target: Twinzo HiTech Plant (Sector 1)
+- Devices: tugger-03, tugger-04
+
+#### TVS Integration (Testing/Development)
 - Host: `tvs-dev.ifactory.ai:8883` (MQTT5 with TLS)
 - Client ID: `amr-001`
 - Credentials: `amr-001` / `TVSamr001@2025`
 - Known AMR MAC addresses in `device_mapping.json`
 
-#### Twinzo Integration
+#### Twinzo API
 - OAuth endpoint: `https://api.platform.twinzo.com/v3/authorization/authenticate`
 - Localization endpoint: `https://api.platform.twinzo.com/v3/localization`
 - Per-device OAuth authentication with credential caching
+- Two plants:
+  - HiTech Plant: Branch `dcac4881-05ab-4f29-b0df-79c40df9c9c2`, Sector 1
+  - Old Plant: Branch `40557468-2d57-4a3d-9a5e-3eede177daf5`, Sector 2
 
 ## Data Flow
 
