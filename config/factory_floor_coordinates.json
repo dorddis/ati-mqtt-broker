@@ -1,0 +1,35 @@
+{
+  "factory": "TVS Motor Plant 4",
+  "coordinate_system": "Twinzo Platform Coordinates",
+  "mapping_date": "2025-11-03",
+  "tested_with": ["tugger-01", "tugger-02", "tugger-03", "tugger-04"],
+
+  "bounds": {
+    "x_min": 0,
+    "x_max": 265000,
+    "y_min": 46000,
+    "y_max": 218000
+  },
+
+  "dimensions": {
+    "width": 265000,
+    "height": 172000,
+    "center_x": 132500,
+    "center_y": 132000
+  },
+
+  "verified_corners": {
+    "top_left": {"x": 0, "y": 46000},
+    "top_right": {"x": 265000, "y": 46000},
+    "bottom_left": {"x": 0, "y": 218000},
+    "bottom_right": {"x": 265000, "y": 218000}
+  },
+
+  "notes": [
+    "Coordinates tested and verified on Plant 4 factory floor",
+    "All corner positions confirmed to be ON the factory floor (not in gray areas)",
+    "Coordinate system: X increases from left to right (0 to 265k)",
+    "Coordinate system: Y increases from top to bottom (46k to 218k)",
+    "Use these bounds for Hi-tech AMR integration"
+  ]
+}

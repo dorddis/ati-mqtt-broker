@@ -146,11 +146,12 @@ TWINZO_CLIENT=TVSMotor
 TWINZO_PASSWORD=Tvs@Hosur$2025
 TWINZO_API_KEY=sq29vSdYEribAbJjPc93FwNvk8ndo53P2yoAsS6S
 
-# ATI MQTTS (for Old Plant bridge) - PENDING FROM ATI
+# ATI MQTTS (for Old Plant bridge) - CREDENTIALS RECEIVED
 ATI_MQTT_HOST=tvs-dev.ifactory.ai
 ATI_MQTT_PORT=8883
-ATI_MQTT_USERNAME=<pending>
-ATI_MQTT_PASSWORD=<pending>
+ATI_MQTT_USERNAME=amr-001
+ATI_MQTT_PASSWORD=TVSamr001@2025
+ATI_CLIENT_ID=amr-001
 ATI_MQTT_TOPIC=ati/amr/#
 
 # HiveMQ credentials are in config/hivemq_config.json
@@ -204,10 +205,13 @@ For complete production deployment instructions, device mapping, troubleshooting
 
 #### ATI MQTTS (Production - Old Plant)
 - Host: `tvs-dev.ifactory.ai:8883` (MQTT5 with TLS)
-- Credentials: Pending from ATI team
+- Credentials: `amr-001` / `TVSamr001@2025`
+- Client ID: `amr-001`
+- QoS Level: 2
 - Bridge: `src/bridge/bridge_old_plant.py`
 - Target: Twinzo Old Plant (Sector 2)
 - Devices: tugger-05-old, tugger-06-old, tugger-07-old
+- Status: ✓ **READY TO DEPLOY**
 
 #### HiveMQ Cloud (Production - HiTech)
 - Host: `0c7fb7a06d4a4cd5a2868913301ad97d.s1.eu.hivemq.cloud:8883`

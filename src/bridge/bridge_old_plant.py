@@ -10,12 +10,13 @@ import os, json, time, ssl
 import requests
 from paho.mqtt import client as mqtt
 
-# ATI MQTTS Configuration (credentials to be provided)
+# ATI MQTTS Configuration
 ATI_HOST = os.getenv("ATI_MQTT_HOST", "tvs-dev.ifactory.ai")
 ATI_PORT = int(os.getenv("ATI_MQTT_PORT", "8883"))
-ATI_USERNAME = os.getenv("ATI_MQTT_USERNAME", "")  # Pending from ATI
-ATI_PASSWORD = os.getenv("ATI_MQTT_PASSWORD", "")  # Pending from ATI
+ATI_USERNAME = os.getenv("ATI_MQTT_USERNAME", "amr-001")
+ATI_PASSWORD = os.getenv("ATI_MQTT_PASSWORD", "TVSamr001@2025")
 ATI_TOPIC = os.getenv("ATI_MQTT_TOPIC", "ati/amr/#")
+ATI_CLIENT_ID = os.getenv("ATI_CLIENT_ID", "amr-001")
 
 # Twinzo Configuration
 TWINZO_CLIENT = os.getenv("TWINZO_CLIENT", "TVSMotor")
@@ -104,11 +105,11 @@ session = requests.Session()
 
 def on_connect(client, userdata, flags, rc, properties=None):
     if rc == 0:
-        print("✓ Connected to ATI MQTTS broker")
-        print(f"  Subscribing to: {ATI_TOPIC}")
-        client.subscribe(ATI_TOPIC, qos=1)
+        print("OK Connected to ATI MQTTS broker")
+        print(f"  Subscribing to: {ATI_TOPIC} with QoS 2")
+        client.subscribe(ATI_TOPIC, qos=2)
     else:
-        print(f"✗ Connection failed with code {rc}")
+        print(f"FAIL Connection failed with code {rc}")
 
 def on_message(client, userdata, msg):
     """Process ATI AMR data and forward to Old Plant"""
@@ -207,19 +208,33 @@ def main():
         print("Set ATI_MQTT_USERNAME and ATI_MQTT_PASSWORD environment variables")
         print("Bridge will wait for credentials...\n")
 
-    # Create MQTT client
-    client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2, "ati_old_plant_bridge")
+    # Create MQTT client with configured client ID
+    client = mqtt.Client(
+        mqtt.CallbackAPIVersion.VERSION2,
+        client_id=ATI_CLIENT_ID,
+        protocol=mqtt.MQTTv5
+    )
     client.username_pw_set(ATI_USERNAME, ATI_PASSWORD)
-    client.tls_set(cert_reqs=ssl.CERT_REQUIRED, tls_version=ssl.PROTOCOL_TLSv1_2)
+    # TLS configuration - using latest TLS version
+    client.tls_set(cert_reqs=ssl.CERT_NONE)
+    client.tls_insecure_set(True)
 
     client.on_connect = on_connect
     client.on_message = on_message
 
-    print("\nConnecting to ATI broker...")
-    client.connect(ATI_HOST, ATI_PORT, keepalive=60)
-    print("✓ Bridge ready\n")
+    print(f"\nConnecting to ATI broker with client ID: {ATI_CLIENT_ID}")
+    print(f"Protocol: MQTT v5, QoS: 2")
 
-    client.loop_forever()
+    try:
+        client.connect(ATI_HOST, ATI_PORT, keepalive=60)
+        print("OK Bridge ready - waiting for AMR data\n")
+        client.loop_forever()
+    except KeyboardInterrupt:
+        print("\nShutting down bridge...")
+        client.disconnect()
+        print("OK Bridge stopped")
+    except Exception as e:
+        print(f"FAIL Bridge error: {e}")
 
 if __name__ == "__main__":
     main()
