@@ -115,19 +115,35 @@ def on_message(client, userdata, msg):
     """Process ATI AMR data and forward to Old Plant"""
     global counter
     try:
+        # Log raw incoming message
+        print(f"\n{'='*70}")
+        print(f"RAW MESSAGE RECEIVED")
+        print(f"{'='*70}")
+        print(f"Topic: {msg.topic}")
+        print(f"Payload (raw): {msg.payload[:500]}")
+        print(f"{'='*70}\n")
+
         payload = json.loads(msg.payload.decode("utf-8"))
+
+        # Log parsed JSON payload
+        print(f"PARSED JSON:")
+        print(json.dumps(payload, indent=2))
+        print(f"{'='*70}\n")
 
         # Extract ATI device ID (adjust based on actual ATI message format)
         ati_device_id = payload.get("device_id") or payload.get("amr_id") or payload.get("id")
         if not ati_device_id:
+            print(f"WARN No device_id found in payload. Keys available: {list(payload.keys())}")
             return
 
         # Map to Twinzo tugger
         tugger_login = DEVICE_MAP.get(ati_device_id)
         if not tugger_login:
-            if counter % LOG_EVERY_N == 0:
-                print(f"⚠ Unknown ATI device: {ati_device_id} (add to DEVICE_MAP)")
+            print(f"WARN Unknown ATI device: {ati_device_id} (add to DEVICE_MAP)")
+            print(f"Available mappings: {DEVICE_MAP}")
             return
+
+        print(f"Mapped {ati_device_id} -> {tugger_login}")
 
         # Get Twinzo credentials
         creds = get_device_credentials(tugger_login)
@@ -178,19 +194,24 @@ def on_message(client, userdata, msg):
             "NoGoAreas": []
         }]
 
+        print(f"Posting to Twinzo: {json.dumps(twinzo_payload[0], indent=2)}")
+
         r = session.post(TWINZO_LOC_URL, headers=headers, json=twinzo_payload, timeout=5)
 
-        if counter % LOG_EVERY_N == 0:
-            if r.status_code == 200:
-                print(f"✓ {tugger_login} (ATI:{ati_device_id}) → Old Plant: ({X:.0f}, {Y:.0f})")
-            else:
-                print(f"✗ POST failed for {tugger_login}: {r.status_code}")
+        if r.status_code == 200:
+            print(f"OK {tugger_login} (ATI:{ati_device_id}) -> Old Plant: ({X:.0f}, {Y:.0f}) Battery:{battery}% Moving:{is_moving}")
+            print(f"Twinzo response: {r.status_code} {r.text[:200]}")
+        else:
+            print(f"FAIL POST failed for {tugger_login}: {r.status_code}")
+            print(f"Response: {r.text}")
 
         counter += 1
+        print(f"Messages processed: {counter}\n")
 
     except Exception as e:
-        if counter % LOG_EVERY_N == 0:
-            print(f"✗ Error: {e}")
+        print(f"FAIL Error processing message: {e}")
+        import traceback
+        traceback.print_exc()
 
 def main():
     print("="*70)
