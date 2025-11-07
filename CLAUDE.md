@@ -207,7 +207,7 @@ For complete production deployment instructions, device mapping, troubleshooting
 - Credentials: Pending from ATI team
 - Bridge: `src/bridge/bridge_old_plant.py`
 - Target: Twinzo Old Plant (Sector 2)
-- Devices: tugger-05-old, tugger-06-old
+- Devices: tugger-05-old, tugger-06-old, tugger-07-old
 
 #### HiveMQ Cloud (Production - HiTech)
 - Host: `0c7fb7a06d4a4cd5a2868913301ad97d.s1.eu.hivemq.cloud:8883`
@@ -225,10 +225,13 @@ For complete production deployment instructions, device mapping, troubleshooting
 #### Twinzo API
 - OAuth endpoint: `https://api.platform.twinzo.com/v3/authorization/authenticate`
 - Localization endpoint: `https://api.platform.twinzo.com/v3/localization`
+- Device management endpoint: `https://api.platform.twinzo.com/v3/devices`
 - Per-device OAuth authentication with credential caching
 - Two plants:
-  - HiTech Plant: Branch `dcac4881-05ab-4f29-b0df-79c40df9c9c2`, Sector 1
-  - Old Plant: Branch `40557468-2d57-4a3d-9a5e-3eede177daf5`, Sector 2
+  - HiTech Plant: Branch `dcac4881-05ab-4f29-b0df-79c40df9c9c2`, Sector 1, Branch ID 1
+    - Devices: tugger-01, tugger-02, tugger-03, tugger-04 (+ 3 others)
+  - Old Plant: Branch `40557468-2d57-4a3d-9a5e-3eede177daf5`, Sector 2, Branch ID 2
+    - Devices: tugger-05-old, tugger-06-old, tugger-07-old
 
 ## Data Flow
 

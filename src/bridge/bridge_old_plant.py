@@ -33,6 +33,7 @@ OLD_PLANT_BRANCH = "40557468-2d57-4a3d-9a5e-3eede177daf5"
 DEVICE_MAP = {
     "ati_amr_001": "tugger-05-old",
     "ati_amr_002": "tugger-06-old",
+    "ati_amr_003": "tugger-07-old",
     # Add more mappings as ATI provides more AMRs
 }
 
