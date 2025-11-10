@@ -1,0 +1,58 @@
+{
+  "description": "ATI Audit Feed - All Active AMRs to Old Plant (Sector 2)",
+  "plant": "old",
+  "sector_id": 2,
+  "branch_id": 2,
+  "branch_uuid": "40557468-2d57-4a3d-9a5e-3eede177daf5",
+  "devices": [
+    {
+      "sherpa_name": "tug-55-tvsmotor-hosur-09",
+      "twinzo_login": "tug-55-hosur-09",
+      "title": "Tugger 55 Hosur 09",
+      "fleet": "xltest",
+      "description": "ATI xltest fleet - Battery transport"
+    },
+    {
+      "sherpa_name": "tug-39-tvsmotor-hosur-07",
+      "twinzo_login": "tug-39-hosur-07",
+      "title": "Tugger 39 Hosur 07",
+      "fleet": "xltest",
+      "description": "ATI xltest fleet - Engine assembly transport"
+    },
+    {
+      "sherpa_name": "tug-133",
+      "twinzo_login": "tug-133",
+      "title": "Tugger 133",
+      "fleet": "xltest",
+      "description": "ATI xltest fleet - XL engine transport"
+    },
+    {
+      "sherpa_name": "tug-140",
+      "twinzo_login": "tug-140",
+      "title": "Tugger 140",
+      "fleet": "TVS-plant-2",
+      "description": "ATI TVS-plant-2 fleet - Engine transport"
+    },
+    {
+      "sherpa_name": "tug-78",
+      "twinzo_login": "tug-78",
+      "title": "Tugger 78",
+      "fleet": "TVS-plant-2",
+      "description": "ATI TVS-plant-2 fleet - Battery swap operations"
+    },
+    {
+      "sherpa_name": "tug-24-tvsmotor-hosur-05",
+      "twinzo_login": "tug-24-hosur-05",
+      "title": "Tugger 24 Hosur 05",
+      "fleet": "TVS-Hosur-3wheeler-Line",
+      "description": "ATI 3-wheeler line - Engine transport"
+    },
+    {
+      "sherpa_name": "tug-11",
+      "twinzo_login": "tug-11",
+      "title": "Tugger 11",
+      "fleet": "Tvs-plant3",
+      "description": "ATI plant-3 fleet - Battery transport"
+    }
+  ]
+}

@@ -1,0 +1,137 @@
+# TUGGER MOVEMENT ANALYSIS (ATI Coordinates in meters)
+# Data collected: 11:33 - 11:41 UTC
+
+================================================================================
+FACTORY FLOOR MAP (ATI Coordinates: -15m to 120m in X, -10m to 90m in Y)
+================================================================================
+
+Y-axis (North)
+   90 |
+      |                    * tug-78 (stationary)
+      |                    * tug-133 (stationary)
+   80 |
+      |
+      |
+   70 |
+      |
+      |  * tug-55 (moving)
+   60 |  START ----------> END
+      |  (110.94,62.4)  (71.16,61.6)
+      |
+   50 |
+      |
+   40 |      * tug-24 (stationary)     * tug-11 (stationary)
+      |      * tug-39 (START)
+   30 |
+      |
+   20 |
+      |
+   10 |
+    0 |
+      |        |
+  -10 |        v tug-39 (END)
+      |
+      +-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----
+           -10    0    10   20   30   40   50   60   70   80   90  100  110  120
+                                                                    X-axis (East)
+
+================================================================================
+MOVING TUGGERS (2 active)
+================================================================================
+
+TUG-55-HOSUR-09 - Horizontal Movement (Left/Right on factory floor)
+-----------------------------------------------------------------------
+Time: 11:33 → 11:41 (8 minute span)
+Path: (110.94, 62.40) ──────────────→ (71.16, 61.60) ──→ (74.44, 61.76)
+Movement: Moved LEFT 40 meters, then back RIGHT 3 meters
+Distance: ~40m horizontal travel
+Pattern: Appears to be traveling along a route at Y≈62m
+
+ASCII Path (Top view):
+    Y=62m  ┌─────────────────────────────────┐
+           │ START                     END   │
+           │  ●                         ●    │
+           │ (110.94,62.4)         (71.16,61.6)
+           └─────────────────────────────────┘
+    X:     110      100      90      80      70
+
+
+TUG-39-HOSUR-07 - Large Vertical Movement (Up/Down on factory floor)
+-----------------------------------------------------------------------
+Time: 11:33 → 11:41 (8 minute span)
+Path: (17.21, 76.00) ──────────────↓ (44.68, -9.47) ──↑ (44.63, -8.58)
+Movement: Moved RIGHT 27m and DOWN 85 meters! Then slight UP adjustment
+Distance: ~90m total travel (biggest mover!)
+Pattern: Traveling between two distant areas of factory
+
+ASCII Path (Side view):
+    Y=76m  ●  START (17.21, 76.00)
+           │
+           │
+    Y=60m  │
+           │
+           │
+    Y=40m  │
+           │
+           │
+    Y=20m  │
+           │
+           │
+    Y=0m   │
+           │
+           ↓
+    Y=-9m  ●  END (44.68, -9.47)
+
+    X:     17m ────→ 44m (moved right 27m while descending)
+
+
+================================================================================
+STATIONARY TUGGERS (4 waiting/idle)
+================================================================================
+
+TUG-133 - Stationary at (8.97, 75.78)
+  Location: Northwest area, upper section
+  Status: No movement detected
+
+TUG-24-HOSUR-05 - Stationary at (-11.39, 40.94)
+  Location: Far west (negative X), middle section
+  Status: No movement detected
+
+TUG-78 - Stationary at (-4.67, 83.48)
+  Location: Northwest area, very top section
+  Status: No movement detected
+
+TUG-11 - Stationary at (22.72, 42.95)
+  Location: Central area, middle section
+  Status: No movement detected
+
+
+================================================================================
+TWINZO TRANSFORMED COORDINATES (for reference)
+================================================================================
+
+After transformation (×1000 + 100,000 offset):
+
+TUG-55: (210,940, 162,400) → (171,160, 161,600) → (174,440, 161,760)
+TUG-39: (117,210, 176,000) → (144,680, 90,530) → (144,630, 91,420)
+TUG-133: (108,970, 175,780) - stationary
+TUG-24: (88,610, 140,940) - stationary
+TUG-78: (95,330, 183,480) - stationary
+TUG-11: (122,720, 142,950) - stationary
+
+
+================================================================================
+MOVEMENT SUMMARY
+================================================================================
+
+Active Routes Detected: 2
+- Route A: Horizontal path at Y≈62m (tug-55)
+- Route B: Vertical path from Y=76m to Y=-9m (tug-39)
+
+Idle/Waiting: 4 tuggers
+- 3 in northwest quadrant (tug-78, tug-133, tug-24)
+- 1 in center area (tug-11)
+
+Update Frequency: ~2-3 seconds
+Data Source: ATI MQTT audit feed
+Bridge Status: Active and streaming

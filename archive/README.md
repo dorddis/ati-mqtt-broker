@@ -10,6 +10,25 @@ This directory contains files that are no longer actively used but are preserved
 - Understanding project evolution
 - Debugging legacy issues
 
+## Recent Cleanup (2025-11-10)
+
+### old_scripts/
+Recently archived scripts no longer needed:
+- amr_simulator_hivemq.py - Old HiveMQ simulator (replaced by audit feed bridge)
+- hivemq_to_twinzo_bridge.py - Old HiveMQ bridge (replaced by audit feed bridge)
+- place_tuggers.py - Old testing script
+- test_hivemq_connection.py - Old HiveMQ connection testing
+
+### old_logs/
+Old exploration and testing logs:
+- ati_data_received.log, ati_messages.log, ati_topic_discovery.log - ATI exploration logs
+- audit_feed_bridge.log - Old bridge logs (active logs moved to /logs/ directory)
+
+### analysis/
+One-time analysis files:
+- analyze_coordinates.js - Coordinate range analysis script
+- tugger_paths.txt - Tugger movement path analysis output
+
 ## Structure
 
 ### configs/

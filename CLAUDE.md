@@ -29,6 +29,15 @@ This project provides a complete MQTT-based system for mocking and bridging AMR 
 - **`deployments/`** - Deployment configs (docker, railway, render, ngrok)
 - **`archive/`** - Deprecated files preserved for reference
 
+## Important Safety Notes
+
+### Process Management
+**⚠️ CRITICAL WARNING**: NEVER use commands like `taskkill /F /IM node.exe` or `pkill -9 node` to kill all Node.js processes indiscriminately. These commands can terminate the Claude Code session itself, as it runs on Node.js. Instead:
+- Use the `KillShell` tool to kill specific background shell processes by their ID
+- If you need to kill a specific Node process, find its PID first and kill only that PID
+- Use `ps aux | grep node` to identify specific processes before killing them
+- Always prefer targeted process management over blanket kill commands
+
 ## Key Commands
 
 ### Development Workflow
@@ -108,15 +117,21 @@ python -X utf8 scripts/utils/manage_twinzo_devices.py delete 13 hitech
 
 ### Multi-Plant Architecture
 
-This system now supports streaming to TWO Twinzo plants simultaneously:
+This system supports streaming to TWO Twinzo plants simultaneously:
 
-1. **Old Plant Bridge** (Sector 2): ATI MQTTS → tugger-05-old, tugger-06-old
+1. **Old Plant Bridge** (Sector 2): ATI Audit Feed MQTTS → 7 AMRs (tug-55, tug-39, tug-133, tug-140, tug-78, tug-24, tug-11)
 2. **HiTech Bridge** (Sector 1): HiveMQ Cloud → tugger-03, tugger-04
 
 ### Quick Start Production
 
 ```bash
-# Start both bridges
+# Start ATI audit feed bridge (Old Plant)
+node src/bridge/bridge_audit_feed.js > logs/audit_feed_bridge.log 2>&1 &
+
+# Monitor the bridge
+tail -f logs/audit_feed_bridge.log
+
+# Or use the unified starter (both plants)
 python -X utf8 start_bridges.py
 
 # Start only Old Plant bridge
@@ -129,7 +144,10 @@ python -X utf8 start_bridges.py hitech
 ### Manual Bridge Control
 
 ```bash
-# Old Plant: ATI MQTTS → Twinzo Old Plant (Sector 2)
+# Old Plant: ATI Audit Feed → Twinzo Old Plant (Sector 2) - NODE.JS
+node src/bridge/bridge_audit_feed.js
+
+# Alternative Python bridge (if needed)
 python -X utf8 src/bridge/bridge_old_plant.py
 
 # HiTech: HiveMQ Cloud → Twinzo HiTech (Sector 1)
@@ -146,17 +164,42 @@ TWINZO_CLIENT=TVSMotor
 TWINZO_PASSWORD=Tvs@Hosur$2025
 TWINZO_API_KEY=sq29vSdYEribAbJjPc93FwNvk8ndo53P2yoAsS6S
 
-# ATI MQTTS (for Old Plant bridge) - CREDENTIALS RECEIVED
+# ATI Audit Feed - OLD PLANT PRODUCTION (7 AMRs)
+AUDIT_MQTT_HOST=tvs-dev.ifactory.ai
+AUDIT_MQTT_PORT=8883
+AUDIT_USERNAME=tvs-audit-user
+AUDIT_PASSWORD=TVSAudit@2025
+
+# ATI Production Feed - ALTERNATIVE (individual AMRs)
 ATI_MQTT_HOST=tvs-dev.ifactory.ai
 ATI_MQTT_PORT=8883
 ATI_MQTT_USERNAME=amr-001
 ATI_MQTT_PASSWORD=TVSamr001@2025
 ATI_CLIENT_ID=amr-001
-ATI_MQTT_TOPIC=ati/amr/#
+ATI_MQTT_TOPIC=ati_fm/sherpa/status
+
+# Coordinate Transform - ATI meters to Twinzo units
+AFFINE_A=1000        # X scale factor
+AFFINE_B=0           # X rotation (no rotation)
+AFFINE_C=0           # Y rotation (no rotation)
+AFFINE_D=1000        # Y scale factor
+AFFINE_TX=100000     # X offset (center at 100k)
+AFFINE_TY=100000     # Y offset (center at 100k)
 
 # HiveMQ credentials are in config/hivemq_config.json
-# HiTech AMRs need to be configured to publish to HiveMQ topics
 ```
+
+### Old Plant AMRs (ATI Audit Feed)
+
+| Twinzo Device | ATI Name | Battery | Status |
+|---------------|----------|---------|--------|
+| tug-55-hosur-09 | tug-55-tvsmotor-hosur-09 | 75-85% | Active - Moving |
+| tug-39-hosur-07 | tug-39-tvsmotor-hosur-07 | 68-81% | Active - Moving |
+| tug-133 | tug-133 | 44-52% | Active |
+| tug-140 | tug-140 | 15-20% | Active |
+| tug-78 | tug-78 | 60-73% | Active |
+| tug-24-hosur-05 | tug-24-tvsmotor-hosur-05 | 54-64% | Active |
+| tug-11 | tug-11 | 22-37% | Active |
 
 ### Complete Production Guide
 
@@ -189,10 +232,38 @@ For complete production deployment instructions, device mapping, troubleshooting
 - `HZ` - Update frequency in Hz (default: 10)
 - `PATH_SHAPE` - Movement pattern: loop, line, rectangle (default: loop)
 
-### Coordinate System
-- `REGION_MIN_X`, `REGION_MIN_Y` - Top-left coordinate bounds
-- `REGION_MAX_X`, `REGION_MAX_Y` - Bottom-right coordinate bounds
-- `AFFINE_A`, `AFFINE_B`, `AFFINE_C`, `AFFINE_D`, `AFFINE_TX`, `AFFINE_TY` - Coordinate transformation parameters
+### Coordinate System (OLD PLANT - ATI to Twinzo)
+
+ATI provides coordinates in **meters** (range: -15m to 120m). These are transformed to Twinzo units using affine transformation:
+
+```
+X_twinzo = AFFINE_A * X_ati + AFFINE_B * Y_ati + AFFINE_TX
+Y_twinzo = AFFINE_C * X_ati + AFFINE_D * Y_ati + AFFINE_TY
+```
+
+**Current Transform (Basic Scaling):**
+- `AFFINE_A=1000` - X scale factor (meters → Twinzo units)
+- `AFFINE_B=0` - No X/Y rotation
+- `AFFINE_C=0` - No Y/X rotation
+- `AFFINE_D=1000` - Y scale factor (meters → Twinzo units)
+- `AFFINE_TX=100000` - X offset (center tuggers around 100k)
+- `AFFINE_TY=100000` - Y offset (center tuggers around 100k)
+
+**Simplified:** `X_twinzo = X_ati × 1000 + 100,000`
+
+**Example Transformations:**
+- ATI (110.94m, 62.40m) → Twinzo (210,940, 162,396)
+- ATI (-11.39m, 40.95m) → Twinzo (88,610, 140,950)
+
+**⚠️ Note:** Current transform is basic scaling. Proper alignment requires factory floor reference points from ATI for accurate positioning/rotation.
+
+### Mock Data Configuration (For Testing Only)
+- `NUM_ROBOTS` - Number of mock robots (default: 3)
+- `ROBOT_PREFIX` - Robot name prefix (default: tugger)
+- `HZ` - Update frequency in Hz (default: 10)
+- `PATH_SHAPE` - Movement pattern: loop, line, rectangle (default: loop)
+- `REGION_MIN_X`, `REGION_MIN_Y` - Top-left coordinate bounds (for mock data)
+- `REGION_MAX_X`, `REGION_MAX_Y` - Bottom-right coordinate bounds (for mock data)
 
 ## Platform-Specific Notes
 
@@ -203,15 +274,24 @@ For complete production deployment instructions, device mapping, troubleshooting
 
 ### Integration Points
 
-#### ATI MQTTS (Production - Old Plant)
+#### ATI Audit Feed (Production - Old Plant) ✅ ACTIVE
 - Host: `tvs-dev.ifactory.ai:8883` (MQTT5 with TLS)
-- Credentials: `amr-001` / `TVSamr001@2025`
-- Client ID: `amr-001`
-- QoS Level: 2
-- Bridge: `src/bridge/bridge_old_plant.py`
+- Credentials: `tvs-audit-user` / `TVSAudit@2025`
+- Client ID: Must match username (`tvs-audit-user`)
+- Topics: `ati_fm/#` (wildcard), `fleet/trips/info`
+- QoS Level: 1
+- Data Format:
+  - `sherpa_name`: Device identifier (e.g., "tug-55-tvsmotor-hosur-09")
+  - `pose`: [x, y, heading] array in **meters**
+  - `battery_status`: Battery percentage (0-100)
+  - `mode`: "fleet" (moving) or "disconnected"
+  - Update frequency: 2-6 seconds (burst pattern with 8-11 min gaps)
+- Bridge: `src/bridge/bridge_audit_feed.js` (Node.js)
 - Target: Twinzo Old Plant (Sector 2)
-- Devices: tugger-05-old, tugger-06-old, tugger-07-old
-- Status: ✓ **READY TO DEPLOY**
+- Devices: **7 AMRs** - tug-55-hosur-09, tug-39-hosur-07, tug-133, tug-140, tug-78, tug-24-hosur-05, tug-11
+- Status: ✅ **PRODUCTION ACTIVE** - Streaming live data
+- Coordinate Range: -15m to 120m (ATI) → 88k to 210k (Twinzo)
+- Known Limitation: Data comes in bursts, not continuous stream
 
 #### HiveMQ Cloud (Production - HiTech)
 - Host: `0c7fb7a06d4a4cd5a2868913301ad97d.s1.eu.hivemq.cloud:8883`
@@ -231,13 +311,28 @@ For complete production deployment instructions, device mapping, troubleshooting
 - Localization endpoint: `https://api.platform.twinzo.com/v3/localization`
 - Device management endpoint: `https://api.platform.twinzo.com/v3/devices`
 - Per-device OAuth authentication with credential caching
+- Authentication: Individual device login with password `Tvs@Hosur$2025`
+- Headers: `Client`, `Branch`, `Token`, `Api-Key` (NOT `Authorization: Bearer`)
+- Payload: Array format `[{...}]` (NOT single object)
 - Two plants:
-  - HiTech Plant: Branch `dcac4881-05ab-4f29-b0df-79c40df9c9c2`, Sector 1, Branch ID 1
+  - **HiTech Plant**: Branch `dcac4881-05ab-4f29-b0df-79c40df9c9c2`, Sector 1, Branch ID 1
     - Devices: tugger-01, tugger-02, tugger-03, tugger-04 (+ 3 others)
-  - Old Plant: Branch `40557468-2d57-4a3d-9a5e-3eede177daf5`, Sector 2, Branch ID 2
-    - Devices: tugger-05-old, tugger-06-old, tugger-07-old
+  - **Old Plant**: Branch `40557468-2d57-4a3d-9a5e-3eede177daf5`, Sector 2, Branch ID 2
+    - Devices: tug-55-hosur-09, tug-39-hosur-07, tug-133, tug-140, tug-78, tug-24-hosur-05, tug-11 (IDs: 15-21)
 
 ## Data Flow
+
+### Production Flow (Old Plant - ATI Audit Feed)
+
+1. **ATI AMRs**: Real tuggers operating in factory, publishing position to ATI MQTT broker
+2. **ATI MQTT Broker**: `tvs-dev.ifactory.ai:8883` publishes to `ati_fm/#` topics
+3. **Bridge (Node.js)**: `bridge_audit_feed.js` subscribes, processes, transforms coordinates
+4. **OAuth Authentication**: Per-device login to Twinzo API with token caching
+5. **Coordinate Transform**: ATI meters × 1000 + 100k offset → Twinzo units
+6. **API Posting**: Transformed data sent to Twinzo localization API (Sector 2)
+7. **Twinzo Map**: Tuggers visible and tracking in real-time on Old Plant map
+
+### Mock/Testing Flow (Development)
 
 1. **Mock Data Generation**: `publisher/` generates realistic AMR movement data
 2. **MQTT Broker**: `mosquitto/` handles message routing and persistence
