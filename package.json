@@ -1,5 +1,14 @@
 {
+  "name": "twinzo-ati-bridge",
+  "version": "1.0.0",
+  "description": "MQTT bridge for streaming ATI AMR data to Twinzo platform",
   "type": "module",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "start": "node src/bridge/bridge_audit_feed.js"
+  },
   "dependencies": {
     "dotenv": "^17.2.3",
     "mqtt": "^5.14.1",

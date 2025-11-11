@@ -1,0 +1,7 @@
+Tugger,Point_Name,Twinzo_X,Twinzo_Y,Notes
+tug-55,Left_Point,129337.98,105944.23,Left endpoint of horizontal movement
+tug-55,Right_Point,236349.76,105428.33,Right endpoint of horizontal movement
+tug-39,Point_1,115556.88,96744.30,Movement path point 1
+tug-39,Point_2,115416.50,106006.18,Movement path point 2
+tug-39,Point_3,147189.35,105711.08,Movement path point 3
+tug-39,Point_4,147284.47,191678.48,Movement path point 4 (outlier - check if valid)

@@ -279,10 +279,35 @@ local_settings.py
 
 # Project documentation builds
 docs/build/
-documentation/build/# Twinzo M
-ock Project Specific
+documentation/build/
+
+# Twinzo Mock Project Specific
+# Mosquitto runtime data
 mosquitto/data/
 mosquitto/log/
+config/mosquitto/data/
+config/mosquitto/log/
+*.db
+*.db-journal
+
+# Debug/temp scripts
 debug_*.py
 temp_*.py
 scratch_*.py
+
+# Runtime data directories
+data/ati_mqtt/
+data/mqtt/
+data/websocket_mqtt/
+
+# Movement analysis outputs (keep map, ignore generated plots)
+movement_images/*.png
+!movement_images/twinzo-map.png
+
+# Log files (keep directory structure)
+logs/*.log
+!logs/.gitkeep
+
+# Temporary calculation files
+NEW_AFFINE_PARAMS.txt
+transform_analysis.png

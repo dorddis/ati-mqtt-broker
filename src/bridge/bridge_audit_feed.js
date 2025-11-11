@@ -1,14 +1,15 @@
 /**
- * ATI Audit Feed Bridge - All Active AMRs to Twinzo Old Plant
+ * ATI Audit Feed Bridge - Old Plant AMRs to Twinzo
  *
- * This bridge uses the ATI audit feed credentials to monitor ALL active AMRs
- * and stream their positions to the appropriate Twinzo devices in Old Plant (Sector 2).
+ * This bridge uses the ATI audit feed credentials to monitor active AMRs
+ * and stream their positions to Twinzo Old Plant (Sector 2).
  *
  * Features:
- * - Monitors ati_fm/sherpa/status for ALL AMRs
+ * - Monitors ati_fm/sherpa/status for all AMRs
  * - Maps ATI sherpa_name to Twinzo device logins
  * - Streams to Old Plant (Sector 2) only
- * - Handles 7 active AMRs from multiple fleets
+ * - Currently handling 3 AMRs: tug-55, tug-39, tug-133
+ * - Uses affine transformation for coordinate mapping
  *
  * Usage:
  *     node src/bridge/bridge_audit_feed.js
@@ -38,19 +39,25 @@ const TWINZO_API_KEY = process.env.TWINZO_API_KEY;
 const TWINZO_AUTH_URL = 'https://api.platform.twinzo.com/v3/authorization/authenticate';
 const TWINZO_LOC_URL = 'https://api.platform.twinzo.com/v3/localization';
 
-// Old Plant Configuration
+// Plant Configuration
 const OLD_PLANT_SECTOR = 2;
 const OLD_PLANT_BRANCH = '40557468-2d57-4a3d-9a5e-3eede177daf5';
+const HITECH_PLANT_SECTOR = 1;
+const HITECH_PLANT_BRANCH = 'dcac4881-05ab-4f29-b0df-79c40df9c9c2';
 
-// Device Mapping: ATI sherpa_name -> Twinzo login
+// Device Mapping: ATI sherpa_name -> Twinzo login (ONLY OLD PLANT)
 const DEVICE_MAP = {
     'tug-55-tvsmotor-hosur-09': 'tug-55-hosur-09',
     'tug-39-tvsmotor-hosur-07': 'tug-39-hosur-07',
-    'tug-133': 'tug-133',
-    'tug-140': 'tug-140',
-    'tug-78': 'tug-78',
-    'tug-24-tvsmotor-hosur-05': 'tug-24-hosur-05',
-    'tug-11': 'tug-11'
+    'tug-133': 'tug-133'
+    // Disabled: tug-140, tug-78, tug-24, tug-11 (not in Old Plant)
+};
+
+// Device-to-Sector Mapping: Which sector each device belongs to
+const DEVICE_SECTOR_MAP = {
+    'tug-55-hosur-09': OLD_PLANT_SECTOR,
+    'tug-39-hosur-07': OLD_PLANT_SECTOR,
+    'tug-133': OLD_PLANT_SECTOR
 };
 
 // Coordinate transformation: Scale ATI meters (0-120 range) to Twinzo units (100k range)
@@ -137,10 +144,19 @@ async function sendToTwinzo(deviceLogin, x, y, heading, battery = 0) {
             return false;
         }
 
+        // Validate coordinates
+        if (!isFinite(x) || !isFinite(y)) {
+            console.log(`FAIL Invalid coordinates for ${deviceLogin}: X=${x}, Y=${y}`);
+            return false;
+        }
+
+        // Get device-specific sector (default to Old Plant if not configured)
+        const sectorId = DEVICE_SECTOR_MAP[deviceLogin] || OLD_PLANT_SECTOR;
+
         // Prepare localization data (MUST be an array, match Python bridge format)
         const data = [{
             Timestamp: Date.now(),
-            SectorId: OLD_PLANT_SECTOR,
+            SectorId: sectorId,
             X: x,
             Y: y,
             Z: 0,
@@ -169,7 +185,10 @@ async function sendToTwinzo(deviceLogin, x, y, heading, battery = 0) {
             stats.messagesSent++;
             return true;
         } else {
+            const errorText = await response.text();
             console.log(`FAIL Twinzo API error for ${deviceLogin}: ${response.status}`);
+            console.log(`  Sector: ${sectorId}, X: ${x.toFixed(2)}, Y: ${y.toFixed(2)}, Battery: ${battery}`);
+            console.log(`  Response: ${errorText.substring(0, 200)}`);
             stats.errors++;
             return false;
         }
@@ -205,12 +224,14 @@ console.log(`ATI Broker: ${ATI_HOST}:${ATI_PORT}`);
 console.log(`ATI Username: ${ATI_USERNAME}`);
 console.log(`Client ID: ${ATI_CLIENT_ID}`);
 console.log(`Topics: ${Object.keys(SUBSCRIPTION_TOPICS).join(', ')}`);
-console.log(`Old Plant Sector: ${OLD_PLANT_SECTOR}`);
-console.log(`Old Plant Branch: ${OLD_PLANT_BRANCH}`);
+console.log(`Old Plant - Sector: ${OLD_PLANT_SECTOR}, Branch: ${OLD_PLANT_BRANCH}`);
+console.log(`HiTech Plant - Sector: ${HITECH_PLANT_SECTOR}, Branch: ${HITECH_PLANT_BRANCH}`);
 console.log(`Coordinate Transform: A=${AFFINE_A}, B=${AFFINE_B}, C=${AFFINE_C}, D=${AFFINE_D}, TX=${AFFINE_TX}, TY=${AFFINE_TY}`);
 console.log(`Active AMRs: ${Object.keys(DEVICE_MAP).length}`);
 for (const [atiName, twinzoLogin] of Object.entries(DEVICE_MAP)) {
-    console.log(`  ${atiName} -> ${twinzoLogin}`);
+    const sector = DEVICE_SECTOR_MAP[twinzoLogin] || OLD_PLANT_SECTOR;
+    const plantName = sector === HITECH_PLANT_SECTOR ? 'HiTech' : 'Old Plant';
+    console.log(`  ${atiName} -> ${twinzoLogin} (${plantName}, Sector ${sector})`);
 }
 console.log('======================================================================\\n');
 
@@ -227,7 +248,7 @@ client.on('connect', () => {
         for (const sub of granted) {
             console.log(`  ${sub.topic}`);
         }
-        console.log('OK Bridge ready - streaming 7 AMRs to Old Plant\\n');
+        console.log('OK Bridge ready - streaming 3 AMRs to Old Plant (Sector 2)\\n');
     });
 });
 

@@ -117,10 +117,13 @@ python -X utf8 scripts/utils/manage_twinzo_devices.py delete 13 hitech
 
 ### Multi-Plant Architecture
 
-This system supports streaming to TWO Twinzo plants simultaneously:
+**Currently Active:**
+- **Old Plant** (Sector 2): ATI Audit Feed MQTTS → 3 AMRs (tug-55, tug-39, tug-133)
 
-1. **Old Plant Bridge** (Sector 2): ATI Audit Feed MQTTS → 7 AMRs (tug-55, tug-39, tug-133, tug-140, tug-78, tug-24, tug-11)
-2. **HiTech Bridge** (Sector 1): HiveMQ Cloud → tugger-03, tugger-04
+**Disabled (not in Old Plant):**
+- tug-140, tug-78, tug-24, tug-11 (data from these AMRs is ignored)
+
+**Note**: The bridge `bridge_audit_feed.js` only processes AMRs listed in `DEVICE_MAP`. Other AMRs visible in the ATI feed are ignored.
 
 ### Quick Start Production
 
@@ -164,7 +167,7 @@ TWINZO_CLIENT=TVSMotor
 TWINZO_PASSWORD=Tvs@Hosur$2025
 TWINZO_API_KEY=sq29vSdYEribAbJjPc93FwNvk8ndo53P2yoAsS6S
 
-# ATI Audit Feed - OLD PLANT PRODUCTION (7 AMRs)
+# ATI Audit Feed - PRODUCTION (streaming 3 AMRs to Old Plant only)
 AUDIT_MQTT_HOST=tvs-dev.ifactory.ai
 AUDIT_MQTT_PORT=8883
 AUDIT_USERNAME=tvs-audit-user
@@ -178,28 +181,36 @@ ATI_MQTT_PASSWORD=TVSamr001@2025
 ATI_CLIENT_ID=amr-001
 ATI_MQTT_TOPIC=ati_fm/sherpa/status
 
-# Coordinate Transform - ATI meters to Twinzo units
-AFFINE_A=1000        # X scale factor
-AFFINE_B=0           # X rotation (no rotation)
-AFFINE_C=0           # Y rotation (no rotation)
-AFFINE_D=1000        # Y scale factor
-AFFINE_TX=100000     # X offset (center at 100k)
-AFFINE_TY=100000     # Y offset (center at 100k)
+# Coordinate Transform - ATI meters to Twinzo units (calculated from reference points)
+# Includes scaling, rotation, and Y-axis flip for proper factory floor alignment
+AFFINE_A=1114.231287   # X scale + contribution from X_ati
+AFFINE_B=-6.892942     # X contribution from Y_ati (slight rotation)
+AFFINE_C=-193.182579   # Y contribution from X_ati (rotation)
+AFFINE_D=-1021.818219  # Y scale (NEGATIVE = Y-axis flip)
+AFFINE_TX=94185.26     # X offset
+AFFINE_TY=168003.25    # Y offset
 
 # HiveMQ credentials are in config/hivemq_config.json
 ```
 
-### Old Plant AMRs (ATI Audit Feed)
+### Active AMRs (ATI Audit Feed → Twinzo)
+
+**Old Plant (Sector 2)** - Currently Streaming:
 
 | Twinzo Device | ATI Name | Battery | Status |
 |---------------|----------|---------|--------|
-| tug-55-hosur-09 | tug-55-tvsmotor-hosur-09 | 75-85% | Active - Moving |
-| tug-39-hosur-07 | tug-39-tvsmotor-hosur-07 | 68-81% | Active - Moving |
-| tug-133 | tug-133 | 44-52% | Active |
-| tug-140 | tug-140 | 15-20% | Active |
-| tug-78 | tug-78 | 60-73% | Active |
-| tug-24-hosur-05 | tug-24-tvsmotor-hosur-05 | 54-64% | Active |
-| tug-11 | tug-11 | 22-37% | Active |
+| tug-55-hosur-09 | tug-55-tvsmotor-hosur-09 | 75-85% | ✅ Active - Streaming |
+| tug-39-hosur-07 | tug-39-tvsmotor-hosur-07 | 68-81% | ✅ Active - Streaming |
+| tug-133 | tug-133 | 44-52% | ✅ Active - Streaming |
+
+**Disabled AMRs** (data ignored):
+
+| ATI Name | Reason |
+|----------|--------|
+| tug-140 | Not in Old Plant |
+| tug-78 | Not in Old Plant |
+| tug-24-tvsmotor-hosur-05 | Not in Old Plant |
+| tug-11 | Not in Old Plant |
 
 ### Complete Production Guide
 
@@ -234,28 +245,41 @@ For complete production deployment instructions, device mapping, troubleshooting
 
 ### Coordinate System (OLD PLANT - ATI to Twinzo)
 
-ATI provides coordinates in **meters** (range: -15m to 120m). These are transformed to Twinzo units using affine transformation:
+ATI provides coordinates in **meters** (range: -15m to 120m). These are transformed to Twinzo units using simplified affine transformation:
 
 ```
-X_twinzo = AFFINE_A * X_ati + AFFINE_B * Y_ati + AFFINE_TX
-Y_twinzo = AFFINE_C * X_ati + AFFINE_D * Y_ati + AFFINE_TY
+X_twinzo = AFFINE_A * X_ati + AFFINE_TX
+Y_twinzo = AFFINE_D * Y_ati + AFFINE_TY
 ```
 
-**Current Transform (Basic Scaling):**
-- `AFFINE_A=1000` - X scale factor (meters → Twinzo units)
-- `AFFINE_B=0` - No X/Y rotation
-- `AFFINE_C=0` - No Y/X rotation
-- `AFFINE_D=1000` - Y scale factor (meters → Twinzo units)
-- `AFFINE_TX=100000` - X offset (center tuggers around 100k)
-- `AFFINE_TY=100000` - Y offset (center tuggers around 100k)
+**Current Transform (Updated 2025-11-11 - Simplified, No Rotation):**
+- `AFFINE_A=1479.084727` - X scale factor
+- `AFFINE_B=0.0` - No rotation
+- `AFFINE_C=0.0` - No rotation
+- `AFFINE_D=-1479.084727` - Y scale factor (NEGATIVE = Y-axis flip)
+- `AFFINE_TX=63341.22` - X offset
+- `AFFINE_TY=197825.86` - Y offset
 
-**Simplified:** `X_twinzo = X_ati × 1000 + 100,000`
+**Key Features:**
+- **No rotation needed**: Tugger paths are horizontal, confirmed by movement data
+- **Y-axis flip**: ATI's Y-axis points opposite to Twinzo's (negative D coefficient)
+- **Uniform scaling**: 1479 units per meter (both X and Y)
+- **Accuracy**: Perfect X alignment, Y error ~258 units (0.24%)
 
-**Example Transformations:**
-- ATI (110.94m, 62.40m) → Twinzo (210,940, 162,396)
-- ATI (-11.39m, 40.95m) → Twinzo (88,610, 140,950)
+**Calculation Basis:**
+- Based on precise Twinzo coordinates from tug-55 movement screenshots
+- Left endpoint: Twinzo (129337.98, 105944.23) ← ATI X=44.62m
+- Right endpoint: Twinzo (236349.76, 105428.33) ← ATI X=116.97m
+- Horizontal path: 72.35m ATI span = 107,011 Twinzo units
 
-**⚠️ Note:** Current transform is basic scaling. Proper alignment requires factory floor reference points from ATI for accurate positioning/rotation.
+**Validation:**
+- Tug-55 horizontal movement: X span 72.35m, Y variance only 3.87m (nearly constant)
+- Transformation tested against 80 data points from connection_past.log
+- See docs/TRANSFORMATION_UPDATE.md for full calculation details
+
+**Coordinate Range:**
+- ATI: X=[-15m, 120m], Y=[0m, 80m]
+- Twinzo: X=[77k, 228k], Y=[86k, 168k]
 
 ### Mock Data Configuration (For Testing Only)
 - `NUM_ROBOTS` - Number of mock robots (default: 3)
@@ -316,9 +340,11 @@ Y_twinzo = AFFINE_C * X_ati + AFFINE_D * Y_ati + AFFINE_TY
 - Payload: Array format `[{...}]` (NOT single object)
 - Two plants:
   - **HiTech Plant**: Branch `dcac4881-05ab-4f29-b0df-79c40df9c9c2`, Sector 1, Branch ID 1
-    - Devices: tugger-01, tugger-02, tugger-03, tugger-04 (+ 3 others)
+    - ATI AMRs: tug-140, tug-78, tug-24-hosur-05, tug-11
+    - Other devices: tugger-01, tugger-02, tugger-03, tugger-04
   - **Old Plant**: Branch `40557468-2d57-4a3d-9a5e-3eede177daf5`, Sector 2, Branch ID 2
-    - Devices: tug-55-hosur-09, tug-39-hosur-07, tug-133, tug-140, tug-78, tug-24-hosur-05, tug-11 (IDs: 15-21)
+    - ATI AMRs: tug-55-hosur-09, tug-39-hosur-07, tug-133
+    - Other devices: tugger-05-old, tugger-06-old, tugger-07-old
 
 ## Data Flow
 
@@ -328,7 +354,7 @@ Y_twinzo = AFFINE_C * X_ati + AFFINE_D * Y_ati + AFFINE_TY
 2. **ATI MQTT Broker**: `tvs-dev.ifactory.ai:8883` publishes to `ati_fm/#` topics
 3. **Bridge (Node.js)**: `bridge_audit_feed.js` subscribes, processes, transforms coordinates
 4. **OAuth Authentication**: Per-device login to Twinzo API with token caching
-5. **Coordinate Transform**: ATI meters × 1000 + 100k offset → Twinzo units
+5. **Coordinate Transform**: ATI meters → Twinzo units (affine: scale ~1114x/1022y, Y-flip, -0.35° rotation)
 6. **API Posting**: Transformed data sent to Twinzo localization API (Sector 2)
 7. **Twinzo Map**: Tuggers visible and tracking in real-time on Old Plant map
 

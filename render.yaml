@@ -1,0 +1,36 @@
+services:
+  - type: worker
+    name: twinzo-ati-bridge
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: TWINZO_CLIENT
+        sync: false
+      - key: TWINZO_PASSWORD
+        sync: false
+      - key: TWINZO_API_KEY
+        sync: false
+      - key: AUDIT_MQTT_HOST
+        sync: false
+      - key: AUDIT_MQTT_PORT
+        sync: false
+      - key: AUDIT_USERNAME
+        sync: false
+      - key: AUDIT_PASSWORD
+        sync: false
+      - key: AFFINE_A
+        sync: false
+      - key: AFFINE_B
+        sync: false
+      - key: AFFINE_C
+        sync: false
+      - key: AFFINE_D
+        sync: false
+      - key: AFFINE_TX
+        sync: false
+      - key: AFFINE_TY
+        sync: false
