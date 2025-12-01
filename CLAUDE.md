@@ -28,6 +28,7 @@ This project provides a complete MQTT-based system for mocking and bridging AMR 
 - **`docs/`** - All documentation (guides, integrations, deployment, project, reference)
 - **`deployments/`** - Deployment configs (docker, railway, render, ngrok)
 - **`archive/`** - Deprecated files preserved for reference
+  - `archive/audit_feed_exploration/shared_ati_code.js` - **Original ATI reference code** shared by ATI team for audit feed connection
 
 ## Important Safety Notes
 
@@ -608,18 +609,24 @@ Battery area reference measurements have 10-14m errors (poor quality). These sta
 - Client ID: Must match username (`tvs-audit-user`)
 - Topics: `ati_fm/#` (wildcard), `fleet/trips/info`
 - QoS Level: 1
+- **Original ATI Reference Code**: `archive/audit_feed_exploration/shared_ati_code.js` (provided by ATI team)
 - Data Format:
   - `sherpa_name`: Device identifier (e.g., "tug-55-tvsmotor-hosur-09")
   - `pose`: [x, y, heading] array in **meters**
-  - `battery_status`: Battery percentage (0-100)
-  - `mode`: "fleet" (moving) or "disconnected"
-  - Update frequency: 2-6 seconds (burst pattern with 8-11 min gaps)
+  - `battery_status`: Battery percentage (0-100), -1 = unknown
+  - `mode`: "fleet" (active/moving) or "disconnected"
+  - `disabled`: boolean - true if AMR is offline
+  - `disabled_reason`: "stale_heartbeat" or empty string
+  - `trip_id`, `trip_leg_id`: Current trip information
+  - `message_id`: UUID for each message
+  - **`timestamp`**: ISO 8601 format (e.g., "2025-12-01T13:21:52Z") - **⚠️ IMPORTANT: Despite the 'Z' suffix, timestamps are actually in IST (Indian Standard Time, UTC+5:30), NOT UTC**
+  - Update frequency: Real-time bursts when AMRs are active
 - Bridge: `src/bridge/bridge_audit_feed.js` (Node.js)
 - Target: Twinzo Old Plant (Sector 2)
 - Devices: **7 AMRs** - tug-55-hosur-09, tug-39-hosur-07, tug-133, tug-140, tug-78, tug-24-hosur-05, tug-11
 - Status: ⏸️ **PAUSED** - Awaiting Twinzo final integration (license valid till 30 Nov 2025)
-- Coordinate Range: -15m to 120m (ATI) → 88k to 210k (Twinzo)
-- Known Limitation: Data comes in bursts, not continuous stream
+- Coordinate Range: -160m to 125m (ATI) → varies (Twinzo after transformation)
+- **Timezone Note**: ⚠️ ATI timestamps have a 'Z' suffix (which normally means UTC) but are actually in **IST (Indian Standard Time, UTC+5:30)**. This is a data formatting issue on ATI's side - treat all timestamps as IST.
 
 #### HiveMQ Cloud (Production - HiTech)
 - Host: `0c7fb7a06d4a4cd5a2868913301ad97d.s1.eu.hivemq.cloud:8883`

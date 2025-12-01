@@ -10,6 +10,14 @@
  * - Streams to Old Plant (Sector 2) only
  * - Currently handling 3 AMRs: tug-55, tug-39, tug-133
  * - Uses affine transformation for coordinate mapping
+ * - Logs all data to SQLite database (logs/ati_data.db)
+ *
+ * IMPORTANT - ATI Timestamp Format:
+ * - ATI includes a "timestamp" field in ISO 8601 format with 'Z' suffix
+ * - Example: "timestamp": "2025-12-01T13:21:52Z"
+ * - WARNING: Despite the 'Z' (UTC indicator), timestamps are actually in IST (UTC+5:30)
+ * - This is a data formatting issue on ATI's side
+ * - Bridge uses Date.now() for Twinzo API (real-time when received)
  *
  * Usage:
  *     node src/bridge/bridge_audit_feed.js
