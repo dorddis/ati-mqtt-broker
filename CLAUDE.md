@@ -7,8 +7,8 @@ This project provides a complete MQTT-based system for mocking and bridging AMR 
 ### Core Components
 - **`src/`** - Core application code
   - `publisher/` - Mock AMR data generator with realistic movement patterns
-  - `bridge/` - MQTT-to-Twinzo REST API bridge with OAuth authentication
-  - `common/` - Shared utilities
+  - `bridge/` - MQTT-to-Twinzo REST API bridge with OAuth authentication and automatic database logging
+  - `common/` - Shared utilities (database, transformations)
 - **`config/`** - Configuration files
   - `mosquitto/` - MQTT broker configuration
   - `mappings/` - Device, field, and topic mappings
@@ -59,6 +59,12 @@ docker-compose build --no-cache
 ```bash
 # Monitor Twinzo integration
 python -X utf8 scripts/monitoring/monitor_twinzo.py
+
+# Visualize logged ATI data from database
+python -X utf8 scripts/monitoring/visualize_ati_data.py stats         # Show statistics
+python -X utf8 scripts/monitoring/visualize_ati_data.py recent        # Recent messages
+python -X utf8 scripts/monitoring/visualize_ati_data.py plot tug-55-tvsmotor-hosur-09  # Plot movement
+python -X utf8 scripts/monitoring/visualize_ati_data.py export tug-55-tvsmotor-hosur-09  # Export CSV
 
 # Test connection to TVS broker (when AMRs are online)
 python -X utf8 integrations/tvs/tvs_real_data_subscriber.py
@@ -113,12 +119,65 @@ python -X utf8 scripts/utils/manage_twinzo_devices.py create tugger-07-old old -
 python -X utf8 scripts/utils/manage_twinzo_devices.py delete 13 hitech
 ```
 
+### Database Logging
+
+The bridge automatically logs all ATI data to a SQLite database for analysis and debugging.
+
+**Database Location**: `logs/ati_data.db`
+
+**What's Logged**: ATI raw coordinates, transformed Twinzo coordinates, battery status, API responses, errors, timestamps
+
+```bash
+# Show statistics (success rate, error rate, active devices)
+python -X utf8 scripts/monitoring/visualize_ati_data.py stats
+
+# View recent messages
+python -X utf8 scripts/monitoring/visualize_ati_data.py recent
+python -X utf8 scripts/monitoring/visualize_ati_data.py recent tug-55-tvsmotor-hosur-09 50
+
+# Plot movement path (requires matplotlib)
+python -X utf8 scripts/monitoring/visualize_ati_data.py plot tug-55-tvsmotor-hosur-09
+
+# Export to CSV for analysis
+python -X utf8 scripts/monitoring/visualize_ati_data.py export tug-55-tvsmotor-hosur-09
+
+# Quick query from Node.js
+node scripts/monitoring/query_database.js
+
+# Clean up old data (keep last 30 days)
+python -X utf8 scripts/monitoring/visualize_ati_data.py cleanup 30
+```
+
+**Safety**: Database uses `CREATE TABLE IF NOT EXISTS` - data is NEVER overwritten on bridge restart. All historical data is preserved.
+
+**Documentation**: See `docs/DATABASE_LOGGING.md` for complete guide.
+
 ## Production Deployment
+
+### Current Status (Updated: 2025-11-25)
+
+**🔄 TWINZO INTEGRATION IN PROGRESS:**
+- License extended till **30th November 2025**
+- Patrik from Twinzo is connecting directly to ATI broker
+- **BLOCKED**: ATI broker has IP whitelisting - Twinzo's IP needs to be whitelisted
+- Awaiting Twinzo's IP address to forward to ATI for whitelisting
+
+**Twinzo Direct Connection Support:**
+- Support files in `patrik_mqtt_support/` folder
+- Test scripts (Node.js + Python) verified working
+- Troubleshooting guide and email templates provided
+- **Issue**: Error 135 (Not Authorized) on subscribe = IP not whitelisted
+
+**Important Notes:**
+- Our bridge works fine from our network (IP whitelisted)
+- Twinzo needs their IP whitelisted by ATI to subscribe to topics
+- All AMR data logging and coordinate transformations remain functional
 
 ### Multi-Plant Architecture
 
-**Currently Active:**
-- **Old Plant** (Sector 2): ATI Audit Feed MQTTS → 3 AMRs (tug-55, tug-39, tug-133)
+**Old Plant (Sector 2) - Temporarily Paused:**
+- **Configuration**: ATI Audit Feed MQTTS → 3 AMRs (tug-55, tug-39, tug-133)
+- **Status**: Streaming paused pending Twinzo final integration
 
 **Disabled (not in Old Plant):**
 - tug-140, tug-78, tug-24, tug-11 (data from these AMRs is ignored)
@@ -157,6 +216,245 @@ python -X utf8 src/bridge/bridge_old_plant.py
 python -X utf8 src/bridge/bridge_hitech.py
 ```
 
+### Deploying to a New Device (24/7 Production)
+
+This section provides complete instructions for setting up the bridge on a fresh device for 24/7 operation.
+
+#### Prerequisites
+
+1. **Operating System**: Windows, Linux, or macOS
+2. **Node.js**: Version 18.0.0 or higher
+   - Check: `node --version`
+   - Install from: https://nodejs.org/
+3. **Git**: For cloning the repository
+   - Check: `git --version`
+4. **Network Access**: Device must have internet connectivity and be on a whitelisted IP (if required by ATI)
+
+#### Step-by-Step Setup
+
+**1. Clone the Repository**
+
+```bash
+# Navigate to your preferred directory
+cd /path/to/your/projects
+
+# Clone the repository
+git clone <repository-url> twinzo-mock
+cd twinzo-mock
+```
+
+**2. Install Dependencies**
+
+```bash
+# Install Node.js dependencies
+npm install
+
+# Verify installation
+npm list
+```
+
+**3. Configure Environment Variables**
+
+```bash
+# Copy the example environment file
+cp .env.example .env
+
+# Edit the .env file with your credentials
+# On Windows: notepad .env
+# On Linux/Mac: nano .env
+```
+
+**Required variables** (get these from the project owner or secure credential storage):
+- `TWINZO_PASSWORD` - Twinzo API password
+- `TWINZO_API_KEY` - Twinzo API key
+- `AUDIT_USERNAME` - ATI audit feed username
+- `AUDIT_PASSWORD` - ATI audit feed password
+
+**4. Test the Bridge**
+
+```bash
+# Test run (Ctrl+C to stop after verifying connection)
+node src/bridge/bridge_audit_feed.js
+```
+
+You should see:
+- `OK Connected to ATI audit feed`
+- `OK Subscribed to: ati_fm/#, fleet/trips/info`
+- `OK Bridge ready - streaming 3 AMRs to Old Plant (Sector 2)`
+
+**5. Set Up 24/7 Operation**
+
+**Option A: Using PM2 (Recommended for Node.js)**
+
+```bash
+# Install PM2 globally
+npm install -g pm2
+
+# Start the bridge with PM2
+pm2 start src/bridge/bridge_audit_feed.js --name twinzo-bridge
+
+# Configure PM2 to start on system boot
+pm2 startup
+# Follow the instructions shown by PM2
+
+# Save the PM2 process list
+pm2 save
+
+# View logs
+pm2 logs twinzo-bridge
+
+# Monitor status
+pm2 status
+
+# Other useful PM2 commands:
+pm2 restart twinzo-bridge  # Restart the bridge
+pm2 stop twinzo-bridge     # Stop the bridge
+pm2 delete twinzo-bridge   # Remove from PM2
+```
+
+**Option B: Using systemd (Linux)**
+
+Create a systemd service file:
+
+```bash
+sudo nano /etc/systemd/system/twinzo-bridge.service
+```
+
+Add the following content (adjust paths as needed):
+
+```ini
+[Unit]
+Description=Twinzo ATI Bridge
+After=network.target
+
+[Service]
+Type=simple
+User=your-username
+WorkingDirectory=/path/to/twinzo-mock
+ExecStart=/usr/bin/node src/bridge/bridge_audit_feed.js
+Restart=always
+RestartSec=10
+StandardOutput=append:/path/to/twinzo-mock/logs/audit_feed_bridge.log
+StandardError=append:/path/to/twinzo-mock/logs/audit_feed_bridge.log
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Enable and start the service:
+
+```bash
+sudo systemctl daemon-reload
+sudo systemctl enable twinzo-bridge
+sudo systemctl start twinzo-bridge
+
+# Check status
+sudo systemctl status twinzo-bridge
+
+# View logs
+sudo journalctl -u twinzo-bridge -f
+```
+
+**Option C: Using Windows Task Scheduler**
+
+1. Open Task Scheduler
+2. Create New Task:
+   - **General Tab**: Name it "Twinzo Bridge", run whether user is logged on or not
+   - **Triggers Tab**: At startup
+   - **Actions Tab**:
+     - Action: Start a program
+     - Program: `C:\Program Files\nodejs\node.exe`
+     - Arguments: `src\bridge\bridge_audit_feed.js`
+     - Start in: `C:\path\to\twinzo-mock`
+   - **Settings Tab**:
+     - Allow task to run on demand
+     - If task fails, restart every 1 minute
+     - Stop task if runs longer than 3 days (unchecked)
+
+**6. Monitor the Bridge**
+
+```bash
+# View live logs (if using PM2)
+pm2 logs twinzo-bridge
+
+# View database statistics
+python -X utf8 scripts/monitoring/visualize_ati_data.py stats
+
+# Check recent messages
+python -X utf8 scripts/monitoring/visualize_ati_data.py recent
+
+# Monitor active devices
+python -X utf8 scripts/monitoring/visualize_ati_data.py recent tug-55-tvsmotor-hosur-09
+```
+
+**7. Verify Operation**
+
+After 5-10 minutes of operation:
+
+```bash
+# Check that messages are being logged
+python -X utf8 scripts/monitoring/visualize_ati_data.py stats
+
+# Verify API posts are successful
+# Look for "posted_count" in stats output
+
+# Check Twinzo dashboard
+# Log in to Twinzo and verify AMR positions are updating
+```
+
+#### Troubleshooting
+
+**Bridge won't connect to ATI:**
+- Check internet connectivity
+- Verify `.env` file has correct credentials
+- Ensure device IP is whitelisted (contact ATI admin)
+
+**Connected but no messages:**
+- AMRs may be offline or not moving
+- Data comes in bursts (8-11 min gaps are normal)
+- Check `stats.messagesTotal` is incrementing in logs
+
+**API posts failing:**
+- Check Twinzo credentials in `.env`
+- Verify Twinzo license is active
+- Check logs for specific error messages
+
+**Bridge stops unexpectedly:**
+- Enable auto-restart (PM2 or systemd recommended)
+- Check system resources (RAM, CPU)
+- Review logs for error patterns
+
+#### Updating the Bridge
+
+```bash
+# Pull latest changes
+git pull origin main
+
+# Reinstall dependencies (if package.json changed)
+npm install
+
+# Restart the bridge
+pm2 restart twinzo-bridge
+# OR (systemd)
+sudo systemctl restart twinzo-bridge
+```
+
+#### Security Considerations
+
+1. **Never commit `.env` file** - it contains sensitive credentials
+2. **Restrict file permissions**:
+   ```bash
+   chmod 600 .env  # On Linux/Mac
+   ```
+3. **Use a dedicated user account** for running the service
+4. **Regularly rotate credentials** (coordinate with project owner)
+5. **Monitor logs for unauthorized access attempts**
+6. **Keep Node.js and dependencies updated**:
+   ```bash
+   npm outdated
+   npm update
+   ```
+
 ### Production Environment Variables
 
 Required for production bridges (add to `.env` file):
@@ -181,27 +479,30 @@ ATI_MQTT_PASSWORD=TVSamr001@2025
 ATI_CLIENT_ID=amr-001
 ATI_MQTT_TOPIC=ati_fm/sherpa/status
 
-# Coordinate Transform - ATI meters to Twinzo units (calculated from reference points)
-# Includes scaling, rotation, and Y-axis flip for proper factory floor alignment
-AFFINE_A=1114.231287   # X scale + contribution from X_ati
-AFFINE_B=-6.892942     # X contribution from Y_ati (slight rotation)
-AFFINE_C=-193.182579   # Y contribution from X_ati (rotation)
-AFFINE_D=-1021.818219  # Y scale (NEGATIVE = Y-axis flip)
-AFFINE_TX=94185.26     # X offset
-AFFINE_TY=168003.25    # Y offset
+# Coordinate Transform - ATI to Twinzo units (1000:1 scale with rotation and Y-axis flip)
+# Based on 8 HIGH-QUALITY reference coordinate pairs (battery stations excluded)
+# Constrained similarity transformation: exact 1000:1 scale, 3 parameters (theta, TX, TY)
+# Mean error: 3,076 units (~3.1m / 2.0%), Max error: 9,615 units (~9.6m / 6.2%)
+# 60.4% improvement over previous calibration
+AFFINE_A=999.738230
+AFFINE_B=22.879501
+AFFINE_C=22.879501
+AFFINE_D=-999.738230
+AFFINE_TX=95598.77
+AFFINE_TY=167357.60
 
 # HiveMQ credentials are in config/hivemq_config.json
 ```
 
 ### Active AMRs (ATI Audit Feed → Twinzo)
 
-**Old Plant (Sector 2)** - Currently Streaming:
+**Old Plant (Sector 2)** - Streaming Paused (Awaiting Final Integration):
 
 | Twinzo Device | ATI Name | Battery | Status |
 |---------------|----------|---------|--------|
-| tug-55-hosur-09 | tug-55-tvsmotor-hosur-09 | 75-85% | ✅ Active - Streaming |
-| tug-39-hosur-07 | tug-39-tvsmotor-hosur-07 | 68-81% | ✅ Active - Streaming |
-| tug-133 | tug-133 | 44-52% | ✅ Active - Streaming |
+| tug-55-hosur-09 | tug-55-tvsmotor-hosur-09 | 75-85% | ⏸️ Paused - Ready to resume |
+| tug-39-hosur-07 | tug-39-tvsmotor-hosur-07 | 68-81% | ⏸️ Paused - Ready to resume |
+| tug-133 | tug-133 | 44-52% | ⏸️ Paused - Ready to resume |
 
 **Disabled AMRs** (data ignored):
 
@@ -245,41 +546,44 @@ For complete production deployment instructions, device mapping, troubleshooting
 
 ### Coordinate System (OLD PLANT - ATI to Twinzo)
 
-ATI provides coordinates in **meters** (range: -15m to 120m). These are transformed to Twinzo units using simplified affine transformation:
+ATI provides coordinates in **meters** (range: -1.3 to 117m). These are transformed to Twinzo units (millimeters) using constrained similarity transformation with exact 1000:1 scale:
 
 ```
-X_twinzo = AFFINE_A * X_ati + AFFINE_TX
-Y_twinzo = AFFINE_D * Y_ati + AFFINE_TY
+X_twinzo = AFFINE_A * X_ati + AFFINE_B * Y_ati + AFFINE_TX
+Y_twinzo = AFFINE_C * X_ati + AFFINE_D * Y_ati + AFFINE_TY
 ```
 
-**Current Transform (Updated 2025-11-11 - Simplified, No Rotation):**
-- `AFFINE_A=1479.084727` - X scale factor
-- `AFFINE_B=0.0` - No rotation
-- `AFFINE_C=0.0` - No rotation
-- `AFFINE_D=-1479.084727` - Y scale factor (NEGATIVE = Y-axis flip)
-- `AFFINE_TX=63341.22` - X offset
-- `AFFINE_TY=197825.86` - Y offset
+**Current Transform (Updated 2025-01-12 - Option B, 1000:1 Constrained):**
+- `AFFINE_A=999.738230` - X scale component (cos θ × 1000)
+- `AFFINE_B=22.879501` - Rotation component (sin θ × 1000)
+- `AFFINE_C=22.879501` - Rotation component (sin θ × 1000)
+- `AFFINE_D=-999.738230` - Y scale component (NEGATIVE = Y-axis flip)
+- `AFFINE_TX=95598.77` - X offset
+- `AFFINE_TY=167357.60` - Y offset
 
 **Key Features:**
-- **No rotation needed**: Tugger paths are horizontal, confirmed by movement data
+- **Unit conversion**: Exactly **1000:1** (meters to millimeters)
+- **Rotation**: 1.31° clockwise
 - **Y-axis flip**: ATI's Y-axis points opposite to Twinzo's (negative D coefficient)
-- **Uniform scaling**: 1479 units per meter (both X and Y)
-- **Accuracy**: Perfect X alignment, Y error ~258 units (0.24%)
+- **Uniform scale**: Same scale in both X and Y directions (1000.0)
+- **Accuracy**: Mean error ~3.1m (2.0%), Max error ~9.6m (6.2%)
+- **Improvement**: **60.4% better** than previous calibration
+- **Simplicity**: Only 3 free parameters (rotation angle, TX, TY) - easier to maintain
 
 **Calculation Basis:**
-- Based on precise Twinzo coordinates from tug-55 movement screenshots
-- Left endpoint: Twinzo (129337.98, 105944.23) ← ATI X=44.62m
-- Right endpoint: Twinzo (236349.76, 105428.33) ← ATI X=116.97m
-- Horizontal path: 72.35m ATI span = 107,011 Twinzo units
-
-**Validation:**
-- Tug-55 horizontal movement: X span 72.35m, Y variance only 3.87m (nearly constant)
-- Transformation tested against 80 data points from connection_past.log
-- See docs/TRANSFORMATION_UPDATE.md for full calculation details
+- Based on **8 HIGH-QUALITY reference coordinate pairs**
+- Battery stations excluded (poor reference quality with 10-14m errors)
+- Quality over quantity: fewer but better reference points
+- Reference stations: Origin, XL Engine areas, Dispatch, Engine Assembly, Jupiter B areas
+- Constrained similarity transform maintains exact 1000:1 meter-to-millimeter conversion
 
 **Coordinate Range:**
-- ATI: X=[-15m, 120m], Y=[0m, 80m]
-- Twinzo: X=[77k, 228k], Y=[86k, 168k]
+- ATI: X=[-1.3, 116.4], Y=[-11.0, 76.4] meters
+- Twinzo: X=[94,350, 217,216], Y=[84,928, 180,531] millimeters
+- Factory floor: ~120m × 90m
+
+**Note on Battery Stations:**
+Battery area reference measurements have 10-14m errors (poor quality). These stations are excluded from calibration. If you need better accuracy in battery areas, remeasure those reference points with surveyed coordinates.
 
 ### Mock Data Configuration (For Testing Only)
 - `NUM_ROBOTS` - Number of mock robots (default: 3)
@@ -298,7 +602,7 @@ Y_twinzo = AFFINE_D * Y_ati + AFFINE_TY
 
 ### Integration Points
 
-#### ATI Audit Feed (Production - Old Plant) ✅ ACTIVE
+#### ATI Audit Feed (Production - Old Plant) ⏸️ PAUSED
 - Host: `tvs-dev.ifactory.ai:8883` (MQTT5 with TLS)
 - Credentials: `tvs-audit-user` / `TVSAudit@2025`
 - Client ID: Must match username (`tvs-audit-user`)
@@ -313,7 +617,7 @@ Y_twinzo = AFFINE_D * Y_ati + AFFINE_TY
 - Bridge: `src/bridge/bridge_audit_feed.js` (Node.js)
 - Target: Twinzo Old Plant (Sector 2)
 - Devices: **7 AMRs** - tug-55-hosur-09, tug-39-hosur-07, tug-133, tug-140, tug-78, tug-24-hosur-05, tug-11
-- Status: ✅ **PRODUCTION ACTIVE** - Streaming live data
+- Status: ⏸️ **PAUSED** - Awaiting Twinzo final integration (license valid till 30 Nov 2025)
 - Coordinate Range: -15m to 120m (ATI) → 88k to 210k (Twinzo)
 - Known Limitation: Data comes in bursts, not continuous stream
 
@@ -442,6 +746,7 @@ The codebase has been refactored into a clean, organized structure:
 - **Scripts**: All utility scripts are in scripts/ organized by purpose
 - **Integration code**: External integrations are in integrations/
 - **Documentation**: All docs are in docs/ organized by category
+  - **Database logging**: See docs/DATABASE_LOGGING.md for visualization and analysis tools
 - **Archive**: Old/deprecated files are in archive/ - check here before recreating old solutions
 
 ### Quick Reference
@@ -453,5 +758,36 @@ The codebase has been refactored into a clean, organized structure:
 - Deployments: `deployments/`
 - Integrations: `integrations/`
 - Archive: `archive/`
+- **Twinzo Support**: `patrik_mqtt_support/` - MQTT connection help for Patrik
 
 Each major directory has its own README.md explaining its contents and usage.
+
+## Twinzo Direct Integration Support
+
+Support files for Patrik (Twinzo) to connect directly to ATI broker:
+
+**Location**: `patrik_mqtt_support/`
+
+**Contents**:
+- `test_patrik_connection.js` - Working Node.js MQTT test script
+- `test_patrik_connection.py` - Working Python MQTT test script
+- `PATRIK_MQTT_TROUBLESHOOTING.md` - Complete troubleshooting guide
+- `email_*.txt` - Email templates for communication
+- `README.md` - Overview and current status
+
+**ATI Broker Connection Requirements**:
+```javascript
+{
+    protocol: 'mqtts',
+    host: 'tvs-dev.ifactory.ai',
+    port: 8883,
+    clientId: 'tvs-audit-user',      // MUST match username!
+    username: 'tvs-audit-user',
+    password: 'TVSAudit@2025',
+    protocolVersion: 5,               // MQTT v5 required
+    clean: true,                      // Clean session
+    rejectUnauthorized: false         // Skip cert verification
+}
+```
+
+**Known Issue**: ATI broker has IP whitelisting. External IPs need to be whitelisted by ATI to subscribe to topics. Error 135 (Not Authorized) = IP not whitelisted.
