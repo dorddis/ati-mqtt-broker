@@ -239,7 +239,7 @@ This section provides complete instructions for setting up the bridge on a fresh
 cd /path/to/your/projects
 
 # Clone the repository
-git clone <repository-url> twinzo-mock
+git clone https://github.com/dorddis/ati-mqtt-broker.git twinzo-mock
 cd twinzo-mock
 ```
 
