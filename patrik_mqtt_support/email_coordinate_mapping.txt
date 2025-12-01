@@ -1,0 +1,36 @@
+Subject: ATI IP Whitelisting Done - Next Steps: Coordinate Mapping
+
+Hi Patrik,
+
+Good news - we've sent your IP to ATI for whitelisting. You should be able to subscribe to topics soon.
+
+Once connected, here are the coordinate transformation parameters for Old Plant:
+
+ATI coordinates (meters) -> Twinzo coordinates (millimeters)
+
+Affine Transform:
+  X_twinzo = 999.738230 * X_ati + 22.879501 * Y_ati + 95598.77
+  Y_twinzo = 22.879501 * X_ati + (-999.738230) * Y_ati + 167357.60
+
+Parameters:
+  AFFINE_A = 999.738230
+  AFFINE_B = 22.879501
+  AFFINE_C = 22.879501
+  AFFINE_D = -999.738230  (negative = Y-axis flip)
+  AFFINE_TX = 95598.77
+  AFFINE_TY = 167357.60
+
+Key notes:
+- Scale: 1000:1 (meters to millimeters)
+- Rotation: 1.31 degrees clockwise
+- Y-axis is flipped between ATI and Twinzo
+- Target sector: Old Plant (Sector 2)
+
+Device mapping (ATI name -> Twinzo device):
+- tug-55-tvsmotor-hosur-09 -> tug-55-hosur-09
+- tug-39-tvsmotor-hosur-07 -> tug-39-hosur-07
+- tug-133 -> tug-133
+
+Let me know once the IP is whitelisted and if you need any clarification.
+
+Best regards

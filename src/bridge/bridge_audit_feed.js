@@ -18,6 +18,7 @@
 import mqtt from 'mqtt';
 import 'dotenv/config';
 import fetch from 'node-fetch';
+import { logATIMessage } from '../common/database.js';
 
 // ATI Audit Feed Configuration
 const ATI_HOST = process.env.AUDIT_MQTT_HOST || 'tvs-dev.ifactory.ai';
@@ -141,13 +142,13 @@ async function sendToTwinzo(deviceLogin, x, y, heading, battery = 0) {
     try {
         const creds = await getDeviceCredentials(deviceLogin);
         if (!creds) {
-            return false;
+            return { success: false, error: 'Authentication failed' };
         }
 
         // Validate coordinates
         if (!isFinite(x) || !isFinite(y)) {
             console.log(`FAIL Invalid coordinates for ${deviceLogin}: X=${x}, Y=${y}`);
-            return false;
+            return { success: false, error: `Invalid coordinates: X=${x}, Y=${y}` };
         }
 
         // Get device-specific sector (default to Old Plant if not configured)
@@ -183,19 +184,19 @@ async function sendToTwinzo(deviceLogin, x, y, heading, battery = 0) {
 
         if (response.ok || response.status === 204) {
             stats.messagesSent++;
-            return true;
+            return { success: true, response: `HTTP ${response.status}` };
         } else {
             const errorText = await response.text();
             console.log(`FAIL Twinzo API error for ${deviceLogin}: ${response.status}`);
             console.log(`  Sector: ${sectorId}, X: ${x.toFixed(2)}, Y: ${y.toFixed(2)}, Battery: ${battery}`);
             console.log(`  Response: ${errorText.substring(0, 200)}`);
             stats.errors++;
-            return false;
+            return { success: false, error: `HTTP ${response.status}: ${errorText.substring(0, 200)}` };
         }
     } catch (error) {
         console.log(`FAIL Error sending to Twinzo for ${deviceLogin}: ${error.message}`);
         stats.errors++;
-        return false;
+        return { success: false, error: error.message };
     }
 }
 
@@ -303,7 +304,27 @@ client.on('message', async (topic, messageBuffer) => {
         console.log(`${'='.repeat(70)}`);
 
         // Send to Twinzo
-        await sendToTwinzo(deviceLogin, x, y, heading, battery);
+        const result = await sendToTwinzo(deviceLogin, x, y, heading, battery);
+
+        // Log to database
+        try {
+            logATIMessage({
+                device_name: sherpaName,
+                ati_x: xRaw,
+                ati_y: yRaw,
+                ati_heading: heading,
+                twinzo_x: x,
+                twinzo_y: y,
+                twinzo_heading: heading,
+                battery_status: battery,
+                mode: mode,
+                posted_to_api: result.success,
+                api_response: result.response || null,
+                error: result.error || null
+            });
+        } catch (dbError) {
+            console.log(`WARN Database logging failed: ${dbError.message}`);
+        }
 
         // Update stats
         stats.lastUpdate[sherpaName] = Date.now();

@@ -1,0 +1,30 @@
+Subject: ATI MQTT Subscription Fix - Client ID Must Match Username
+
+Hi Patrik,
+
+I've identified the subscription issue. The ATI broker requires these exact settings:
+
+CRITICAL SETTINGS:
+- Host: tvs-dev.ifactory.ai:8883
+- Username: tvs-audit-user
+- Password: TVSAudit@2025
+- Client ID: tvs-audit-user  (MUST match username exactly!)
+- Protocol: MQTT v5 (not v3.1.1)
+- Clean Session: true
+
+TOPICS:
+- ati_fm/#
+- fleet/trips/info
+
+The main issue is usually the Client ID not matching the username. Both must be "tvs-audit-user".
+
+I've created test scripts that work perfectly:
+- test_patrik_connection.js (Node.js)
+- test_patrik_connection.py (Python)
+- PATRIK_MQTT_TROUBLESHOOTING.md (full guide)
+
+Run either test script to verify connection. Both are confirmed working and receiving live data from all AMRs.
+
+Let me know if you need any clarification!
+
+Best regards

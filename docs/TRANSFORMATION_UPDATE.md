@@ -1,8 +1,20 @@
 # Coordinate Transformation Update
 
+⚠️ **OUTDATED - For Historical Reference Only**
+
+This document describes a previous transformation (2025-11-11) that has been superseded.
+
+**Current Parameters (as of 2025-01-12):**
+- See `.env` file for active affine parameters
+- Current accuracy: ~5% error (need 15-20 reference points for <1% accuracy)
+- ATI coordinate units assumed meters but not confirmed
+- See memory: `coordinate_transformation` for latest details
+
+---
+
 ## Date: 2025-11-11
 
-## Summary
+## Summary (HISTORICAL)
 Recalculated affine transformation parameters using precise Twinzo coordinates from user-provided screenshots, eliminating rotation and improving alignment accuracy.
 
 ## Changes Made

@@ -1,0 +1,1 @@
+Twinzo is connecting directly to ATI broker but getting 'Not Authorized' on subscribe. ATI broker has IP whitelisting - need to whitelist Twinzo's IP. Will share their IP once received.

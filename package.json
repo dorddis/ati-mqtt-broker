@@ -10,6 +10,7 @@
     "start": "node src/bridge/bridge_audit_feed.js"
   },
   "dependencies": {
+    "better-sqlite3": "^12.4.1",
     "dotenv": "^17.2.3",
     "mqtt": "^5.14.1",
     "node-fetch": "^3.3.2"

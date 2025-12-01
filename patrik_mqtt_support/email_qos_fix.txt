@@ -1,0 +1,19 @@
+Subject: ATI Connection Fix - Change QoS to 1
+
+Hi Patrik,
+
+Update from ATI team - no IP whitelisting needed after all.
+
+They checked their logs and found the issue:
+
+PROBLEM: You're using QoS=0
+SOLUTION: Change to QoS=1 for both connection and subscription
+
+In your subscription settings:
+- QoS: 1 (At least once) - NOT 0
+
+This should fix the 'Not Authorized' error.
+
+Let me know if it works!
+
+Best regards

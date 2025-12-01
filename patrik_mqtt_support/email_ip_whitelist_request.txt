@@ -1,0 +1,13 @@
+Subject: ATI MQTT Access - IP Whitelist Request
+
+Hi Patrik,
+
+The issue is confirmed - ATI broker has IP whitelisting.
+Your network is not authorized.
+
+Please send me your public IP address (or IP range) that
+needs to be whitelisted for access.
+
+You can check your IP at: https://whatismyipaddress.com
+
+Best regards

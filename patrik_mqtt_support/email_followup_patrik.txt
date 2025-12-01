@@ -1,0 +1,26 @@
+Subject: RE: MQTT Subscription - ACL Permission Error (Code 135)
+
+Hi Patrik,
+
+Thanks for the screenshots. The error is Code 135 (Not Authorized) - an ACL permissions issue.
+
+IMMEDIATE FIX TO TRY:
+
+In your MQTTX Certificate setting, change from:
+❌ "CA signed server certificate"
+✅ "CA or Self signed certificates"
+
+This mismatch with SSL Secure disabled might be causing the ACL rejection.
+
+ALTERNATIVE - RUN MY TEST SCRIPTS:
+
+My scripts work perfectly and receive live data. Can you test them?
+
+Node.js: node test_patrik_connection.js
+Python: python test_patrik_connection.py
+
+If they work for you, it's an MQTTX configuration issue. If they don't work, we have a deeper ACL problem on the broker.
+
+If the certificate change doesn't fix it, let's schedule a quick call to debug together.
+
+Best regards
